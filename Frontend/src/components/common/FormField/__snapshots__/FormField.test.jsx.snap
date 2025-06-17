@@ -1,0 +1,184 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`FormField Component renders correctly when required 1`] = `
+<div
+  class="form-control w-full mb-6 space-y-1 "
+>
+  <label
+    class="label"
+  >
+    <span
+      class="label-text font-medium"
+    >
+      Password
+    </span>
+  </label>
+  <input
+    class="input input-bordered w-full rounded-full"
+    name="password"
+    placeholder="Enter password"
+    required=""
+    type="password"
+  />
+</div>
+`;
+
+exports[`FormField Component renders correctly with all props 1`] = `
+<div
+  class="form-control w-full mb-6 space-y-1 complete-field"
+>
+  <label
+    class="label"
+  >
+    <span
+      class="label-text font-medium"
+    >
+      Complete Field
+    </span>
+  </label>
+  <input
+    autocomplete="tel"
+    class="input input-bordered w-full rounded-full"
+    name="phone"
+    placeholder="Enter phone number"
+    required=""
+    type="tel"
+    value="123-456-7890"
+  />
+</div>
+`;
+
+exports[`FormField Component renders correctly with autoComplete 1`] = `
+<div
+  class="form-control w-full mb-6 space-y-1 "
+>
+  <label
+    class="label"
+  >
+    <span
+      class="label-text font-medium"
+    >
+      Full Name
+    </span>
+  </label>
+  <input
+    autocomplete="name"
+    class="input input-bordered w-full rounded-full"
+    name="fullName"
+    placeholder="Enter full name"
+    type="text"
+  />
+</div>
+`;
+
+exports[`FormField Component renders correctly with custom className 1`] = `
+<div
+  class="form-control w-full mb-6 space-y-1 custom-form-field"
+>
+  <label
+    class="label"
+  >
+    <span
+      class="label-text font-medium"
+    >
+      Custom Field
+    </span>
+  </label>
+  <input
+    class="input input-bordered w-full rounded-full"
+    name="custom"
+    placeholder="Custom placeholder"
+    type="text"
+  />
+</div>
+`;
+
+exports[`FormField Component renders correctly with default props 1`] = `
+<div
+  class="form-control w-full mb-6 space-y-1 "
+>
+  <label
+    class="label"
+  >
+    <span
+      class="label-text font-medium"
+    >
+      Username
+    </span>
+  </label>
+  <input
+    class="input input-bordered w-full rounded-full"
+    name="username"
+    placeholder="Enter username"
+    type="text"
+  />
+</div>
+`;
+
+exports[`FormField Component renders correctly with different input types 1`] = `
+<div
+  class="form-control w-full mb-6 space-y-1 "
+>
+  <label
+    class="label"
+  >
+    <span
+      class="label-text font-medium"
+    >
+      Number Field
+    </span>
+  </label>
+  <input
+    class="input input-bordered w-full rounded-full"
+    name="age"
+    placeholder="Enter age"
+    type="number"
+  />
+</div>
+`;
+
+exports[`FormField Component renders correctly with empty values 1`] = `
+<div
+  class="form-control w-full mb-6 space-y-1 "
+>
+  <label
+    class="label"
+  >
+    <span
+      class="label-text font-medium"
+    >
+      Empty Field
+    </span>
+  </label>
+  <input
+    class="input input-bordered w-full rounded-full"
+    name="empty"
+    placeholder=""
+    type="text"
+    value=""
+  />
+</div>
+`;
+
+exports[`FormField Component renders correctly with value and onChange 1`] = `
+<div
+  class="form-control w-full mb-6 space-y-1 "
+>
+  <label
+    class="label"
+  >
+    <span
+      class="label-text font-medium"
+    >
+      Email
+    </span>
+  </label>
+  <input
+    class="input input-bordered w-full rounded-full"
+    name="email"
+    placeholder="Enter email"
+    type="email"
+    value="test@example.com"
+  />
+</div>
+`;

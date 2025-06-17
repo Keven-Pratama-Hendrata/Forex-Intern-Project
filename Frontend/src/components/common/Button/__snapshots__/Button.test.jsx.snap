@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Button Component renders correctly when disabled 1`] = `
+<button
+  class="btn w-full rounded-full border-none text-white font-semibold tracking-wide transition-transform duration-200 "
+  disabled=""
+  style="background-color: rgb(80, 127, 161);"
+  type="button"
+>
+  Disabled Button
+</button>
+`;
+
+exports[`Button Component renders correctly with additional props 1`] = `
+<button
+  aria-label="Custom label"
+  class="btn w-full rounded-full border-none text-white font-semibold tracking-wide transition-transform duration-200 "
+  data-testid="custom-button"
+  style="background-color: rgb(80, 127, 161);"
+  type="button"
+>
+  Props Button
+</button>
+`;
+
+exports[`Button Component renders correctly with custom className 1`] = `
+<button
+  class="btn w-full rounded-full border-none text-white font-semibold tracking-wide transition-transform duration-200 custom-class"
+  style="background-color: rgb(80, 127, 161);"
+  type="button"
+>
+  Custom Button
+</button>
+`;
+
+exports[`Button Component renders correctly with default props 1`] = `
+<button
+  class="btn w-full rounded-full border-none text-white font-semibold tracking-wide transition-transform duration-200 "
+  style="background-color: rgb(80, 127, 161);"
+  type="button"
+>
+  Click me
+</button>
+`;
+
+exports[`Button Component renders correctly with empty children 1`] = `
+<button
+  class="btn w-full rounded-full border-none text-white font-semibold tracking-wide transition-transform duration-200 "
+  style="background-color: rgb(80, 127, 161);"
+  type="button"
+/>
+`;
+
+exports[`Button Component renders correctly with submit type 1`] = `
+<button
+  class="btn w-full rounded-full border-none text-white font-semibold tracking-wide transition-transform duration-200 "
+  style="background-color: rgb(80, 127, 161);"
+  type="submit"
+>
+  Submit Button
+</button>
+`;

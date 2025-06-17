@@ -11,7 +11,7 @@ export const validateRequiredFields = (form, requiredFields, errorMessages) => {
 };
 
 export const handleApiError = (error, defaultMessage = 'Operation failed') => {
-  const message = error.message || defaultMessage;
+  const message = error?.message || defaultMessage;
   return message;
 };
 

@@ -1,0 +1,105 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`LoadingSpinner Component renders correctly with centered variant 1`] = `
+<div
+  class="flex items-center justify-center h-full"
+>
+  <span
+    class="loading loading-spinner loading-lg"
+  />
+</div>
+`;
+
+exports[`LoadingSpinner Component renders correctly with centered variant and medium size 1`] = `
+<div
+  class="flex items-center justify-center h-full"
+>
+  <span
+    class="loading loading-spinner loading-md"
+  />
+</div>
+`;
+
+exports[`LoadingSpinner Component renders correctly with custom variant 1`] = `
+<span
+  class="loading loading-spinner loading-lg custom-spinner"
+/>
+`;
+
+exports[`LoadingSpinner Component renders correctly with custom variant and size 1`] = `
+<span
+  class="loading loading-spinner loading-sm my-custom-class"
+/>
+`;
+
+exports[`LoadingSpinner Component renders correctly with default props 1`] = `
+<div
+  class="flex min-h-screen items-center justify-center bg-gradient-to-b from-[#6ca0c1] to-[#507fa1]"
+>
+  <span
+    class="loading loading-spinner loading-lg"
+  />
+</div>
+`;
+
+exports[`LoadingSpinner Component renders correctly with default variant 1`] = `
+<div
+  class="flex min-h-screen items-center justify-center bg-gradient-to-b from-[#6ca0c1] to-[#507fa1]"
+>
+  <span
+    class="loading loading-spinner loading-lg"
+  />
+</div>
+`;
+
+exports[`LoadingSpinner Component renders correctly with different sizes 1`] = `
+<div
+  class="flex min-h-screen items-center justify-center bg-gradient-to-b from-[#6ca0c1] to-[#507fa1]"
+>
+  <span
+    class="loading loading-spinner loading-xs"
+  />
+</div>
+`;
+
+exports[`LoadingSpinner Component renders correctly with inline variant 1`] = `
+<span
+  class="loading loading-spinner loading-lg"
+/>
+`;
+
+exports[`LoadingSpinner Component renders correctly with inline variant and custom size 1`] = `
+<span
+  class="loading loading-spinner loading-xl"
+/>
+`;
+
+exports[`LoadingSpinner Component renders correctly with invalid variant (should fallback to default) 1`] = `
+<div
+  class="flex min-h-screen items-center justify-center bg-gradient-to-b from-[#6ca0c1] to-[#507fa1]"
+>
+  <span
+    class="loading loading-spinner loading-lg"
+  />
+</div>
+`;
+
+exports[`LoadingSpinner Component renders correctly with large size 1`] = `
+<div
+  class="flex min-h-screen items-center justify-center bg-gradient-to-b from-[#6ca0c1] to-[#507fa1]"
+>
+  <span
+    class="loading loading-spinner loading-lg"
+  />
+</div>
+`;
+
+exports[`LoadingSpinner Component renders correctly with medium size 1`] = `
+<div
+  class="flex min-h-screen items-center justify-center bg-gradient-to-b from-[#6ca0c1] to-[#507fa1]"
+>
+  <span
+    class="loading loading-spinner loading-md"
+  />
+</div>
+`;
