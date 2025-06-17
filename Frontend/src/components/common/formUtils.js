@@ -15,12 +15,10 @@ export const handleApiError = (error, defaultMessage = 'Operation failed') => {
   return message;
 };
 
-export const setUserData = (token, userData) => {
-  localStorage.setItem('token', token);
-  localStorage.setItem('user', JSON.stringify(userData));
+export const setUserData = (dispatch, loginSuccess, token, userData) => {
+  dispatch(loginSuccess({ token }));
 };
 
-export const clearUserData = () => {
-  localStorage.removeItem('token');
-  localStorage.removeItem('user');
+export const clearUserData = (dispatch, logout) => {
+  dispatch(logout());
 }; 

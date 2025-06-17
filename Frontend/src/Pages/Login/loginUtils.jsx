@@ -1,4 +1,6 @@
 import toast from "react-hot-toast";
+import { useDispatch } from 'react-redux';
+import { loginSuccess } from '../../store/slices/authSlice';
 import {
   LoadingSpinner,
   FormField,
@@ -22,7 +24,7 @@ export const validateForm = (form) => {
   return true;
 };
 
-export const handleLogin = async (form, setLoading, navigate) => {
+export const handleLogin = async (form, setLoading, navigate, dispatch) => {
   try {
     setLoading(true);
     const response = await fetch("http://localhost:5001/api/users/login", {
@@ -39,7 +41,7 @@ export const handleLogin = async (form, setLoading, navigate) => {
       throw new Error(data.message || "Login failed");
     }
 
-    setUserData(data.token, {
+    setUserData(dispatch, loginSuccess, data.token, {
       id: data.userId,
       username: data.userName,
       balances: data.balances
@@ -54,10 +56,10 @@ export const handleLogin = async (form, setLoading, navigate) => {
   }
 };
 
-export const handleSubmit = (form, setLoading, navigate) => async (e) => {
+export const handleSubmit = (form, setLoading, navigate, dispatch) => async (e) => {
   e.preventDefault();
   if (!validateForm(form)) return;
-  await handleLogin(form, setLoading, navigate);
+  await handleLogin(form, setLoading, navigate, dispatch);
 };
 
 export { LoadingSpinner, FormField, Button };

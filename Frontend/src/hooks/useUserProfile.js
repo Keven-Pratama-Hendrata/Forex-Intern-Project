@@ -1,16 +1,19 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
+import { useSelector, useDispatch } from 'react-redux';
+import { logout } from '../store/slices/authSlice';
 import toast from 'react-hot-toast';
 
 export const useUserProfile = () => {
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const token = useSelector(state => state.auth.token);
 
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        const token = localStorage.getItem('token');
         if (!token) {
           toast.error('Please login first');
           navigate('/');
@@ -25,8 +28,7 @@ export const useUserProfile = () => {
 
         if (!response.ok) {
           if (response.status === 401) {
-            localStorage.removeItem('token');
-            localStorage.removeItem('user');
+            dispatch(logout());
             toast.error('Session expired. Please login again');
             navigate('/');
             return;
@@ -46,7 +48,7 @@ export const useUserProfile = () => {
     };
 
     fetchUserProfile();
-  }, [navigate]);
+  }, [navigate, token, dispatch]);
 
   return { userData, loading, setUserData };
 }; 

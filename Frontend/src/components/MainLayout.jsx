@@ -1,4 +1,6 @@
 import { useNavigate } from 'react-router';
+import { useDispatch } from 'react-redux';
+import { logout } from '../store/slices/authSlice';
 import toast from 'react-hot-toast';
 
 import homeIcon from '../../assets/Home.png';
@@ -20,10 +22,10 @@ const sidebarLinks = [
 
 const MainLayout = ({ userData, children, selectedSidebar, setSelectedSidebar }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
+    dispatch(logout());
     navigate('/');
     toast.success("Logged out successfully!");
   };

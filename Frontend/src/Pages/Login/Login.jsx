@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router";
+import { useDispatch } from 'react-redux';
 
 import AuthBackground from "../../components/Background/AuthBackground.jsx";
 import { Button, LoadingSpinner } from "../../components/common";
@@ -11,13 +12,14 @@ import {
 
 const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({ username: "", password: "" });
 
   return (
     <AuthBackground circlePosition="login">
       <form
-        onSubmit={handleSubmit(form, setLoading, navigate)}
+        onSubmit={handleSubmit(form, setLoading, navigate, dispatch)}
         className="rounded-2xl bg-white/60 p-8 shadow-xl backdrop-blur-md ring-1 ring-white/40"
       >
         <h2 className="mb-1 text-center text-2xl font-extrabold text-gray-800">
