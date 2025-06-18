@@ -10,7 +10,7 @@ import historyIcon from '../../assets/history.png';
 import userIcon from '../../assets/profilepicture.png';
 import logoutIcon from '../../assets/logout_icon.png';
 
-import { formatUSD } from '../utils/currencyFormat';
+import { formatUSD } from '../utils/currencyFormats/currencyFormat';
 import DashboardBackground from '../Components/Background/DashboardBackground';
 
 const sidebarLinks = [

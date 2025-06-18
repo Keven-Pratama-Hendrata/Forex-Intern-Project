@@ -40,6 +40,7 @@ export default [
             FunctionDeclaration: true,
             MethodDefinition: true,
             ClassDeclaration: true,
+            ArrowFunctionExpression: true,
           },
         },
       ],
@@ -54,7 +55,13 @@ export default [
     },
   },
   {
-    files: ['**/*.test.{js,jsx}', '**/*.spec.{js,jsx}', '**/__tests__/**/*.{js,jsx}'],
+    files: ['**/*.test.{js,jsx}', '**/*.spec.{js,jsx}', '**/__tests__/**/*.{js,jsx}', '**/__mocks__/**/*.{js,jsx}'],
+    languageOptions: {
+      globals: {
+        ...globals.jest,
+        ...globals.node,
+      },
+    },
     rules: {
       'max-lines-per-function': 'off',
       'max-len': 'off',
