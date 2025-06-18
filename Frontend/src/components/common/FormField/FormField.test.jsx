@@ -1,113 +1,96 @@
-import { render } from '@testing-library/react';
-import { describe, it, expect } from '@jest/globals';
+import React from 'react';
+import { render, fireEvent } from '@testing-library/react';
+import { describe, it, expect, jest } from '@jest/globals';
 import FormField from './FormField';
 
-describe('FormField Component', () => {
-  it('renders correctly with default props', () => {
+const renderInput = (node) => {
+  const { container } = render(node);
+  return container.querySelector('input');
+};
+
+describe('FormField', () => {
+  it('matches snapshot for default props', () => {
     const { container } = render(
-      <FormField 
-        label="Username" 
-        type="text" 
-        name="username" 
+      <FormField
+        label="Username"
+        type="text"
+        name="username"
         placeholder="Enter username"
-      />
+      />,
     );
     expect(container.firstChild).toMatchSnapshot();
   });
 
-  it('renders correctly with value and onChange', () => {
-    const { container } = render(
-      <FormField 
-        label="Email" 
-        type="email" 
-        name="email" 
+  it('binds value and calls onChange', () => {
+    const handleChange = jest.fn();
+    const input = renderInput(
+      <FormField
+        label="Email"
+        type="email"
+        name="email"
         placeholder="Enter email"
         value="test@example.com"
-        onChange={() => {}}
-      />
+        onChange={handleChange}
+      />,
     );
-    expect(container.firstChild).toMatchSnapshot();
+
+    expect(input).toHaveValue('test@example.com');
+    fireEvent.change(input, { target: { value: 'new@example.com' } });
+    expect(handleChange).toHaveBeenCalledTimes(1);
   });
 
-  it('renders correctly when required', () => {
-    const { container } = render(
-      <FormField 
-        label="Password" 
-        type="password" 
-        name="password" 
-        placeholder="Enter password"
-        required={true}
-      />
-    );
-    expect(container.firstChild).toMatchSnapshot();
-  });
-
-  it('renders correctly with custom className', () => {
-    const { container } = render(
-      <FormField 
-        label="Custom Field" 
-        type="text" 
-        name="custom" 
-        placeholder="Custom placeholder"
-        className="custom-form-field"
-      />
-    );
-    expect(container.firstChild).toMatchSnapshot();
-  });
-
-  it('renders correctly with autoComplete', () => {
-    const { container } = render(
-      <FormField 
-        label="Full Name" 
-        type="text" 
-        name="fullName" 
-        placeholder="Enter full name"
-        autoComplete="name"
-      />
-    );
-    expect(container.firstChild).toMatchSnapshot();
-  });
-
-  it('renders correctly with all props', () => {
-    const { container } = render(
-      <FormField 
-        label="Complete Field" 
-        type="tel" 
-        name="phone" 
-        placeholder="Enter phone number"
-        value="123-456-7890"
-        onChange={() => {}}
+  it('sets required, autocomplete and correct type', () => {
+    const input = renderInput(
+      <FormField
+        label="Phone"
+        type="tel"
+        name="phone"
+        placeholder="Enter phone"
         autoComplete="tel"
-        required={true}
-        className="complete-field"
-      />
+        required
+      />,
     );
-    expect(container.firstChild).toMatchSnapshot();
+
+    expect(input).toBeRequired();
+    expect(input).toHaveAttribute('type', 'tel');
+    expect(input).toHaveAttribute('autocomplete', 'tel');
   });
 
-  it('renders correctly with different input types', () => {
-    const { container } = render(
-      <FormField 
-        label="Number Field" 
-        type="number" 
-        name="age" 
+  it('supports arbitrary input types and empty values', () => {
+    const numberInput = renderInput(
+      <FormField
+        label="Age"
+        type="number"
+        name="age"
         placeholder="Enter age"
-      />
+      />,
     );
-    expect(container.firstChild).toMatchSnapshot();
-  });
+    expect(numberInput).toHaveAttribute('type', 'number');
 
-  it('renders correctly with empty values', () => {
-    const { container } = render(
-      <FormField 
-        label="Empty Field" 
-        type="text" 
-        name="empty" 
+    const emptyInput = renderInput(
+      <FormField
+        label="Empty"
+        type="text"
+        name="empty"
         placeholder=""
         value=""
         onChange={() => {}}
-      />
+      />,
     );
-    expect(container.firstChild).toMatchSnapshot();
+    expect(emptyInput).toHaveValue('');
+    expect(emptyInput).toHaveAttribute('placeholder', '');
   });
-}); 
+
+  it('adds custom wrapper class', () => {
+    const { container } = render(
+      <FormField
+        label="Custom"
+        type="text"
+        name="custom"
+        placeholder="Custom placeholder"
+        className="custom-form-field"
+      />,
+    );
+    expect(container.firstChild).toHaveClass('custom-form-field');
+  });
+});

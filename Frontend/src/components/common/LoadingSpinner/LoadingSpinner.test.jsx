@@ -1,73 +1,48 @@
+import React from 'react';
 import { render } from '@testing-library/react';
 import { describe, it, expect } from '@jest/globals';
 import LoadingSpinner from './LoadingSpinner';
 
-describe('LoadingSpinner Component', () => {
-  it('renders correctly with default props', () => {
-    const { container } = render(<LoadingSpinner />);
+const renderSpinner = (jsx) => {
+  const { container } = render(jsx);
+  return { container, node: container.firstChild };
+};
+
+describe('LoadingSpinner', () => {
+  it('matches snapshot for the default variant / size', () => {
+    const { container } = renderSpinner(<LoadingSpinner />);
     expect(container.firstChild).toMatchSnapshot();
   });
 
-  it('renders correctly with default variant', () => {
-    const { container } = render(<LoadingSpinner variant="default" />);
-    expect(container.firstChild).toMatchSnapshot();
+  it.each([
+    ['default',  'DIV',  'bg-gradient-to-b'],
+    ['inline',   'SPAN', 'loading-spinner'],
+    ['centered', 'DIV',  'justify-center'],
+    ['custom',   'SPAN', 'my-extra'],
+  ])('renders %s variant correctly', (variant, tag, expectClass) => {
+    const extra = variant === 'custom' ? { className: 'my-extra' } : {};
+    const { node } = renderSpinner(<LoadingSpinner variant={variant} {...extra} />);
+    expect(node.tagName).toBe(tag);
+    expect(node).toHaveClass(expectClass);
   });
 
-  it('renders correctly with inline variant', () => {
-    const { container } = render(<LoadingSpinner variant="inline" />);
-    expect(container.firstChild).toMatchSnapshot();
+  it('falls back to default variant when an invalid value is supplied', () => {
+    const { node } = renderSpinner(<LoadingSpinner variant="nope" />);
+    expect(node).toHaveClass('bg-gradient-to-b');
   });
 
-  it('renders correctly with centered variant', () => {
-    const { container } = render(<LoadingSpinner variant="centered" />);
-    expect(container.firstChild).toMatchSnapshot();
-  });
+  it.each(['xs', 'sm', 'md', 'lg', 'xl'])(
+    'applies size "%s" to spinner classes',
+    (size) => {
+      const { node } = renderSpinner(<LoadingSpinner variant="inline" size={size} />);
+      expect(node).toHaveClass(`loading-${size}`);
+    },
+  );
 
-  it('renders correctly with custom variant', () => {
-    const { container } = render(
-      <LoadingSpinner variant="custom" className="custom-spinner" />
+  it('adds custom classes in "custom" variant', () => {
+    const { node } = renderSpinner(
+      <LoadingSpinner variant="custom" className="text-red-500" />,
     );
-    expect(container.firstChild).toMatchSnapshot();
+    expect(node).toHaveClass('text-red-500');
   });
-
-  it('renders correctly with different sizes', () => {
-    const { container } = render(<LoadingSpinner size="xs" />);
-    expect(container.firstChild).toMatchSnapshot();
-  });
-
-  it('renders correctly with medium size', () => {
-    const { container } = render(<LoadingSpinner size="md" />);
-    expect(container.firstChild).toMatchSnapshot();
-  });
-
-  it('renders correctly with large size', () => {
-    const { container } = render(<LoadingSpinner size="lg" />);
-    expect(container.firstChild).toMatchSnapshot();
-  });
-
-  it('renders correctly with custom variant and size', () => {
-    const { container } = render(
-      <LoadingSpinner variant="custom" size="sm" className="my-custom-class" />
-    );
-    expect(container.firstChild).toMatchSnapshot();
-  });
-
-  it('renders correctly with inline variant and custom size', () => {
-    const { container } = render(
-      <LoadingSpinner variant="inline" size="xl" />
-    );
-    expect(container.firstChild).toMatchSnapshot();
-  });
-
-  it('renders correctly with centered variant and medium size', () => {
-    const { container } = render(
-      <LoadingSpinner variant="centered" size="md" />
-    );
-    expect(container.firstChild).toMatchSnapshot();
-  });
-
-  it('renders correctly with invalid variant (should fallback to default)', () => {
-    const { container } = render(<LoadingSpinner variant="invalid" />);
-    expect(container.firstChild).toMatchSnapshot();
-  });
-}); 
+});

@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`authBackgroundUtils – SVG render helpers renderBackgroundGradient outputs a full-screen gradient SVG 1`] = `
+<svg
+  class="absolute inset-0 h-full w-full pointer-events-none"
+  preserveAspectRatio="none"
+  viewBox="0 0 100 100"
+>
+  <defs>
+    <lineargradient
+      id="bgGrad"
+      x1="0"
+      x2="0"
+      y1="0"
+      y2="1"
+    >
+      <stop
+        offset="0%"
+        stop-color="#6ca0c1"
+      />
+      <stop
+        offset="100%"
+        stop-color="#507fa1"
+      />
+    </lineargradient>
+  </defs>
+  <rect
+    fill="url(#bgGrad)"
+    height="100"
+    width="100"
+  />
+  <path
+    d="M 70 0 Q 77 10 70 20 Q 63 30 70 40 Q 77 50 70 60 Q 63 70 70 80 Q 77 90 70 100 L 100 100 100 0 Z"
+    fill="#ffffff"
+  />
+</svg>
+`;
