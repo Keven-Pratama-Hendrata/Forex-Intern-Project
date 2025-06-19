@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`authBackgroundUtils – SVG render helpers renderBackgroundGradient outputs a full-screen gradient SVG 1`] = `
+exports[`authBackgroundUtils – SVG render helpers renderWaveBackground outputs a full-screen gradient SVG 1`] = `
 <svg
   class="absolute inset-0 h-full w-full pointer-events-none"
   preserveAspectRatio="none"

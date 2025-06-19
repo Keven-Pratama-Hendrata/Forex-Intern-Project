@@ -93,20 +93,11 @@
 <a name='L28'></a><a href='#L28'>28</a>
 <a name='L29'></a><a href='#L29'>29</a>
 <a name='L30'></a><a href='#L30'>30</a>
-<a name='L31'></a><a href='#L31'>31</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -121,37 +112,58 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react';
+import { renderInput, renderFormFieldWrapper } from './formfieldUtils.jsx';
 &nbsp;
-const FormField = ({ 
-  label, 
-  type, 
-  name, 
-  placeholder, 
-  value, 
-  onChange, 
-  autoComplete, 
+/**
+ * Styled input field with label for use in forms.
+ * Renders a label and a rounded input with full width and optional autocomplete and required attributes.
+ *
+ * @param {Object} props Props for FormField.
+ * @param {string} props.label The label text displayed above the input.
+ * @param {string} props.type The input type (e.g., 'text', 'password').
+ * @param {string} props.name The input name attribute (used for form data and accessibility).
+ * @param {string} [props.placeholder] Placeholder text for the input.
+ * @param {string|number} [props.value] The current value of the input.
+ * @param {function} props.onChange Callback fired when the input value changes (receives event).
+ * @param {string} [props.autoComplete] Autocomplete attribute for browser autofill (e.g., 'username', 'off').
+ * @param {boolean} [props.required=false] Whether the input is required for form submission.
+ * @param {string} [props.className] Additional class names for the outer div.
+ * @returns {JSX.Element} A labeled, styled input field for use in forms.
+ */
+function FormField({
+  label,
+  type,
+  name,
+  placeholder,
+  value,
+  onChange,
+  autoComplete,
   required = false,
-  className = ''
-}) =&gt; (
-  &lt;div className={`form-control w-full mb-6 space-y-1 ${className}`}&gt;
-    &lt;label className="label"&gt;
-      &lt;span className="label-text font-medium"&gt;{label}&lt;/span&gt;
-    &lt;/label&gt;
-    &lt;input
-      type={type}
-      name={name}
-      placeholder={placeholder}
-      className="input input-bordered w-full rounded-full"
-      value={value}
-      onChange={onChange}
-      autoComplete={autoComplete}
-      required={required}
-    /&gt;
-  &lt;/div&gt;
-);
+  className = '',
+}) {
+  const input = renderInput({ type, name, placeholder, value, onChange, autoComplete, required });
+  return renderFormFieldWrapper({ label, input, className, name });
+}
 &nbsp;
 export default FormField; </pre></td></tr></table></pre>
 
@@ -160,7 +172,7 @@ export default FormField; </pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-06-18T07:33:29.284Z
+                at 2025-06-19T07:51:50.075Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

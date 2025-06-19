@@ -1,22 +1,13 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`Button snapshots renders disabled variant 1`] = `
-<button
-  class="btn w-full rounded-full border-none text-white font-semibold tracking-wide transition-transform duration-200 "
-  disabled=""
-  style="background-color: rgb(80, 127, 161);"
-  type="button"
->
-  Disabled
-</button>
-`;
-
-exports[`Button snapshots renders with default props 1`] = `
-<button
-  class="btn w-full rounded-full border-none text-white font-semibold tracking-wide transition-transform duration-200 "
-  style="background-color: rgb(80, 127, 161);"
-  type="button"
->
-  Click me
-</button>
+exports[`Button matches snapshot 1`] = `
+<DocumentFragment>
+  <button
+    class="btn w-full rounded-full border-none text-white font-semibold tracking-wide transition-transform duration-200 snapshot-btn"
+    style="background-color: rgb(80, 127, 161);"
+    type="button"
+  >
+    Snapshot
+  </button>
+</DocumentFragment>
 `;

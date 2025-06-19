@@ -6,6 +6,7 @@ exports[`LoadingSpinner matches snapshot for the default variant / size 1`] = `
 >
   <span
     class="loading loading-spinner loading-lg"
+    role="status"
   />
 </div>
 `;

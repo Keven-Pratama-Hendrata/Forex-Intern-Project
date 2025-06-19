@@ -12,7 +12,7 @@ jest.mock('./authBackgroundUtils.jsx', () => {
 
   const mockGetConfig = jest.fn((pos, cfgs) => cfgs[pos] ?? cfgs.login);
 
-  const mockRenderBackgroundGradient = jest.fn(() => (
+  const mockRenderWaveBackground = jest.fn(() => (
     <div data-testid="bg-gradient" />
   ));
 
@@ -23,7 +23,7 @@ jest.mock('./authBackgroundUtils.jsx', () => {
   return {
     getCircleConfigs: mockGetCircleConfigs,
     getConfig: mockGetConfig,
-    renderBackgroundGradient: mockRenderBackgroundGradient,
+    renderWaveBackground: mockRenderWaveBackground,
     renderCircles: mockRenderCircles,
   };
 });

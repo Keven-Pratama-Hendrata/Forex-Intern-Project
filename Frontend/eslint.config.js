@@ -35,13 +35,21 @@ export default [
       'jsdoc/require-jsdoc': [
         'error',
         {
-          publicOnly: true,
+          publicOnly: {
+            esm: true,
+            cjs: true,
+          },
           require: {
             FunctionDeclaration: true,
             MethodDefinition: true,
             ClassDeclaration: true,
             ArrowFunctionExpression: true,
           },
+          contexts: [
+            'FunctionExpression',
+            'ExportDefaultDeclaration > ArrowFunctionExpression',
+            'ExportDefaultDeclaration > FunctionDeclaration',
+          ],
         },
       ],
       'jsdoc/require-param': 'error',

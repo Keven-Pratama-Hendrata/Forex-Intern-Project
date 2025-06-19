@@ -14,7 +14,7 @@ export default {
       '<rootDir>/__mocks__/fileMock.js',
   },
 
-  setupFilesAfterEnv: ["@testing-library/jest-dom"],
+  setupFilesAfterEnv: ["./jest.setup.js"],
 
   testMatch: [
     '<rootDir>/src/**/__tests__/**/*.{js,jsx}',

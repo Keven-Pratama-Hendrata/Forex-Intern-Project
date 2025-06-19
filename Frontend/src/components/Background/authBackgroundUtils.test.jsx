@@ -5,7 +5,7 @@ import { describe, it, expect } from '@jest/globals';
 import {
   getCircleConfigs,
   getConfig,
-  renderBackgroundGradient,
+  renderWaveBackground,
   renderCircles,
 } from './authBackgroundUtils';
 
@@ -32,8 +32,8 @@ describe('authBackgroundUtils – config helpers', () => {
 });
 
 describe('authBackgroundUtils – SVG render helpers', () => {
-  it('renderBackgroundGradient outputs a full-screen gradient SVG', () => {
-    const { container } = render(renderBackgroundGradient());
+  it('renderWaveBackground outputs a full-screen gradient SVG', () => {
+    const { container } = render(renderWaveBackground());
     const svg = container.querySelector('svg');
 
     expect(svg).toHaveAttribute('viewBox', '0 0 100 100');
@@ -57,8 +57,8 @@ describe('authBackgroundUtils – SVG render helpers', () => {
     const cfg = {
       className: 'test-class',
       circles: [
-        { cx: 90,  cy: 70,  r: 55 },
-        { cx: 130, cy: 60,  r: 40 },
+        { cx: 90, cy: 70, r: 55 },
+        { cx: 130, cy: 60, r: 40 },
       ],
     };
 

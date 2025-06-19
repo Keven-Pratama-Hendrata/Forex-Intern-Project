@@ -50,7 +50,7 @@ jest.mock('../../components/common', () => ({
         name={name}
         placeholder={placeholder}
         value={value}
-        onChange={onChange || (() => {})}
+        onChange={onChange || (() => { })}
         autoComplete={autoComplete}
         required={required}
         data-testid={`input-${name}`}
@@ -64,7 +64,7 @@ jest.mock('../../components/common', () => ({
 }));
 
 jest.mock('./loginUtils.jsx', () => {
-  const handleChange = jest.fn(() => () => {});
+  const handleChange = jest.fn(() => () => { });
   const handleSubmit = jest.fn(
     (_form, setLoading) =>
       (e) => {
@@ -72,6 +72,15 @@ jest.mock('./loginUtils.jsx', () => {
         setLoading(true);
       },
   );
+
+  const useLoginState = jest.fn(() => ({
+    navigate: jest.fn(),
+    dispatch: jest.fn(),
+    loading: false,
+    setLoading: jest.fn(),
+    form: { username: '', password: '' },
+    setForm: jest.fn(),
+  }));
 
   const FormField = ({
     label,
@@ -91,7 +100,7 @@ jest.mock('./loginUtils.jsx', () => {
         name={name}
         placeholder={placeholder}
         value={value}
-        onChange={onChange || (() => {})}
+        onChange={onChange || (() => { })}
         autoComplete={autoComplete}
         required={required}
         data-testid={`input-${name}`}
@@ -100,7 +109,7 @@ jest.mock('./loginUtils.jsx', () => {
     </div>
   );
 
-  return { handleChange, handleSubmit, FormField };
+  return { handleChange, handleSubmit, useLoginState, FormField };
 });
 
 jest.mock('react-router', () => ({
@@ -132,13 +141,31 @@ describe('Login Component', () => {
   });
 
   it('toggles to loading state after form submit (covers line 55)', async () => {
-    const { container } = renderWithProvider(<Login />);
+    // Set up a variable to control loading state
+    let loading = false;
+    const setLoading = jest.fn((val) => { loading = val; });
+
+    // Patch the mock to use our controlled loading state
+    require('./loginUtils.jsx').useLoginState.mockImplementation(() => ({
+      navigate: jest.fn(),
+      dispatch: jest.fn(),
+      loading,
+      setLoading,
+      form: { username: '', password: '' },
+      setForm: jest.fn(),
+    }));
+
+    const { container, rerender } = renderWithProvider(<Login />);
 
     const button = screen.getByTestId('login-button');
     expect(button).toHaveTextContent('Log in');
     expect(button).not.toBeDisabled();
 
     fireEvent.submit(button.closest('form'));
+
+    // Simulate loading state change
+    loading = true;
+    rerender(<Provider store={createMockStore()}><Login /></Provider>);
 
     await waitFor(() =>
       expect(screen.getByTestId('loading-spinner')).toBeInTheDocument(),

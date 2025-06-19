@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>7/7</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>5/5</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>7/7</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
@@ -95,15 +95,26 @@
 <a name='L30'></a><a href='#L30'>30</a>
 <a name='L31'></a><a href='#L31'>31</a>
 <a name='L32'></a><a href='#L32'>32</a>
-<a name='L33'></a><a href='#L33'>33</a>
-<a name='L34'></a><a href='#L34'>34</a>
-<a name='L35'></a><a href='#L35'>35</a>
-<a name='L36'></a><a href='#L36'>36</a>
-<a name='L37'></a><a href='#L37'>37</a>
-<a name='L38'></a><a href='#L38'>38</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L33'></a><a href='#L33'>33</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -112,67 +123,41 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react';
-import { BLUE_BUTTON, BLUE_BUTTON_HOVER } from '../../../utils/constants';
+import {
+  getButtonEventHandlers,
+  getButtonCoreProps,
+  renderButton
+} from './buttonUtils.jsx';
 &nbsp;
-const Button = ({ 
-  children, 
+/**
+ * Styled button component with interactive hover and press effects.
+ * Renders a full-width, rounded button with custom color and transition effects.
+ *
+ * @param {Object} props Button properties.
+ * @param {React.ReactNode} props.children Content to display inside the button (text or elements).
+ * @param {string} [props.type='button'] The button type attribute (e.g., 'button', 'submit', 'reset').
+ * @param {boolean} [props.disabled=false] If true, disables the button and prevents interaction.
+ * @param {string} [props.className] Additional class names for custom styling.
+ * @param {function} [props.onClick] Function to call when the button is clicked.
+ * @returns {JSX.Element} A styled, interactive button for use in forms and UI.
+ */
+function Button({
+  children,
   type = 'button',
   disabled = false,
   className = '',
   onClick,
-  ...props 
-}) =&gt; {
-  const buttonStyle = {
-    backgroundColor: BLUE_BUTTON,
-    onMouseEnter: (e) =&gt; (e.currentTarget.style.backgroundColor = BLUE_BUTTON_HOVER),
-    onMouseLeave: (e) =&gt; (e.currentTarget.style.backgroundColor = BLUE_BUTTON),
-    onMouseDown: (e) =&gt; (e.currentTarget.style.transform = 'scale(0.97)'),
-    onMouseUp: (e) =&gt; (e.currentTarget.style.transform = 'scale(1)')
-  };
-&nbsp;
-  return (
-    &lt;button
-      type={type}
-      disabled={disabled}
-      className={`btn w-full rounded-full border-none text-white font-semibold tracking-wide transition-transform duration-200 ${className}`}
-      style={{ backgroundColor: buttonStyle.backgroundColor }}
-      onMouseEnter={buttonStyle.onMouseEnter}
-      onMouseLeave={buttonStyle.onMouseLeave}
-      onMouseDown={buttonStyle.onMouseDown}
-      onMouseUp={buttonStyle.onMouseUp}
-      onClick={onClick}
-      {...props}
-    &gt;
-      {children}
-    &lt;/button&gt;
-  );
-};
+  ...props
+}) {
+  const coreProps = getButtonCoreProps({ children, type, disabled, className, ...props });
+  const eventHandlers = getButtonEventHandlers(onClick);
+  return renderButton({ ...coreProps, ...eventHandlers });
+}
 &nbsp;
 export default Button; </pre></td></tr></table></pre>
 
@@ -181,7 +166,7 @@ export default Button; </pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-06-18T07:33:29.284Z
+                at 2025-06-19T07:51:50.075Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

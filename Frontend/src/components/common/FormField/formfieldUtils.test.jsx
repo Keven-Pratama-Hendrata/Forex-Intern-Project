@@ -53,8 +53,8 @@ describe('validateRequiredFields', () => {
     ],
     [
       'missing (undefined)',
-      { u: 'x' },           // p is absent
-      ['u', 'p'],           // <- explicitly require it
+      { u: 'x' },
+      ['u', 'p'],
       'p is required',
     ],
     [

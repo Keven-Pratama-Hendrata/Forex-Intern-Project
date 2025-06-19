@@ -28,11 +28,22 @@ jest.mock('../../components/common', () => {
   };
 });
 
+jest.mock('react-router', () => ({
+  useNavigate: jest.fn(),
+}));
+
+jest.mock('react-redux', () => ({
+  useDispatch: jest.fn(),
+}));
+
+import { renderHook, act } from '@testing-library/react';
 import * as loginUtils from './loginUtils.jsx';
 
 const { error: toastError, success: toastSuccess } = require('react-hot-toast');
 const { loginSuccess } = require('../../store/slices/authSlice');
 const { setUserData } = require('../../components/common');
+const { useNavigate } = require('react-router');
+const { useDispatch } = require('react-redux');
 
 let setLoading, navigate, dispatch;
 
@@ -172,7 +183,7 @@ describe('handleSubmit', () => {
   it('skips login when form validation fails', async () => {
     const { validateRequiredFields } = require('../../components/common');
     validateRequiredFields.mockReturnValue({ isValid: false, message: 'Validation failed' });
-    
+
     const mockFetch = jest.fn();
     global.fetch = mockFetch;
 
@@ -191,7 +202,7 @@ describe('handleSubmit', () => {
   it('proceeds with login when form validation passes', async () => {
     const { validateRequiredFields } = require('../../components/common');
     validateRequiredFields.mockReturnValue({ isValid: true });
-    
+
     global.fetch = jest.fn(() => Promise.resolve(mockSuccessResponse));
 
     const handler = loginUtils.handleSubmit(
@@ -204,5 +215,44 @@ describe('handleSubmit', () => {
 
     expect(global.fetch).toHaveBeenCalledTimes(1);
     expect(setLoading).toHaveBeenCalledWith(true);
+  });
+});
+
+describe('useLoginState', () => {
+  const mockNavigate = jest.fn();
+  const mockDispatch = jest.fn();
+
+  beforeEach(() => {
+    useNavigate.mockReturnValue(mockNavigate);
+    useDispatch.mockReturnValue(mockDispatch);
+  });
+
+  it('should initialize state and return navigate/dispatch', () => {
+    const { result } = renderHook(() => loginUtils.useLoginState());
+
+    expect(result.current.navigate).toBe(mockNavigate);
+    expect(result.current.dispatch).toBe(mockDispatch);
+    expect(result.current.loading).toBe(false);
+    expect(result.current.form).toEqual({ username: '', password: '' });
+  });
+
+  it('should update loading state', () => {
+    const { result } = renderHook(() => loginUtils.useLoginState());
+
+    act(() => {
+      result.current.setLoading(true);
+    });
+
+    expect(result.current.loading).toBe(true);
+  });
+
+  it('should update form state', () => {
+    const { result } = renderHook(() => loginUtils.useLoginState());
+
+    act(() => {
+      result.current.setForm({ username: 'keven', password: '123456' });
+    });
+
+    expect(result.current.form).toEqual({ username: 'keven', password: '123456' });
   });
 });
