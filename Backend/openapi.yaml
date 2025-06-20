@@ -1,0 +1,305 @@
+openapi: 3.0.3
+info:
+  title: Forex Intern Project API
+  description: API for user authentication and profile management
+  version: 1.0.0
+  contact:
+    name: Forex Intern Project
+    url: https://github.com/Keven-Pratama-Hendrata/Forex-Intern-Project.git
+    email: kevenpratamah@gmail.com
+  x-api-id: urn:uuid:7e2e1b2a-2c3d-4e5f-8a9b-1c2d3e4f5a6b
+  x-audience: external-public
+servers:
+  - url: https://localhost:5001/api/users
+security:
+  - BearerAuth: [ forex-intern-project.read ]
+paths:
+  /login:
+    post:
+      summary: User login
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+              required:
+                - username
+                - password
+      responses:
+        '200':
+          description: Successful login
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  token:
+                    type: string
+                  user_id:
+                    type: string
+                  user_name:
+                    type: string
+                  balances:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Money'
+        '400':
+          description: Missing credentials
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/problem+json:
+              schema:
+                $ref: 'https://opensource.zalando.com/restful-api-guidelines/models/problem-1.0.1.yaml#/Problem'
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/problem+json:
+              schema:
+                $ref: 'https://opensource.zalando.com/restful-api-guidelines/models/problem-1.0.1.yaml#/Problem'
+        '429':
+          description: Too Many Requests - Rate limit exceeded
+          headers:
+            Retry-After:
+              description: How long to wait before making a new request (seconds)
+              schema:
+                type: string
+            X-RateLimit-Limit:
+              description: The maximum number of requests allowed in the window
+              schema:
+                type: integer
+            X-RateLimit-Remaining:
+              description: The number of requests remaining in the window
+              schema:
+                type: integer
+            X-RateLimit-Reset:
+              description: Seconds until the rate limit window resets
+              schema:
+                type: integer
+          content:
+            application/problem+json:
+              schema:
+                $ref: 'https://opensource.zalando.com/restful-api-guidelines/models/problem-1.0.1.yaml#/Problem'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/problem+json:
+              schema:
+                $ref: 'https://opensource.zalando.com/restful-api-guidelines/models/problem-1.0.1.yaml#/Problem'
+  /users/self:
+    get:
+      summary: Get user profile
+      security:
+        - BearerAuth: [ forex-intern-project.read ]
+      responses:
+        '200':
+          description: User profile data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user_id:
+                    type: string
+                  user_name:
+                    type: string
+                  balances:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Money'
+                  daily_total_usd_history:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/DailyTotalUSDHistory'
+                  last_fetched_date:
+                    type: string
+                    format: date-time
+                  today_balance_usd:
+                    type: number
+                    format: double
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/problem+json:
+              schema:
+                $ref: 'https://opensource.zalando.com/restful-api-guidelines/models/problem-1.0.1.yaml#/Problem'
+        '429':
+          description: Too Many Requests - Rate limit exceeded
+          headers:
+            Retry-After:
+              description: How long to wait before making a new request (seconds)
+              schema:
+                type: string
+            X-RateLimit-Limit:
+              description: The maximum number of requests allowed in the window
+              schema:
+                type: integer
+            X-RateLimit-Remaining:
+              description: The number of requests remaining in the window
+              schema:
+                type: integer
+            X-RateLimit-Reset:
+              description: Seconds until the rate limit window resets
+              schema:
+                type: integer
+          content:
+            application/problem+json:
+              schema:
+                $ref: 'https://opensource.zalando.com/restful-api-guidelines/models/problem-1.0.1.yaml#/Problem'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/problem+json:
+              schema:
+                $ref: 'https://opensource.zalando.com/restful-api-guidelines/models/problem-1.0.1.yaml#/Problem'
+  /users/self/balances:
+    patch:
+      summary: Update user balances
+      security:
+        - BearerAuth: [ forex-intern-project.write ]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                balance:
+                  $ref: '#/components/schemas/Money'
+              required:
+                - balance
+      responses:
+        '200':
+          description: Balance updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  balances:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Money'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/problem+json:
+              schema:
+                $ref: 'https://opensource.zalando.com/restful-api-guidelines/models/problem-1.0.1.yaml#/Problem'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/problem+json:
+              schema:
+                $ref: 'https://opensource.zalando.com/restful-api-guidelines/models/problem-1.0.1.yaml#/Problem'
+        '429':
+          description: Too Many Requests - Rate limit exceeded
+          headers:
+            Retry-After:
+              description: How long to wait before making a new request (seconds)
+              schema:
+                type: string
+            X-RateLimit-Limit:
+              description: The maximum number of requests allowed in the window
+              schema:
+                type: integer
+            X-RateLimit-Remaining:
+              description: The number of requests remaining in the window
+              schema:
+                type: integer
+            X-RateLimit-Reset:
+              description: Seconds until the rate limit window resets
+              schema:
+                type: integer
+          content:
+            application/problem+json:
+              schema:
+                $ref: 'https://opensource.zalando.com/restful-api-guidelines/models/problem-1.0.1.yaml#/Problem'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/problem+json:
+              schema:
+                $ref: 'https://opensource.zalando.com/restful-api-guidelines/models/problem-1.0.1.yaml#/Problem'
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: |
+        The following scopes are used:
+          - forex-intern-project.read: Read access to user data
+          - forex-intern-project.write: Write access to user balances
+  schemas:
+    Money:
+      type: object
+      properties:
+        amount:
+          type: number
+          format: decimal
+          description: The amount in the given currency
+        currency:
+          type: string
+          format: iso-4217
+          description: 3 letter currency code as defined by ISO-4217
+      required:
+        - amount
+        - currency
+    Balances:
+      type: array
+      items:
+        $ref: '#/components/schemas/Money'
+    DailyTotalUSDHistory:
+      type: object
+      properties:
+        total_usd:
+          type: number
+          format: double
+        date:
+          type: string
+          format: date-time
+        rates:
+          type: object
+          additionalProperties:
+            type: string
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+      required:
+        - message

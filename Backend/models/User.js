@@ -1,20 +1,25 @@
 import mongoose from "mongoose"
 
-const balanceHistorySchema = new mongoose.Schema({
-    balance: { type: mongoose.Schema.Types.Double, required: true, get: v => parseFloat(v) },
+const moneySchema = new mongoose.Schema({
+    amount: { type: mongoose.Schema.Types.Decimal128, required: true, get: v => parseFloat(v) },
+    currency: { type: String, required: true }
+}, { _id: false, toJSON: { getters: true } });
+
+const balance_historySchema = new mongoose.Schema({
+    balance: { type: mongoose.Schema.Types.Decimal128, required: true, get: v => parseFloat(v) },
     currency: { type: String },
-    amount: { type: mongoose.Schema.Types.Double, get: v => parseFloat(v) },
+    amount: { type: mongoose.Schema.Types.Decimal128, get: v => parseFloat(v) },
     date: { type: Date, default: Date.now }
 }, { _id: false, toJSON: { getters: true } });
 
-const dailyTotalUSDHistorySchema = new mongoose.Schema({
-    totalUSD: { type: mongoose.Schema.Types.Double, required: true, get: v => parseFloat(v) },
+const daily_total_usd_historySchema = new mongoose.Schema({
+    total_usd: { type: mongoose.Schema.Types.Double, required: true, get: v => parseFloat(v) },
     date: { type: Date, default: Date.now },
     rates: { type: Map, of: String, required: true }
 }, { _id: false, toJSON: { getters: true } });
 
 const userSchema = new mongoose.Schema({
-    userName: {
+    user_name: {
         type: String,
         required: true,
         unique: true
@@ -23,17 +28,11 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    balances: {
-        USD: { type: mongoose.Schema.Types.Double, default: 0.00, get: v => parseFloat(v) },
-        EUR: { type: mongoose.Schema.Types.Double, default: 0.00, get: v => parseFloat(v) },
-        JPY: { type: mongoose.Schema.Types.Double, default: 0.00, get: v => parseFloat(v) },
-        AUD: { type: mongoose.Schema.Types.Double, default: 0.00, get: v => parseFloat(v) },
-        IDR: { type: mongoose.Schema.Types.Double, default: 0.00, get: v => parseFloat(v) }
-    },
-    balanceHistory: [balanceHistorySchema],
-    lastFetchedDate: { type: Date, default: Date.now },
-    todayBalanceUSD: { type: mongoose.Schema.Types.Double, default: 0.00, get: v => parseFloat(v) },
-    dailyTotalUSDHistory: [dailyTotalUSDHistorySchema]
+    balances: [moneySchema],
+    balance_history: [balance_historySchema],
+    last_fetched_date: { type: Date, default: Date.now },
+    today_balance_usd: { type: mongoose.Schema.Types.Double, default: 0.00, get: v => parseFloat(v) },
+    daily_total_usd_history: [daily_total_usd_historySchema]
 }, { timestamps: true, toJSON: { getters: true } });
 
 const User = mongoose.model("User", userSchema);

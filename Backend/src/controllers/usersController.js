@@ -1,18 +1,11 @@
-import { updateUserBalance } from '../utils/userUtils.js';
+import { getUserProfileService, handleUpdateBalanceService } from '../services/userService.js';
 
 export async function getUserProfile(req, res) {
     try {
-        const userId = req.user.userId;
-        const user = await updateBalanceHistoryOnDateChange(userId);
+        const userId = req.user.user_id;
+        const userData = await getUserProfileService(userId);
 
-        res.status(200).json({
-            userId: user._id,
-            userName: user.userName,
-            balances: user.balances,
-            dailyTotalUSDHistory: user.dailyTotalUSDHistory,
-            lastFetchedDate: user.lastFetchedDate,
-            todayBalanceUSD: user.todayBalanceUSD
-        });
+        res.status(200).json(userData);
     } catch (error) {
         console.error("Error in getUserProfile controller", error);
         res.status(500).json({ message: "Internal Server Error" });
@@ -21,10 +14,10 @@ export async function getUserProfile(req, res) {
 
 export async function handleUpdateBalance(req, res) {
     try {
-        const userId = req.user.userId;
-        const { currency, amount } = req.body;
-        const updatedUser = await updateUserBalance(userId, currency, amount);
-        res.status(200).json({ message: "Balance updated", balances: updatedUser.balances });
+        const userId = req.user.user_id;
+        const { balance } = req.body;
+        const response = await handleUpdateBalanceService(userId, balance);
+        res.status(200).json(response);
     } catch (error) {
         console.error("Error updating balance", error);
         res.status(400).json({ message: error.message });

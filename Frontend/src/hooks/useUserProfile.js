@@ -28,7 +28,7 @@
 // }
 
 // async function fetchProfileResponse(token) {
-//   return fetch('http://localhost:5001/api/users/profile', {
+//   return fetch('http://localhost:5001/api/users/users/self', {
 //     headers: { 'Authorization': `Bearer ${token}` }
 //   });
 // }
