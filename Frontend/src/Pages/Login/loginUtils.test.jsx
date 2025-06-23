@@ -53,7 +53,7 @@ const mockSuccessResponse = {
   json: async () => ({
     token: 'mock-token',
     userId: 1,
-    userName: 'TestUser',
+    user_name: 'TestUser',
     balances: [],
   }),
 };

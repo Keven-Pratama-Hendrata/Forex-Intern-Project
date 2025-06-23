@@ -1,10 +1,8 @@
-// Logic and utility functions have been moved to signupLogic.js for Fast Refresh compliance.
-
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import toast from "react-hot-toast";
-import { handleFormChange, validateRequiredFields, setUserData } from "../../components/common";
+import { validateRequiredFields, setUserData } from "../../components/common";
 import { loginStart, loginSuccess, loginFailure } from '../../store/slices/authSlice';
 
 /**
@@ -55,7 +53,7 @@ export const validateForm = (form) => {
 
 /**
  * Creates HTTP request configuration for signup API endpoint
- * @param {Object} form - Form data object containing username and password
+ * @param {Object} form Form data object containing username and password
  * @returns {Object} Fetch request configuration
  */
 const createSignupRequestConfig = (form) => ({
@@ -66,7 +64,7 @@ const createSignupRequestConfig = (form) => ({
 
 /**
  * Processes signup API response and handles error cases
- * @param {Response} response - Fetch API response object from signup endpoint
+ * @param {Response} response Fetch API response object from signup endpoint
  * @returns {Promise<Object>} Parsed response data
  * @throws {Error} When HTTP response is not successful
  */
@@ -78,7 +76,7 @@ const handleSignupResponse = async (response) => {
 
 /**
  * Performs HTTP request to signup API endpoint
- * @param {Object} form - Form data object containing username and password
+ * @param {Object} form Form data object containing username and password
  * @returns {Promise<Object>} Signup response data
  * @throws {Error} When API request fails or returns error response
  */
@@ -91,8 +89,8 @@ const makeSignupRequest = async (form) => {
 /**
  * Processes successful signup response and updates application state
  * Stores user data in Redux store and displays success notification
- * @param {Function} dispatch - Redux dispatch function
- * @param {Object} data - Signup response data
+ * @param {Function} dispatch Redux dispatch function
+ * @param {Object} data Signup response data
  */
 const handleSignupSuccess = (dispatch, data) => {
     setUserData(dispatch, loginSuccess, data.token, {
@@ -103,12 +101,20 @@ const handleSignupSuccess = (dispatch, data) => {
     toast.success("Account created successfully! 👋");
 };
 
+const showSignupErrorToast = (error) => {
+    if (error.message === "Password must be at least 6 characters long") {
+        toast.error("Password must be at least 6 characters long");
+    } else {
+        toast.error(error.message || "Signup failed");
+    }
+};
+
 /**
  * Orchestrates the complete signup process
- * @param {Object} form - Form data object
- * @param {Function} setLoading - Function to update loading state
- * @param {Function} navigate - React Router navigation function
- * @param {Function} dispatch - Redux dispatch function
+ * @param {Object} form Form data object
+ * @param {Function} setLoading Function to update loading state
+ * @param {Function} navigate React Router navigation function
+ * @param {Function} dispatch Redux dispatch function
  * @returns {Promise<void>}
  */
 export const handleSignup = async (form, setLoading, navigate, dispatch) => {
@@ -120,7 +126,7 @@ export const handleSignup = async (form, setLoading, navigate, dispatch) => {
         navigate("/");
     } catch (error) {
         dispatch(loginFailure(error.message || "Signup failed"));
-        toast.error(error.message || "Signup failed");
+        showSignupErrorToast(error);
     } finally {
         setLoading(false);
     }
@@ -128,10 +134,10 @@ export const handleSignup = async (form, setLoading, navigate, dispatch) => {
 
 /**
  * Creates form submission event handler for signup form
- * @param {Object} form - Form data object
- * @param {Function} setLoading - Function to update loading state
- * @param {Function} navigate - React Router navigation function
- * @param {Function} dispatch - Redux dispatch function
+ * @param {Object} form Form data object
+ * @param {Function} setLoading Function to update loading state
+ * @param {Function} navigate React Router navigation function
+ * @param {Function} dispatch Redux dispatch function
  * @returns {Function} Event handler function for form onSubmit
  */
 export const handleSubmit = (form, setLoading, navigate, dispatch) => async (e) => {
@@ -140,8 +146,4 @@ export const handleSubmit = (form, setLoading, navigate, dispatch) => async (e) 
     await handleSignup(form, setLoading, navigate, dispatch);
 };
 
-/**
- * Handles form field changes.
- * @type {Function}
- */
-export const handleChange = handleFormChange; 
+export { handleSignupResponse }; 

@@ -50,7 +50,6 @@ describe('authBackgroundUtils – SVG render helpers', () => {
     expect(container.querySelector('rect')).toHaveAttribute('fill', 'url(#bgGrad)');
     expect(container.querySelector('path')).toHaveAttribute('fill', '#ffffff');
 
-    expect(svg).toMatchSnapshot();
   });
 
   it('renderCircles draws a custom-class SVG with circles', () => {

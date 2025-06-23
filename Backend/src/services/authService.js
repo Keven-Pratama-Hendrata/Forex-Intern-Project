@@ -43,6 +43,10 @@ export const registerUserService = async (username, password) => {
         throw new Error('Username already exists');
     }
 
+    if (password.length < 6) {
+        throw new Error('Password must be at least 6 characters long');
+    }
+
     const supportedCurrencies = ['AUD', 'EUR', 'IDR', 'JPY', 'USD'];
     const initialBalances = supportedCurrencies.map(currency => ({ currency, amount: 0 }));
 

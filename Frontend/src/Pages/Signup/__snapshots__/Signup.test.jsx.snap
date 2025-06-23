@@ -1,0 +1,75 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`<Signup /> renders correctly (snapshot) 1`] = `
+<div
+  data-testid="auth-background"
+>
+  <form
+    class="rounded-2xl bg-white/60 p-8 shadow-xl backdrop-blur-md ring-1 ring-white/40"
+  >
+    <h2
+      class="mb-1 text-center text-2xl font-extrabold text-gray-800"
+    >
+      Create an Account
+    </h2>
+    <p
+      class="mb-6 text-center text-sm text-gray-600"
+    >
+      Join us to start trading!
+    </p>
+    <div>
+      <label
+        for="username"
+      >
+        Username
+      </label>
+      <input
+        autocomplete="username"
+        id="username"
+        name="username"
+        placeholder="Choose a username"
+        required=""
+        type="text"
+        value=""
+      />
+    </div>
+    <div>
+      <label
+        for="password"
+      >
+        Password
+      </label>
+      <input
+        autocomplete="new-password"
+        id="password"
+        name="password"
+        placeholder="••••••••"
+        required=""
+        type="password"
+        value=""
+      />
+    </div>
+    <div>
+      <label
+        for="confirmPassword"
+      >
+        Confirm Password
+      </label>
+      <input
+        autocomplete="new-password"
+        id="confirmPassword"
+        name="confirmPassword"
+        placeholder="••••••••"
+        required=""
+        type="password"
+        value=""
+      />
+    </div>
+    <button
+      type="submit"
+    >
+      Create Account
+    </button>
+  </form>
+</div>
+`;

@@ -1,0 +1,154 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`App renders correctly and matches snapshot 1`] = `
+<div
+  data-theme="light"
+>
+  <div
+    class="min-h-screen flex items-center justify-center relative overflow-hidden"
+  >
+    <svg
+      class="absolute inset-0 h-full w-full pointer-events-none"
+      preserveAspectRatio="none"
+      viewBox="0 0 100 100"
+    >
+      <defs>
+        <lineargradient
+          id="bgGrad"
+          x1="0"
+          x2="0"
+          y1="0"
+          y2="1"
+        >
+          <stop
+            offset="0%"
+            stop-color="#6ca0c1"
+          />
+          <stop
+            offset="100%"
+            stop-color="#507fa1"
+          />
+        </lineargradient>
+      </defs>
+      <rect
+        fill="url(#bgGrad)"
+        height="100"
+        width="100"
+      />
+      <path
+        d="M 70 0 Q 77 10 70 20 Q 63 30 70 40 Q 77 50 70 60 Q 63 70 70 80 Q 77 90 70 100 L 100 100 100 0 Z"
+        fill="#ffffff"
+      />
+    </svg>
+    <svg
+      class="absolute left-[50%] top-[14%] w-48 opacity-25"
+      fill="none"
+      stroke="#163a61"
+      stroke-width="3"
+      viewBox="0 0 200 200"
+    >
+      <circle
+        cx="90"
+        cy="70"
+        r="55"
+      />
+      <circle
+        cx="130"
+        cy="60"
+        r="55"
+      />
+      <circle
+        cx="110"
+        cy="120"
+        r="55"
+      />
+    </svg>
+    <div
+      class="relative z-10 w-full max-w-sm"
+    >
+      <form
+        class="rounded-2xl bg-white/60 p-8 shadow-xl backdrop-blur-md ring-1 ring-white/40"
+      >
+        <h2
+          class="mb-1 text-center text-2xl font-extrabold text-gray-800"
+        >
+          Sign in to Trade FX
+        </h2>
+        <p
+          class="mb-6 text-center text-sm text-gray-600"
+        >
+          Ready to conquer the markets?
+        </p>
+        <div
+          class="form-control w-full mb-6 space-y-1 "
+        >
+          <label
+            class="label"
+            for="username"
+          >
+            <span
+              class="label-text font-medium"
+            >
+              Username
+            </span>
+          </label>
+          <input
+            autocomplete="username"
+            class="input input-bordered w-full rounded-full"
+            id="username"
+            name="username"
+            placeholder="John Doe"
+            required=""
+            type="text"
+            value=""
+          />
+        </div>
+        <div
+          class="form-control w-full mb-6 space-y-1 "
+        >
+          <label
+            class="label"
+            for="password"
+          >
+            <span
+              class="label-text font-medium"
+            >
+              Password
+            </span>
+          </label>
+          <input
+            autocomplete="current-password"
+            class="input input-bordered w-full rounded-full"
+            id="password"
+            name="password"
+            placeholder="••••••••"
+            required=""
+            type="password"
+            value=""
+          />
+        </div>
+        <button
+          class="btn w-full rounded-full border-none text-white font-semibold tracking-wide transition-transform duration-200 "
+          style="background-color: rgb(80, 127, 161);"
+          type="submit"
+        >
+          Log in
+        </button>
+      </form>
+      <p
+        class="mt-5 text-center text-sm text-gray-700"
+      >
+        New here?
+         
+        <a
+          class="font-medium text-sky-950 hover:underline"
+          data-discover="true"
+          href="/signup"
+        >
+          Create an account
+        </a>
+      </p>
+    </div>
+  </div>
+</div>
+`;

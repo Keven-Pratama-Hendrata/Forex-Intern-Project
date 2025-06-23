@@ -1,21 +1,7 @@
-import React from 'react'
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router";
-import Login from "../Pages/Login/Login"
-import SignupWithFooter from '../Pages/Signup/Signup'
-
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Login />,
-  },
-  {
-    path: "/signup",
-    element: <SignupWithFooter />,
-  },
-]);
+import React from 'react';
+import { Routes, Route } from 'react-router';
+import Login from '../Pages/Login/Login';
+import SignupWithFooter from '../Pages/Signup/Signup';
 
 /**
  * Main application component that handles routing
@@ -24,9 +10,12 @@ const router = createBrowserRouter([
 const App = () => {
   return (
     <div data-theme="light">
-      <RouterProvider router={router} />
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/signup" element={<SignupWithFooter />} />
+      </Routes>
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;

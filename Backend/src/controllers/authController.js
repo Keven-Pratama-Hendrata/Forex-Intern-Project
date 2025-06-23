@@ -42,6 +42,9 @@ export async function registerUser(req, res) {
         if (error.message === 'Username already exists') {
             return res.status(409).json({ message: "Username already exists" });
         }
+        if (error.message === 'Password must be at least 6 characters long') {
+            return res.status(400).json({ message: "Password must be at least 6 characters long" });
+        }
         res.status(500).json({ message: "Internal Server Error" });
     }
 }
