@@ -1,6 +1,21 @@
 import React from 'react'
-import { Route, Routes } from 'react-router'
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router";
 import Login from "../Pages/Login/Login"
+import SignupWithFooter from '../Pages/Signup/Signup'
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Login />,
+  },
+  {
+    path: "/signup",
+    element: <SignupWithFooter />,
+  },
+]);
 
 /**
  * Main application component that handles routing
@@ -9,9 +24,7 @@ import Login from "../Pages/Login/Login"
 const App = () => {
   return (
     <div data-theme="light">
-      <Routes>
-        <Route path="/" element={<Login />} />
-      </Routes>
+      <RouterProvider router={router} />
     </div>
   )
 }

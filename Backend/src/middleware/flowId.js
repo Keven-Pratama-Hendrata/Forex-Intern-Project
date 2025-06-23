@@ -14,9 +14,6 @@ function flowIdMiddleware(req, res, next) {
     }
     req.flowId = flowId;
     res.setHeader('X-Flow-ID', flowId);
-    if (process.env.NODE_ENV !== 'test') {
-        console.log(`[Flow-ID] ${flowId} ${req.method} ${req.originalUrl}`);
-    }
     next();
 }
 

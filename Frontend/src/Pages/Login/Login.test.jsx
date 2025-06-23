@@ -141,11 +141,9 @@ describe('Login Component', () => {
   });
 
   it('toggles to loading state after form submit (covers line 55)', async () => {
-    // Set up a variable to control loading state
     let loading = false;
     const setLoading = jest.fn((val) => { loading = val; });
 
-    // Patch the mock to use our controlled loading state
     require('./loginUtils.jsx').useLoginState.mockImplementation(() => ({
       navigate: jest.fn(),
       dispatch: jest.fn(),
@@ -163,7 +161,6 @@ describe('Login Component', () => {
 
     fireEvent.submit(button.closest('form'));
 
-    // Simulate loading state change
     loading = true;
     rerender(<Provider store={createMockStore()}><Login /></Provider>);
 

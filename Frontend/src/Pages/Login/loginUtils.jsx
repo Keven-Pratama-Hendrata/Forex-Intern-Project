@@ -101,13 +101,13 @@ const makeLoginRequest = async (form) => {
  * @param {Object} data - Login response data from successful API call
  * @param {string} data.token - JWT authentication token
  * @param {string} data.userId - Unique user identifier
- * @param {string} data.userName - User's display name
+ * @param {string} data.user_name - User's display name
  * @param {Object} data.balances - User's account balance information
  */
 const handleLoginSuccess = (dispatch, data) => {
   setUserData(dispatch, loginSuccess, data.token, {
     id: data.userId,
-    username: data.userName,
+    username: data.user_name,
     balances: data.balances
   });
 

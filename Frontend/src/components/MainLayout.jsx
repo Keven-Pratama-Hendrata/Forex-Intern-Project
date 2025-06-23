@@ -41,7 +41,7 @@
 //           <div className="flex items-center space-x-2">
 //             <div className="rounded-full bg-blue-200 px-4 py-2 flex items-center">
 //               <img src={userIcon} alt="User" className="w-6 h-6 mr-2" />
-//               <span className="font-bold text-blue-900">{userData?.userName || "Username"}</span>
+//               <span className="font-bold text-blue-900">{userData?.user_name || "Username"}</span>
 //             </div>
 //           </div>
 //           <div className="text-2xl font-bold text-blue-900">

@@ -52,4 +52,4 @@ function problemJsonErrorHandler(err, req, res, next) {
     }
 }
 
-module.exports = problemJsonErrorHandler; 
+export default problemJsonErrorHandler; 
