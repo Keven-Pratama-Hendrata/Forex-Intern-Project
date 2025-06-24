@@ -44,6 +44,7 @@ const SignupFormContent = ({ navigate, dispatch }) => {
             <SignupHeader />
             <SignupFields form={form} setForm={setForm} />
             <SignupButton loading={loading} />
+            <SignupFooter />
         </form>
     );
 };
@@ -168,10 +169,5 @@ const SignupFooter = () => (
  * @returns {JSX.Element} The rendered Signup page with footer.
  */
 export default function SignupWithFooter() {
-    return (
-        <>
-            <Signup />
-            <SignupFooter />
-        </>
-    );
+    return <Signup />;
 }

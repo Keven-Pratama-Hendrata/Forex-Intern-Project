@@ -1,7 +1,7 @@
 import React from 'react';
 import { Routes, Route } from 'react-router';
 import Login from '../Pages/Login/Login';
-import SignupWithFooter from '../Pages/Signup/Signup';
+import Signup from '../Pages/Signup/Signup';
 
 /**
  * Main application component that handles routing
@@ -12,7 +12,7 @@ const App = () => {
     <div data-theme="light">
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/signup" element={<SignupWithFooter />} />
+        <Route path="/signup" element={<Signup />} />
       </Routes>
     </div>
   );
