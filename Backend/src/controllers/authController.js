@@ -16,7 +16,7 @@ export async function loginUser(req, res) {
         });
     } catch (error) {
         console.error("Error in loginUser controller", error);
-        if (error.message === 'User not found') {
+        if (error.message === 'User not found' || error.message === 'Username or password is incorrect') {
             return res.status(401).json({ message: "Username or password is incorrect" });
         }
         res.status(500).json({ message: "Internal Server Error" });
