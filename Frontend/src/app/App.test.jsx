@@ -1,5 +1,6 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, cleanup } from '@testing-library/react';
+import '@testing-library/jest-dom';
 import App from './App';
 
 jest.mock('../Pages/Login/Login', () => () => (
@@ -16,6 +17,8 @@ jest.mock('react-router', () => ({
 }));
 
 describe('<App />', () => {
+  afterEach(() => cleanup());
+
   it('wraps the whole app in a light-themed div', () => {
     const { container } = render(<App />);
     expect(container.firstChild).toHaveAttribute('data-theme', 'light');

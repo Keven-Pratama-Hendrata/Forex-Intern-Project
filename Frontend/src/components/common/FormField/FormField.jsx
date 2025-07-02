@@ -1,5 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { renderInput, renderFormFieldWrapper } from './formfieldUtils.jsx';
+import { FormFieldProps } from './FormField.type';
 
 /**
  * Styled input field with label for use in forms.
@@ -31,5 +33,7 @@ function FormField({
   const input = renderInput({ type, name, placeholder, value, onChange, autoComplete, required });
   return renderFormFieldWrapper({ label, input, className, name });
 }
+
+FormField.propTypes = FormFieldProps;
 
 export default FormField; 

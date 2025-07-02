@@ -1,5 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { renderSpinnerVariant } from './LoadingSpinnerUtil.jsx';
+import { LoadingSpinnerProps } from './LoadingSpinner.type';
 
 /**
  * Loading spinner component for indicating loading states.
@@ -18,5 +20,7 @@ function LoadingSpinner({
 }) {
   return renderSpinnerVariant(variant, size, className);
 }
+
+LoadingSpinner.propTypes = LoadingSpinnerProps;
 
 export default LoadingSpinner; 

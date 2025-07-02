@@ -1,13 +1,22 @@
 import React from "react";
 import { Link } from "react-router";
+import PropTypes from 'prop-types';
 
-import AuthBackground from "../../components/Background/AuthBackground.jsx";
+import AuthBackground from "../../components/Background";
 import { Button, LoadingSpinner, FormField } from "../../components/common";
 import {
   handleChange,
   handleSubmit,
   useLoginState
 } from "./loginUtils.jsx";
+import { AUTH_FORMS, AUTH_MESSAGES } from "../../data";
+import {
+  LoginContentProps,
+  LoginFormProps,
+  LoginFieldsProps,
+  FieldProps,
+  SubmitButtonProps
+} from "./Login.type";
 
 /**
  * Main login page component for user authentication
@@ -31,13 +40,13 @@ const Login = () => {
 /**
  * Login page layout component with authentication background
  * Wraps the login form with animated background and signup link
- * @param {Object} props - Component props
- * @param {Object} props.form - Form state object with username and password fields
- * @param {Function} props.setForm - Function to update form state
- * @param {boolean} props.loading - Loading state during form submission
- * @param {Function} props.setLoading - Function to update loading state
- * @param {Function} props.navigate - React Router navigation function
- * @param {Function} props.dispatch - Redux dispatch function for auth actions
+ * @param {Object} props Component props
+ * @param {Object} props.form Form state object with username and password fields
+ * @param {Function} props.setForm Function to update form state
+ * @param {boolean} props.loading Loading state during form submission
+ * @param {Function} props.setLoading Function to update loading state
+ * @param {Function} props.navigate React Router navigation function
+ * @param {Function} props.dispatch Redux dispatch function for auth actions
  * @returns {JSX.Element} Login page with background and form layout
  */
 const LoginContent = ({ form, setForm, loading, setLoading, navigate, dispatch }) => (
@@ -54,16 +63,18 @@ const LoginContent = ({ form, setForm, loading, setLoading, navigate, dispatch }
   </AuthBackground>
 );
 
+LoginContent.propTypes = LoginContentProps;
+
 /**
  * Login form container with glassmorphism styling
  * Handles form submission and renders form fields with header and submit button
- * @param {Object} props - Component props
- * @param {Object} props.form - Form state object with username and password fields
- * @param {Function} props.setForm - Function to update form state
- * @param {boolean} props.loading - Loading state during form submission
- * @param {Function} props.setLoading - Function to update loading state
- * @param {Function} props.navigate - React Router navigation function
- * @param {Function} props.dispatch - Redux dispatch function for auth actions
+ * @param {Object} props Component props
+ * @param {Object} props.form Form state object with username and password fields
+ * @param {Function} props.setForm Function to update form state
+ * @param {boolean} props.loading Loading state during form submission
+ * @param {Function} props.setLoading Function to update loading state
+ * @param {Function} props.navigate React Router navigation function
+ * @param {Function} props.dispatch Redux dispatch function for auth actions
  * @returns {JSX.Element} Styled login form with glassmorphism effect
  */
 const LoginForm = ({ form, setForm, loading, setLoading, navigate, dispatch }) => (
@@ -77,12 +88,14 @@ const LoginForm = ({ form, setForm, loading, setLoading, navigate, dispatch }) =
   </form>
 );
 
+LoginForm.propTypes = LoginFormProps;
+
 /**
  * Container for login form input fields
  * Groups username and password fields together
- * @param {Object} props - Component props
- * @param {Object} props.form - Form state object with username and password fields
- * @param {Function} props.setForm - Function to update form state
+ * @param {Object} props Component props
+ * @param {Object} props.form Form state object with username and password fields
+ * @param {Function} props.setForm Function to update form state
  * @returns {JSX.Element} Fragment containing username and password fields
  */
 const LoginFields = ({ form, setForm }) => (
@@ -92,33 +105,37 @@ const LoginFields = ({ form, setForm }) => (
   </>
 );
 
+LoginFields.propTypes = LoginFieldsProps;
+
 /**
  * Username input field component
  * Renders a text input for username with proper accessibility attributes
- * @param {Object} props - Component props
- * @param {Object} props.form - Form state object with username field
- * @param {Function} props.setForm - Function to update form state
+ * @param {Object} props Component props
+ * @param {Object} props.form Form state object with username field
+ * @param {Function} props.setForm Function to update form state
  * @returns {JSX.Element} Username input field with label and validation
  */
 const UsernameField = ({ form, setForm }) => (
   <FormField
     label="Username"
     type="text"
-    name="username"
-    placeholder="John Doe"
-    value={form.username}
+    name="user_name"
+    placeholder={AUTH_FORMS.LOGIN.PLACEHOLDERS.USERNAME}
+    value={form.user_name}
     onChange={handleChange(form, setForm)}
-    autoComplete="username"
+    autoComplete={AUTH_FORMS.LOGIN.AUTOCOMPLETE.USERNAME}
     required
   />
 );
 
+UsernameField.propTypes = FieldProps;
+
 /**
  * Password input field component
  * Renders a password input with proper security attributes
- * @param {Object} props - Component props
- * @param {Object} props.form - Form state object with password field
- * @param {Function} props.setForm - Function to update form state
+ * @param {Object} props Component props
+ * @param {Object} props.form Form state object with password field
+ * @param {Function} props.setForm Function to update form state
  * @returns {JSX.Element} Password input field with label and validation
  */
 const PasswordField = ({ form, setForm }) => (
@@ -126,19 +143,21 @@ const PasswordField = ({ form, setForm }) => (
     label="Password"
     type="password"
     name="password"
-    placeholder="••••••••"
+    placeholder={AUTH_FORMS.LOGIN.PLACEHOLDERS.PASSWORD}
     value={form.password}
     onChange={handleChange(form, setForm)}
-    autoComplete="current-password"
+    autoComplete={AUTH_FORMS.LOGIN.AUTOCOMPLETE.PASSWORD}
     required
   />
 );
 
+PasswordField.propTypes = FieldProps;
+
 /**
  * Login form submit button component
  * Shows loading spinner when submitting, disabled during form submission
- * @param {Object} props - Component props
- * @param {boolean} props.loading - Loading state during form submission
+ * @param {Object} props Component props
+ * @param {boolean} props.loading Loading state during form submission
  * @returns {JSX.Element} Submit button with loading state handling
  */
 const SubmitButton = ({ loading }) => (
@@ -146,6 +165,8 @@ const SubmitButton = ({ loading }) => (
     {loading ? <LoadingSpinner variant="inline" /> : "Log in"}
   </Button>
 );
+
+SubmitButton.propTypes = SubmitButtonProps;
 
 /**
  * Login form header with branding and welcome message

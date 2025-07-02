@@ -1,16 +1,18 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   getCircleConfigs,
   getConfig,
   renderWaveBackground,
   renderCircles
 } from './authBackgroundUtils.jsx';
+import { AuthBackgroundProps } from './AuthBackground.type';
 
 /**
  * Authentication background component with circles and wave
- * @param {Object} props - Component props
- * @param {React.ReactNode} props.children - Child components to render
- * @param {string} [props.circlePosition="login"] - Position of circles ("login" or "signup")
+ * @param {Object} props Component props
+ * @param {React.ReactNode} props.children Child components to render
+ * @param {string} [props.circlePosition="login"] Position of circles ("login" or "signup")
  * @returns {JSX.Element} The authentication background with wave
  */
 const AuthBackground = ({ children, circlePosition = "login" }) => {
@@ -27,5 +29,7 @@ const AuthBackground = ({ children, circlePosition = "login" }) => {
     </div>
   );
 };
+
+AuthBackground.propTypes = AuthBackgroundProps;
 
 export default AuthBackground; 

@@ -41,8 +41,8 @@ export const getCircleConfigs = () => ({
 
 /**
  * Returns the circle config for the given position.
- * @param {string} circlePosition - The position key (e.g., 'login', 'signup').
- * @param {Object} circleConfigs - The circle configs object.
+ * @param {string} circlePosition The position key (e.g., 'login', 'signup').
+ * @param {Object} circleConfigs The circle configs object.
  * @returns {Object} The config for the given position.
  */
 export const getConfig = (circlePosition, circleConfigs) => {
@@ -91,7 +91,7 @@ const renderWavePath = () => (
 
 /**
  * Renders SVG circles based on the provided config.
- * @param {Object} config - The circle config object.
+ * @param {Object} config The circle config object.
  * @returns {JSX.Element} The SVG circles element.
  */
 export const renderCircles = (config) => (

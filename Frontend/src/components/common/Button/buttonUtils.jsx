@@ -1,18 +1,18 @@
-import { BLUE_BUTTON, BLUE_BUTTON_HOVER } from '../../../utils/constants';
+import { UI_CONSTANTS, UI_CLASSES } from '../../../data';
 
 /**
  * Sets the button background color to the hover color on mouse enter.
  * @param {React.MouseEvent} e Mouse event.
  * @returns {void}
  */
-export const handleMouseEnter = (e) => (e.currentTarget.style.backgroundColor = BLUE_BUTTON_HOVER);
+export const handleMouseEnter = (e) => (e.currentTarget.style.backgroundColor = UI_CONSTANTS.BUTTON_COLORS.BLUE_HOVER);
 
 /**
  * Resets the button background color on mouse leave.
  * @param {React.MouseEvent} e Mouse event.
  * @returns {void}
  */
-export const handleMouseLeave = (e) => (e.currentTarget.style.backgroundColor = BLUE_BUTTON);
+export const handleMouseLeave = (e) => (e.currentTarget.style.backgroundColor = UI_CONSTANTS.BUTTON_COLORS.BLUE);
 
 /**
  * Scales the button down on mouse down.
@@ -30,15 +30,11 @@ export const handleMouseUp = (e) => (e.currentTarget.style.transform = 'scale(1)
 
 /**
  * Returns the full className string for the button.
- * @param {string} className Additional class names.
+ * @param {string} additionalClass Additional class names.
  * @returns {string} The full className string.
  */
-export function getButtonClassName(className) {
-    return [
-        'btn w-full rounded-full border-none text-white font-semibold',
-        'tracking-wide transition-transform duration-200',
-        className
-    ].join(' ');
+export function getButtonClassName(additionalClass) {
+    return [UI_CLASSES.BUTTON.BASE, additionalClass].filter(Boolean).join(' ');
 }
 
 /**
@@ -46,7 +42,7 @@ export function getButtonClassName(className) {
  * @returns {Object} The style object.
  */
 export function getButtonStyle() {
-    return { backgroundColor: BLUE_BUTTON };
+    return { backgroundColor: UI_CONSTANTS.BUTTON_COLORS.BLUE };
 }
 
 /**

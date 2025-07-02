@@ -75,7 +75,7 @@ export function renderInput({ type, name, placeholder, value, onChange, autoComp
       name={name}
       placeholder={placeholder}
       className="input input-bordered w-full rounded-full"
-      value={value}
+      value={value ?? ""}
       onChange={onChange}
       autoComplete={autoComplete}
       required={required}

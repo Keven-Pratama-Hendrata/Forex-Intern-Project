@@ -1,107 +1,146 @@
-import React from 'react';
-import { render } from '@testing-library/react';
-
 import {
-    getButtonClassName,
-    getButtonStyle,
-    getButtonEventHandlers,
-    getButtonCoreProps,
-    renderButton,
     handleMouseEnter,
     handleMouseLeave,
     handleMouseDown,
     handleMouseUp,
-} from './buttonUtils.jsx';
+    getButtonClassName,
+    getButtonStyle,
+    getButtonEventHandlers,
+    getButtonCoreProps,
+    renderButton
+} from './buttonUtils';
+import { UI_CONSTANTS, UI_CLASSES } from '../../../data';
 
-import {
-    BLUE_BUTTON,
-    BLUE_BUTTON_HOVER,
-} from '../../../utils/constants.js';
-
-function hexToRgb(hex) {
-    const match = hex.replace('#', '').match(/.{1,2}/g);
-    const [r, g, b] = match.map(x => parseInt(x, 16));
-    return `rgb(${r}, ${g}, ${b})`;
-}
+const createMockElement = () => {
+    const element = {
+        style: {},
+        currentTarget: {
+            style: {}
+        }
+    };
+    return element;
+};
 
 describe('Button Utils', () => {
+    describe('handleMouseEnter', () => {
+        it('sets background color to hover color', () => {
+            const element = createMockElement();
+            handleMouseEnter(element);
+            expect(element.currentTarget.style.backgroundColor).toBe(UI_CONSTANTS.BUTTON_COLORS.BLUE_HOVER);
+        });
+    });
+
+    describe('handleMouseLeave', () => {
+        it('resets background color to default', () => {
+            const element = createMockElement();
+            handleMouseLeave(element);
+            expect(element.currentTarget.style.backgroundColor).toBe(UI_CONSTANTS.BUTTON_COLORS.BLUE);
+        });
+    });
+
+    describe('handleMouseDown', () => {
+        it('scales down the element', () => {
+            const element = createMockElement();
+            handleMouseDown(element);
+            expect(element.currentTarget.style.transform).toBe('scale(0.97)');
+        });
+    });
+
+    describe('handleMouseUp', () => {
+        it('resets the scale', () => {
+            const element = createMockElement();
+            handleMouseUp(element);
+            expect(element.currentTarget.style.transform).toBe('scale(1)');
+        });
+    });
+
     describe('getButtonClassName', () => {
-        it('returns base and extra classes correctly', () => {
-            expect(getButtonClassName('extra')).toContain('extra');
-            expect(getButtonClassName('')).toContain('btn w-full');
+        it('returns base class when no additional class provided', () => {
+            const result = getButtonClassName('');
+            expect(result).toBe(UI_CLASSES.BUTTON.BASE);
+        });
+
+        it('combines base class with additional class', () => {
+            const additionalClass = 'custom-class';
+            const result = getButtonClassName(additionalClass);
+            expect(result).toBe(`${UI_CLASSES.BUTTON.BASE} ${additionalClass}`);
         });
     });
 
     describe('getButtonStyle', () => {
-        it('returns correct background color style', () => {
-            expect(getButtonStyle()).toEqual({ backgroundColor: BLUE_BUTTON });
+        it('returns style object with correct background color', () => {
+            const result = getButtonStyle();
+            expect(result).toEqual({ backgroundColor: UI_CONSTANTS.BUTTON_COLORS.BLUE });
         });
     });
 
     describe('getButtonEventHandlers', () => {
-        it('returns all expected event handlers', () => {
+        it('returns object with all event handlers', () => {
             const onClick = jest.fn();
-            const handlers = getButtonEventHandlers(onClick);
+            const result = getButtonEventHandlers(onClick);
 
-            expect(typeof handlers.onMouseEnter).toBe('function');
-            expect(typeof handlers.onMouseLeave).toBe('function');
-            expect(typeof handlers.onMouseDown).toBe('function');
-            expect(typeof handlers.onMouseUp).toBe('function');
-            expect(handlers.onClick).toBe(onClick);
+            expect(result).toHaveProperty('onMouseEnter');
+            expect(result).toHaveProperty('onMouseLeave');
+            expect(result).toHaveProperty('onMouseDown');
+            expect(result).toHaveProperty('onMouseUp');
+            expect(result.onClick).toBe(onClick);
+        });
+
+        it('calls onClick when provided', () => {
+            const onClick = jest.fn();
+            const result = getButtonEventHandlers(onClick);
+
+            result.onClick();
+            expect(onClick).toHaveBeenCalledTimes(1);
         });
     });
 
     describe('getButtonCoreProps', () => {
-        it('returns merged props correctly', () => {
-            const props = getButtonCoreProps({
-                children: 'X',
-                type: 'submit',
-                disabled: true,
-                className: 'my-btn',
-                'data-testid': 'btn',
-            });
+        it('returns core props with default values', () => {
+            const props = {
+                children: 'Test Button',
+                type: 'button',
+                disabled: false,
+                className: 'custom-class'
+            };
 
-            expect(props.type).toBe('submit');
-            expect(props.disabled).toBe(true);
-            expect(props.className).toContain('my-btn');
-            expect(props['data-testid']).toBe('btn');
-            expect(props.children).toBe('X');
+            const result = getButtonCoreProps(props);
+
+            expect(result.type).toBe('button');
+            expect(result.disabled).toBe(false);
+            expect(result.children).toBe('Test Button');
+            expect(result.style).toEqual({ backgroundColor: UI_CONSTANTS.BUTTON_COLORS.BLUE });
+        });
+
+        it('includes additional props', () => {
+            const props = {
+                children: 'Test',
+                'data-testid': 'test-button',
+                customProp: 'value'
+            };
+
+            const result = getButtonCoreProps(props);
+
+            expect(result['data-testid']).toBe('test-button');
+            expect(result.customProp).toBe('value');
         });
     });
 
     describe('renderButton', () => {
-        it('renders a button with children', () => {
-            const { getByText } = render(renderButton({ children: 'Test' }));
-            expect(getByText('Test')).toBeInTheDocument();
-        });
-    });
+        it('renders button with provided props', () => {
+            const props = {
+                children: 'Test Button',
+                className: 'test-class',
+                onClick: jest.fn()
+            };
 
-    describe('Mouse Event Handlers', () => {
-        let button, event;
+            const result = renderButton(props);
 
-        beforeEach(() => {
-            button = document.createElement('button');
-            event = { currentTarget: button };
-        });
-
-        it('handleMouseEnter sets hover color', () => {
-            handleMouseEnter(event);
-            expect(button.style.backgroundColor).toBe(hexToRgb(BLUE_BUTTON_HOVER));
-        });
-
-        it('handleMouseLeave resets color', () => {
-            handleMouseLeave(event);
-            expect(button.style.backgroundColor).toBe(hexToRgb(BLUE_BUTTON));
-        });
-
-        it('handleMouseDown scales down', () => {
-            handleMouseDown(event);
-            expect(button.style.transform).toBe('scale(0.97)');
-        });
-
-        it('handleMouseUp resets scale', () => {
-            handleMouseUp(event);
-            expect(button.style.transform).toBe('scale(1)');
+            expect(result.type).toBe('button');
+            expect(result.props.children).toBe('Test Button');
+            expect(result.props.className).toBe('test-class');
+            expect(result.props.onClick).toBe(props.onClick);
         });
     });
 });
+

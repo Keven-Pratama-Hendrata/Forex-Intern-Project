@@ -1,9 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   getButtonEventHandlers,
   getButtonCoreProps,
   renderButton
 } from './buttonUtils.jsx';
+import { ButtonProps } from './Button.type';
+import { UI_CONSTANTS } from '../../../data';
 
 /**
  * Styled button component with interactive hover and press effects.
@@ -29,5 +32,7 @@ function Button({
   const eventHandlers = getButtonEventHandlers(onClick);
   return renderButton({ ...coreProps, ...eventHandlers });
 }
+
+Button.propTypes = ButtonProps;
 
 export default Button; 

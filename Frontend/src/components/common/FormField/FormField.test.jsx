@@ -1,11 +1,13 @@
 import React from 'react';
-import { render, fireEvent, screen } from '@testing-library/react';
-import { describe, it, expect, jest } from '@jest/globals';
+import { render, fireEvent, screen, cleanup } from '@testing-library/react';
+import '@testing-library/jest-dom';
 import FormField from './FormField';
 
 describe('FormField', () => {
+  afterEach(() => cleanup());
+
   it('renders with label and input', () => {
-    render(<FormField label="Username" type="text" name="username" placeholder="Enter username" />);
+    render(<FormField label="Username" type="text" name="username" placeholder="Enter username" onChange={() => { }} />);
     expect(screen.getByLabelText('Username')).toBeInTheDocument();
     expect(screen.getByPlaceholderText('Enter username')).toBeInTheDocument();
   });
@@ -19,7 +21,7 @@ describe('FormField', () => {
 
   it('applies custom className to wrapper', () => {
     const { container } = render(
-      <FormField label="Custom" type="text" name="custom" placeholder="Custom placeholder" className="custom-form-field" />
+      <FormField label="Custom" type="text" name="custom" placeholder="Custom placeholder" className="custom-form-field" onChange={() => { }} />
     );
     expect(container.firstChild).toHaveClass('custom-form-field');
   });

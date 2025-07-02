@@ -1,7 +1,6 @@
-/* AuthBackground.test.jsx */
 import React from 'react';
-import { render } from '@testing-library/react';
-import { describe, it, expect, jest } from '@jest/globals';
+import { render, cleanup } from '@testing-library/react';
+import '@testing-library/jest-dom';
 import AuthBackground from './AuthBackground';
 
 jest.mock('./authBackgroundUtils.jsx', () => {
@@ -28,10 +27,10 @@ jest.mock('./authBackgroundUtils.jsx', () => {
   };
 });
 
-const renderUI = (ui) => render(ui).container.firstChild;
-
 describe('AuthBackground', () => {
-  afterEach(() => jest.clearAllMocks());
+  afterEach(() => cleanup());
+
+  const renderUI = (ui) => render(ui).container.firstChild;
 
   it('renders default (login) background', () => {
     const node = renderUI(
@@ -39,7 +38,6 @@ describe('AuthBackground', () => {
         <span>Any content</span>
       </AuthBackground>,
     );
-
     expect(node).toMatchSnapshot();
   });
 
@@ -49,7 +47,6 @@ describe('AuthBackground', () => {
         <span>Signup form</span>
       </AuthBackground>,
     );
-
     expect(node).toMatchSnapshot();
   });
 
@@ -59,7 +56,6 @@ describe('AuthBackground', () => {
         <span>Invalid pos</span>
       </AuthBackground>,
     );
-
     expect(node).toMatchSnapshot();
   });
 });

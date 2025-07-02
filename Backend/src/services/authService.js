@@ -1,32 +1,98 @@
 import jwt from 'jsonwebtoken';
-import { findUserByUsername } from '../utils/userUtils.js';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'a7c8d9e0f1g2h3i4j5k6l7m8n9o0p1q2r3s4t5u6v7w8x9y0z1';
+import Constants from '../constants.js';
 
-export const generateToken = (userId, userName) => {
-    if (!JWT_SECRET) {
-        throw new Error("JWT_SECRET is not configured");
+/**
+ * Service for authentication-related operations.
+ */
+class AuthService {
+  /**
+   * Create an AuthService instance.
+   * @param {Object} root0 Dependencies for AuthService
+   * @param {Object} root0.userRepository The user repository
+   * @param {Object} root0.logger The logger instance
+   * @param {Object} root0.config The configuration object
+   */
+  constructor({ userRepository, logger, config }) {
+    this.userRepository = userRepository;
+    this.logger = logger;
+    this.config = config;
+  }
+
+  /**
+   * Generate a JWT token for a user.
+   * @param {string} userId The user ID
+   * @param {string} userName The user name
+   * @returns {string} The generated JWT token
+   */
+  generateToken(userId, userName) {
+    this.logger.info('Generating JWT token', { userId, userName });
+    const jwtConfig = this.config.jwt;
+    if (!jwtConfig.secretKey) {
+      this.logger.error('JWT_SECRET is not configured');
+      throw new Error('JWT_SECRET is not configured');
     }
-    return jwt.sign(
-        { user_id: userId, user_name: userName },
-        JWT_SECRET,
-        { expiresIn: '24h' }
+    const token = jwt.sign(
+      { user_id: userId, user_name: userName },
+      jwtConfig.secretKey,
+      {
+        expiresIn: jwtConfig.expiry,
+        audience: jwtConfig.audience,
+        algorithm: jwtConfig.keyAlgorithm
+      }
     );
-};
+    this.logger.info('JWT token generated successfully', { userId, userName });
 
-export const loginUserService = async (username, password) => {
-    const user = await findUserByUsername(username);
+    return token;
+  }
 
-    if (user.password !== password) {
-        throw new Error("Username or password is incorrect");
+  /**
+   * Authenticate a user by user name and password.
+   * @param {string} userName The user name
+   * @param {string} password The user password
+   * @returns {Promise<Object>} The authenticated user object
+   */
+  async authenticateUser(userName, password) {
+    this.logger.info('Authenticating user', { userName });
+    const user = await this.userRepository.ofUserName(userName);
+    if (!user) {
+      this.logger.error('User not found during authentication', { userName });
+      const error = new Error('User not found');
+      error.error = Constants.ERROR_CODES.USER_NOT_FOUND;
+      throw error;
     }
+    if (user.password !== password) {
+      this.logger.error('Invalid password during authentication', { userName });
+      const error = new Error('Password is incorrect');
+      error.error = Constants.ERROR_CODES.INVALID_PASSWORD;
+      throw error;
+    }
+    this.logger.info('User authenticated successfully', { userId: user._id, userName });
 
-    const token = generateToken(user._id, user.userName);
+    return user;
+  }
 
-    return {
-        user_id: user._id,
-        user_name: user.userName,
-        balances: user.balances,
-        token
-    };
-};
+  /**
+   * Verify a JWT token.
+   * @param {string} token The JWT token
+   * @returns {Object} The decoded token payload
+   */
+  verifyToken(token) {
+    this.logger.info('Verifying JWT token');
+    const jwtConfig = this.config.jwt;
+    try {
+      const decoded = jwt.verify(token, jwtConfig.secretKey, {
+        audience: jwtConfig.audience,
+        algorithms: [jwtConfig.keyAlgorithm]
+      });
+      this.logger.info('JWT token verified successfully', { userId: decoded.user_id });
+
+      return decoded;
+    } catch (error) {
+      this.logger.error('JWT token verification failed', { error: error.message });
+      throw new Error('Invalid token');
+    }
+  }
+}
+
+export default AuthService;

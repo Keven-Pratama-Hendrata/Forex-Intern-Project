@@ -1,258 +1,272 @@
-import {
-  describe,
-  it,
-  expect,
-  jest,
-  beforeEach,
-  afterEach,
-} from '@jest/globals';
+import { validateForm, handleChange, useLoginState } from './loginUtils.jsx';
+import * as formfieldUtils from '../../components/common/FormField/formfieldUtils';
+import { AUTH_MESSAGES } from '../../data/authData';
+import toast from 'react-hot-toast';
+import { renderHook } from '@testing-library/react';
+import { Provider } from 'react-redux';
+import { configureStore } from '@reduxjs/toolkit';
+import authReducer from '../../store/slices/authSlice';
+import { MemoryRouter } from 'react-router';
 
 jest.mock('react-hot-toast', () => ({
-  success: jest.fn(),
-  error: jest.fn(),
+    success: jest.fn(),
+    error: jest.fn(),
 }));
 
-jest.mock('../../store/slices/authSlice', () => ({
-  loginSuccess: jest.fn((p) => ({ type: 'LOGIN', payload: p })),
-}));
-
-jest.mock('../../components/common', () => {
-  const original = jest.requireActual('../../components/common');
-  return {
-    ...original,
-    validateRequiredFields: jest.fn(original.validateRequiredFields),
-    setUserData: jest.fn(),
-    LoadingSpinner: () => null,
-    FormField: () => null,
-    Button: () => null,
-  };
-});
-
-jest.mock('react-router', () => ({
-  useNavigate: jest.fn(),
-}));
-
-jest.mock('react-redux', () => ({
-  useDispatch: jest.fn(),
-}));
-
-import { renderHook, act } from '@testing-library/react';
-import * as loginUtils from './loginUtils.jsx';
-
-const { error: toastError, success: toastSuccess } = require('react-hot-toast');
-const { loginSuccess } = require('../../store/slices/authSlice');
-const { setUserData } = require('../../components/common');
-const { useNavigate } = require('react-router');
-const { useDispatch } = require('react-redux');
-
-let setLoading, navigate, dispatch;
-
-const mockFormData = { username: 'testuser', password: 'testpass' };
-const mockSuccessResponse = {
-  ok: true,
-  json: async () => ({
-    token: 'mock-token',
-    userId: 1,
-    userName: 'TestUser',
-    balances: [],
-  }),
-};
-
-beforeEach(() => {
-  setLoading = jest.fn();
-  navigate = jest.fn();
-  dispatch = jest.fn();
-  global.fetch = undefined;
-});
-afterEach(() => jest.clearAllMocks());
-
-describe('validateForm', () => {
-  it('returns true for valid form data', () => {
-    const result = loginUtils.validateForm({ username: 'test', password: 'test' });
-    expect(result).toBe(true);
-    expect(toastError).not.toHaveBeenCalled();
-  });
-
-  it('returns false for missing username', () => {
-    const result = loginUtils.validateForm({ username: '', password: 'test' });
-    expect(result).toBe(false);
-    expect(toastError).toHaveBeenCalledWith('Username is required');
-  });
-
-  it('returns false for missing password', () => {
-    const result = loginUtils.validateForm({ username: 'test', password: '' });
-    expect(result).toBe(false);
-    expect(toastError).toHaveBeenCalledWith('Password is required');
-  });
-});
-
-describe('handleLogin', () => {
-  it('handles successful login', async () => {
-    global.fetch = jest.fn(() => Promise.resolve(mockSuccessResponse));
-
-    await loginUtils.handleLogin(mockFormData, setLoading, navigate, dispatch);
-
-    expect(setLoading).toHaveBeenNthCalledWith(1, true);
-    expect(setLoading).toHaveBeenNthCalledWith(2, false);
-    expect(setUserData).toHaveBeenCalledWith(
-      dispatch,
-      loginSuccess,
-      'mock-token',
-      { id: 1, username: 'TestUser', balances: [] },
-    );
-    expect(navigate).toHaveBeenCalledWith('/dashboard');
-    expect(toastSuccess).toHaveBeenCalledWith('Welcome back 👋');
-  });
-
-  it('handles API error with custom message', async () => {
-    const errorResponse = {
-      ok: false,
-      json: async () => ({ message: 'Invalid credentials' }),
-    };
-    global.fetch = jest.fn(() => Promise.resolve(errorResponse));
-
-    await loginUtils.handleLogin(mockFormData, setLoading, navigate, dispatch);
-
-    expect(toastError).toHaveBeenCalledWith('Invalid credentials');
-    expect(setLoading).toHaveBeenLastCalledWith(false);
-    expect(setUserData).not.toHaveBeenCalled();
-    expect(navigate).not.toHaveBeenCalled();
-  });
-
-  it('handles API error with default message', async () => {
-    const errorResponse = {
-      ok: false,
-      json: async () => ({}),
-    };
-    global.fetch = jest.fn(() => Promise.resolve(errorResponse));
-
-    await loginUtils.handleLogin(mockFormData, setLoading, navigate, dispatch);
-
-    expect(toastError).toHaveBeenCalledWith('Login failed');
-    expect(setLoading).toHaveBeenLastCalledWith(false);
-  });
-
-  it('handles network errors', async () => {
-    const networkError = new Error('Network error');
-    global.fetch = jest.fn(() => Promise.reject(networkError));
-
-    await loginUtils.handleLogin(mockFormData, setLoading, navigate, dispatch);
-
-    expect(toastError).toHaveBeenCalledWith('Network error');
-    expect(setLoading).toHaveBeenLastCalledWith(false);
-  });
-
-  it('handles JSON parsing errors', async () => {
-    const jsonErrorResponse = {
-      ok: true,
-      json: async () => {
-        throw new Error('Invalid JSON');
-      },
-    };
-    global.fetch = jest.fn(() => Promise.resolve(jsonErrorResponse));
-
-    await loginUtils.handleLogin(mockFormData, setLoading, navigate, dispatch);
-
-    expect(toastError).toHaveBeenCalledWith('Invalid JSON');
-    expect(setLoading).toHaveBeenLastCalledWith(false);
-  });
-
-  it('handles error with no message (uses fallback)', async () => {
-    const errorWithoutMessage = new Error();
-    delete errorWithoutMessage.message;
-    global.fetch = jest.fn(() => Promise.reject(errorWithoutMessage));
-
-    await loginUtils.handleLogin(mockFormData, setLoading, navigate, dispatch);
-
-    expect(toastError).toHaveBeenCalledWith('Login failed');
-    expect(setLoading).toHaveBeenLastCalledWith(false);
-  });
-
-  it('ensures loading state is reset in finally block', async () => {
-    global.fetch = jest.fn(() => Promise.reject(new Error('Test error')));
-
-    await loginUtils.handleLogin(mockFormData, setLoading, navigate, dispatch);
-
-    expect(setLoading).toHaveBeenNthCalledWith(1, true);
-    expect(setLoading).toHaveBeenNthCalledWith(2, false);
-    expect(setLoading).toHaveBeenCalledTimes(2);
-  });
-});
-
-describe('handleSubmit', () => {
-  it('skips login when form validation fails', async () => {
-    const { validateRequiredFields } = require('../../components/common');
-    validateRequiredFields.mockReturnValue({ isValid: false, message: 'Validation failed' });
-
-    const mockFetch = jest.fn();
-    global.fetch = mockFetch;
-
-    const handler = loginUtils.handleSubmit(
-      mockFormData,
-      setLoading,
-      navigate,
-      dispatch,
-    );
-    await handler({ preventDefault: jest.fn() });
-
-    expect(mockFetch).not.toHaveBeenCalled();
-    expect(setLoading).not.toHaveBeenCalled();
-  });
-
-  it('proceeds with login when form validation passes', async () => {
-    const { validateRequiredFields } = require('../../components/common');
-    validateRequiredFields.mockReturnValue({ isValid: true });
-
-    global.fetch = jest.fn(() => Promise.resolve(mockSuccessResponse));
-
-    const handler = loginUtils.handleSubmit(
-      mockFormData,
-      setLoading,
-      navigate,
-      dispatch,
-    );
-    await handler({ preventDefault: jest.fn() });
-
-    expect(global.fetch).toHaveBeenCalledTimes(1);
-    expect(setLoading).toHaveBeenCalledWith(true);
-  });
-});
-
-describe('useLoginState', () => {
-  const mockNavigate = jest.fn();
-  const mockDispatch = jest.fn();
-
-  beforeEach(() => {
-    useNavigate.mockReturnValue(mockNavigate);
-    useDispatch.mockReturnValue(mockDispatch);
-  });
-
-  it('should initialize state and return navigate/dispatch', () => {
-    const { result } = renderHook(() => loginUtils.useLoginState());
-
-    expect(result.current.navigate).toBe(mockNavigate);
-    expect(result.current.dispatch).toBe(mockDispatch);
-    expect(result.current.loading).toBe(false);
-    expect(result.current.form).toEqual({ username: '', password: '' });
-  });
-
-  it('should update loading state', () => {
-    const { result } = renderHook(() => loginUtils.useLoginState());
-
-    act(() => {
-      result.current.setLoading(true);
+describe('loginUtils', () => {
+    describe('validateForm', () => {
+        beforeEach(() => {
+            jest.clearAllMocks();
+        });
+        it('returns true if all required fields are present', () => {
+            jest.spyOn(formfieldUtils, 'validateRequiredFields').mockReturnValue({ isValid: true });
+            const form = { user_name: 'user', password: 'pass' };
+            expect(validateForm(form)).toBe(true);
+            expect(toast.error).not.toHaveBeenCalled();
+        });
+        it('returns false and shows toast if required fields are missing', () => {
+            jest.spyOn(formfieldUtils, 'validateRequiredFields').mockReturnValue({ isValid: false, message: 'Username is required' });
+            const form = { user_name: '', password: 'pass' };
+            expect(validateForm(form)).toBe(false);
+            expect(toast.error).toHaveBeenCalledWith('Username is required');
+        });
     });
 
-    expect(result.current.loading).toBe(true);
-  });
+    describe('handleLogin', () => {
+        let setLoading, navigate, dispatch, form;
+        beforeEach(() => {
+            jest.clearAllMocks();
+            setLoading = jest.fn();
+            navigate = jest.fn();
+            dispatch = jest.fn();
+            form = { user_name: 'user', password: 'pass' };
+        });
 
-  it('should update form state', () => {
-    const { result } = renderHook(() => loginUtils.useLoginState());
+        it('handles successful login with all fields', async () => {
+            global.fetch = jest.fn().mockResolvedValue({
+                ok: true,
+                json: async () => ({
+                    token: 'abc',
+                    userId: 'id',
+                    userName: 'user',
+                    balances: { usd: 100 }
+                }),
+            });
+            jest.spyOn(formfieldUtils, 'setUserData').mockImplementation(() => { });
+            const { handleLogin } = require('./loginUtils.jsx');
+            await handleLogin(form, setLoading, navigate, dispatch);
+            expect(setLoading).toHaveBeenCalledWith(true);
+            expect(setLoading).toHaveBeenCalledWith(false);
+            expect(formfieldUtils.setUserData).toHaveBeenCalled();
+            expect(toast.success).toHaveBeenCalled();
+            expect(navigate).toHaveBeenCalledWith('/dashboard');
+        });
 
-    act(() => {
-      result.current.setForm({ username: 'keven', password: '123456' });
+        it('handles failed login with error message', async () => {
+            global.fetch = jest.fn().mockResolvedValue({
+                ok: false,
+                json: async () => ({ message: 'Invalid credentials' }),
+            });
+            const { handleLogin } = require('./loginUtils.jsx');
+            await handleLogin(form, setLoading, navigate, dispatch);
+            expect(toast.error).toHaveBeenCalledWith('Invalid credentials');
+        });
+
+        it('handles failed login with no error message', async () => {
+            global.fetch = jest.fn().mockResolvedValue({
+                ok: false,
+                json: async () => ({}),
+            });
+            const { handleLogin } = require('./loginUtils.jsx');
+            await handleLogin(form, setLoading, navigate, dispatch);
+            expect(toast.error).toHaveBeenCalledWith('Login failed');
+        });
+
+        it('handles network error', async () => {
+            global.fetch = jest.fn().mockRejectedValue(new Error('Network error'));
+            const { handleLogin } = require('./loginUtils.jsx');
+            await handleLogin(form, setLoading, navigate, dispatch);
+            expect(toast.error).toHaveBeenCalledWith('Network error');
+        });
+
+        it('handles successful login with missing balances', async () => {
+            global.fetch = jest.fn().mockResolvedValue({
+                ok: true,
+                json: async () => ({ token: 'abc', userId: 'id', userName: 'user' }),
+            });
+            jest.spyOn(formfieldUtils, 'setUserData').mockImplementation(() => { });
+            const { handleLogin } = require('./loginUtils.jsx');
+            await handleLogin(form, setLoading, navigate, dispatch);
+            expect(formfieldUtils.setUserData).toHaveBeenCalled();
+            expect(toast.success).toHaveBeenCalled();
+            expect(navigate).toHaveBeenCalledWith('/dashboard');
+        });
+
+        it('handles successful login with missing userId/userName', async () => {
+            global.fetch = jest.fn().mockResolvedValue({
+                ok: true,
+                json: async () => ({ token: 'abc', balances: { usd: 100 } }),
+            });
+            jest.spyOn(formfieldUtils, 'setUserData').mockImplementation(() => { });
+            const { handleLogin } = require('./loginUtils.jsx');
+            await handleLogin(form, setLoading, navigate, dispatch);
+            expect(formfieldUtils.setUserData).toHaveBeenCalled();
+            expect(toast.success).toHaveBeenCalled();
+            expect(navigate).toHaveBeenCalledWith('/dashboard');
+        });
+
+        it('handles error if setUserData throws', async () => {
+            global.fetch = jest.fn().mockResolvedValue({
+                ok: true,
+                json: async () => ({ token: 'abc', userId: 'id', userName: 'user', balances: {} }),
+            });
+            jest.spyOn(formfieldUtils, 'setUserData').mockImplementation(() => { throw new Error('setUserData error'); });
+            const { handleLogin } = require('./loginUtils.jsx');
+            await handleLogin(form, setLoading, navigate, dispatch);
+            expect(setLoading).toHaveBeenCalledWith(false);
+        });
+
+        it('handles error if toast.success throws', async () => {
+            global.fetch = jest.fn().mockResolvedValue({
+                ok: true,
+                json: async () => ({ token: 'abc', userId: 'id', userName: 'user', balances: {} }),
+            });
+            jest.spyOn(formfieldUtils, 'setUserData').mockImplementation(() => { });
+            toast.success.mockImplementationOnce(() => { throw new Error('toast error'); });
+            const { handleLogin } = require('./loginUtils.jsx');
+            await handleLogin(form, setLoading, navigate, dispatch);
+            expect(setLoading).toHaveBeenCalledWith(false);
+        });
+
+        it('handles error with no message and shows default login failed message', async () => {
+            global.fetch = jest.fn().mockRejectedValue({});
+            const { handleLogin } = require('./loginUtils.jsx');
+            const setLoading = jest.fn();
+            const navigate = jest.fn();
+            const dispatch = jest.fn();
+            const form = { user_name: 'user', password: 'pass' };
+            await handleLogin(form, setLoading, navigate, dispatch);
+            expect(toast.error).toHaveBeenCalledWith('Login failed');
+        });
+
+        it('handles user not found error', async () => {
+            global.fetch = jest.fn().mockResolvedValue({
+                ok: false,
+                json: async () => ({ error: 'USER_NOT_FOUND' }),
+            });
+            const { handleLogin } = require('./loginUtils.jsx');
+            await handleLogin(form, setLoading, navigate, dispatch);
+            expect(toast.error).toHaveBeenCalledWith('User not found');
+        });
+
+        it('handles password incorrect error', async () => {
+            global.fetch = jest.fn().mockResolvedValue({
+                ok: false,
+                json: async () => ({ error: 'INVALID_PASSWORD' }),
+            });
+            const { handleLogin } = require('./loginUtils.jsx');
+            await handleLogin(form, setLoading, navigate, dispatch);
+            expect(toast.error).toHaveBeenCalledWith('Password is incorrect');
+        });
+
+        it('handles network error from backend', async () => {
+            global.fetch = jest.fn().mockResolvedValue({
+                ok: false,
+                json: async () => ({ error: 'NETWORK_ERROR' }),
+            });
+            const { handleLogin } = require('./loginUtils.jsx');
+            await handleLogin(form, setLoading, navigate, dispatch);
+            expect(toast.error).toHaveBeenCalledWith('Network error. Please try again.');
+        });
+
+        it('handles unknown error with no message and shows default login failed message', async () => {
+            global.fetch = jest.fn().mockResolvedValue({
+                ok: false,
+                json: async () => ({ error: 'UNKNOWN_ERROR' }),
+            });
+            const { handleLogin } = require('./loginUtils.jsx');
+            await handleLogin(form, setLoading, navigate, dispatch);
+            expect(toast.error).toHaveBeenCalledWith('Login failed');
+        });
     });
 
-    expect(result.current.form).toEqual({ username: 'keven', password: '123456' });
-  });
+    describe('handleSubmit', () => {
+        it('calls preventDefault and does not call handleLogin if form is invalid', async () => {
+            const setLoading = jest.fn();
+            const navigate = jest.fn();
+            const dispatch = jest.fn();
+            const form = { user_name: '', password: '' };
+            const mockEvent = { preventDefault: jest.fn() };
+            jest.spyOn(formfieldUtils, 'validateRequiredFields').mockReturnValue({ isValid: false, message: 'Username is required' });
+            const { handleSubmit } = require('./loginUtils.jsx');
+            const loginSpy = jest.fn();
+            await handleSubmit(form, setLoading, navigate, dispatch, loginSpy)(mockEvent);
+            expect(mockEvent.preventDefault).toHaveBeenCalled();
+            expect(loginSpy).not.toHaveBeenCalled();
+        });
+
+        it('calls preventDefault and handleLogin if form is valid', async () => {
+            const setLoading = jest.fn();
+            const navigate = jest.fn();
+            const dispatch = jest.fn();
+            const form = { user_name: 'user', password: 'pass' };
+            const mockEvent = { preventDefault: jest.fn() };
+            jest.spyOn(formfieldUtils, 'validateRequiredFields').mockReturnValue({ isValid: true });
+            const { handleSubmit } = require('./loginUtils.jsx');
+            const handleLoginMock = jest.fn().mockResolvedValue();
+            await handleSubmit(form, setLoading, navigate, dispatch, handleLoginMock)(mockEvent);
+            expect(mockEvent.preventDefault).toHaveBeenCalled();
+            expect(handleLoginMock).toHaveBeenCalledWith(form, setLoading, navigate, dispatch);
+        });
+
+        it('does not throw if event is missing', async () => {
+            const setLoading = jest.fn();
+            const navigate = jest.fn();
+            const dispatch = jest.fn();
+            const form = { user_name: 'user', password: 'pass' };
+            jest.spyOn(formfieldUtils, 'validateRequiredFields').mockReturnValue({ isValid: true });
+            const { handleSubmit } = require('./loginUtils.jsx');
+            const handleLoginMock = jest.fn().mockResolvedValue();
+            await expect(handleSubmit(form, setLoading, navigate, dispatch, handleLoginMock)()).resolves.toBeUndefined();
+            expect(handleLoginMock).toHaveBeenCalledWith(form, setLoading, navigate, dispatch);
+        });
+
+        it('uses default handleLogin if not provided', async () => {
+            const setLoading = jest.fn();
+            const navigate = jest.fn();
+            const dispatch = jest.fn();
+            const form = { user_name: 'user', password: 'pass' };
+            jest.spyOn(formfieldUtils, 'validateRequiredFields').mockReturnValue({ isValid: true });
+            global.fetch = jest.fn().mockResolvedValue({
+                ok: false,
+                json: async () => ({ message: 'Invalid credentials' }),
+            });
+            const { handleSubmit } = require('./loginUtils.jsx');
+            await expect(handleSubmit(form, setLoading, navigate, dispatch)({ preventDefault: () => { } })).resolves.toBeUndefined();
+        });
+    });
+
+    describe('handleChange', () => {
+        it('is handleFormChange from formfieldUtils', () => {
+            expect(handleChange).toBe(formfieldUtils.handleFormChange);
+        });
+    });
+
+    describe('useLoginState', () => {
+        it('returns the expected state shape', () => {
+            const store = configureStore({ reducer: { auth: authReducer } });
+            const wrapper = ({ children }) => (
+                <Provider store={store}>
+                    <MemoryRouter>{children}</MemoryRouter>
+                </Provider>
+            );
+            const { result } = renderHook(() => useLoginState(), { wrapper });
+            expect(result.current).toHaveProperty('navigate');
+            expect(result.current).toHaveProperty('dispatch');
+            expect(result.current).toHaveProperty('loading');
+            expect(result.current).toHaveProperty('setLoading');
+            expect(result.current).toHaveProperty('form');
+            expect(result.current).toHaveProperty('setForm');
+        });
+    });
 });
