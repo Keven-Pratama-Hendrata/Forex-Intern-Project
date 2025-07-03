@@ -1,4 +1,4 @@
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4Default } from 'uuid';
 
 function isValidFlowId(flowId) {
   return (
@@ -12,8 +12,9 @@ function isValidFlowId(flowId) {
  * @param {import('express').Request} req Express request object
  * @param {import('express').Response} res Express response object
  * @param {Function} next Express next middleware function
+ * @param {Function} uuidv4 (optional) UUID generator for testability
  */
-export default function flowIdMiddleware(req, res, next) {
+export default function flowIdMiddleware(req, res, next, uuidv4 = uuidv4Default) {
   let flowId = req.header('X-Flow-ID');
   if (!isValidFlowId(flowId)) {
     flowId = uuidv4();

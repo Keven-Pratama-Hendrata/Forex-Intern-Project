@@ -53,6 +53,7 @@ export default [
             '**/*.spec.js',
             '**/__tests__/**/*.js',
             '**/__mocks__/**/*.js',
+            '**/*.mock.js',
         ],
         languageOptions: {
             globals: {

@@ -17,6 +17,20 @@ class CustomError extends Error {
     this.code = code;
     Error.captureStackTrace(this, this.constructor);
   }
+
+  /**
+   * Convert the CustomError instance to a plain object for JSON serialization.
+   * @returns {Object} The serializable error object
+   */
+  toJSON() {
+    return {
+      name: this.name,
+      message: this.message,
+      statusCode: this.statusCode,
+      code: this.code,
+      stack: this.stack
+    };
+  }
 }
 
 export default CustomError;
