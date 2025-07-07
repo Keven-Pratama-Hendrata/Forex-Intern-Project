@@ -8,7 +8,7 @@ import {
   handleChange,
   handleSubmit,
   useLoginState
-} from "./loginUtils.jsx";
+} from "./loginHandler.jsx";
 import { AUTH_FORMS, AUTH_MESSAGES } from "../../data";
 import {
   LoginContentProps,

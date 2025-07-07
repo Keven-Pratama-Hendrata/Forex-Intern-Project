@@ -5,7 +5,7 @@ import {
   getConfig,
   renderWaveBackground,
   renderCircles
-} from './authBackgroundUtils.jsx';
+} from './authBackgroundHandler.jsx';
 import { AuthBackgroundProps } from './AuthBackground.type';
 
 /**

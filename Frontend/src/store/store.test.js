@@ -9,6 +9,7 @@ describe('Redux store integration', () => {
 
     it('should have the correct initial state', () => {
         const state = store.getState().auth;
+
         expect(state).toEqual({
             isAuthenticated: false,
             token: null,
@@ -20,11 +21,13 @@ describe('Redux store integration', () => {
     it('should handle loginStart and loginSuccess', () => {
         store.dispatch(loginStart());
         let state = store.getState().auth;
+
         expect(state.loading).toBe(true);
         expect(state.error).toBeNull();
 
         store.dispatch(loginSuccess({ token: 'abc123' }));
         state = store.getState().auth;
+
         expect(state.isAuthenticated).toBe(true);
         expect(state.token).toBe('abc123');
         expect(state.loading).toBe(false);
@@ -32,8 +35,11 @@ describe('Redux store integration', () => {
     });
 
     it('should handle loginFailure', () => {
-        store.dispatch(loginFailure('Invalid credentials'));
+        const errorMessage = 'Invalid credentials';
+
+        store.dispatch(loginFailure(errorMessage));
         const state = store.getState().auth;
+
         expect(state.loading).toBe(false);
         expect(state.error).toBe('Invalid credentials');
         expect(state.isAuthenticated).toBe(false);
@@ -42,8 +48,10 @@ describe('Redux store integration', () => {
 
     it('should handle logout', () => {
         store.dispatch(loginSuccess({ token: 'abc123' }));
+
         store.dispatch(logout());
         const state = store.getState().auth;
+
         expect(state).toEqual({
             isAuthenticated: false,
             token: null,
@@ -54,8 +62,10 @@ describe('Redux store integration', () => {
 
     it('should handle clearError', () => {
         store.dispatch(loginFailure('Some error'));
+
         store.dispatch(clearError());
         const state = store.getState().auth;
+
         expect(state.error).toBeNull();
     });
 }); 

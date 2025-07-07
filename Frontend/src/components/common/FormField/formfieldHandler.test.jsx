@@ -5,7 +5,7 @@ import {
   handleApiError,
   setUserData,
   clearUserData,
-} from './formfieldUtils';
+} from './formfieldHandler';
 
 describe('handleFormChange', () => {
   it.each([
@@ -29,18 +29,21 @@ describe('handleFormChange', () => {
     ],
   ])('%s', (_title, initial, evtTarget, expected) => {
     const setForm = jest.fn();
+
     handleFormChange(initial, setForm)({ target: evtTarget });
+
     expect(setForm).toHaveBeenCalledWith(expected);
   });
 });
 
 describe('validateRequiredFields', () => {
   it('returns valid when all required are present', () => {
-    const res = validateRequiredFields(
-      { u: 'x', p: 'y' },
-      ['u', 'p'],
-      {},
-    );
+    const form = { u: 'x', p: 'y' };
+    const requiredFields = ['u', 'p'];
+    const messages = {};
+
+    const res = validateRequiredFields(form, requiredFields, messages);
+
     expect(res).toEqual({ isValid: true });
   });
 
@@ -72,16 +75,20 @@ describe('validateRequiredFields', () => {
   ];
 
   it.each(invalidCases)('invalid when %s', (_lbl, form, req, msg) => {
-    const res = validateRequiredFields(form, req, {});
+    const messages = {};
+
+    const res = validateRequiredFields(form, req, messages);
+
     expect(res).toEqual({ isValid: false, message: msg });
   });
 
   it('uses custom message when supplied', () => {
-    const res = validateRequiredFields(
-      { name: '' },
-      ['name'],
-      { name: 'Name needed' },
-    );
+    const form = { name: '' };
+    const requiredFields = ['name'];
+    const messages = { name: 'Name needed' };
+
+    const res = validateRequiredFields(form, requiredFields, messages);
+
     expect(res).toEqual({ isValid: false, message: 'Name needed' });
   });
 });
@@ -95,7 +102,9 @@ describe('handleApiError', () => {
     ['plain string', undefined, 'Operation failed'],
     [{}, 'Custom default', 'Custom default'],
   ])('returns "%s"', (err, defMsg, expected) => {
-    expect(handleApiError(err, defMsg)).toBe(expected);
+    const result = handleApiError(err, defMsg);
+
+    expect(result).toBe(expected);
   });
 });
 
@@ -103,7 +112,11 @@ describe('user-data helpers', () => {
   it('setUserData dispatches loginSuccess(token)', () => {
     const dispatch = jest.fn();
     const loginSuccess = jest.fn((payload) => ({ type: 'LOGIN', payload }));
-    setUserData(dispatch, loginSuccess, 'tok123', {});
+    const token = 'tok123';
+    const userData = {};
+
+    setUserData(dispatch, loginSuccess, token, userData);
+
     expect(loginSuccess).toHaveBeenCalledWith({ token: 'tok123' });
     expect(dispatch).toHaveBeenCalledWith({ type: 'LOGIN', payload: { token: 'tok123' } });
   });
@@ -111,7 +124,9 @@ describe('user-data helpers', () => {
   it('clearUserData dispatches logout()', () => {
     const dispatch = jest.fn();
     const logout = jest.fn(() => ({ type: 'LOGOUT' }));
+
     clearUserData(dispatch, logout);
+
     expect(logout).toHaveBeenCalled();
     expect(dispatch).toHaveBeenCalledWith({ type: 'LOGOUT' });
   });

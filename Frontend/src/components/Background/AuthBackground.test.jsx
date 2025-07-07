@@ -3,7 +3,7 @@ import { render, cleanup } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import AuthBackground from './AuthBackground';
 
-jest.mock('./authBackgroundUtils.jsx', () => {
+jest.mock('./authBackgroundHandler.jsx', () => {
   const mockGetCircleConfigs = jest.fn(() => ({
     login: { id: 'cfg-login' },
     signup: { id: 'cfg-signup' },
@@ -33,29 +33,38 @@ describe('AuthBackground', () => {
   const renderUI = (ui) => render(ui).container.firstChild;
 
   it('renders default (login) background', () => {
+    const testContent = <span>Any content</span>;
+
     const node = renderUI(
       <AuthBackground>
-        <span>Any content</span>
+        {testContent}
       </AuthBackground>,
     );
+
     expect(node).toMatchSnapshot();
   });
 
   it('renders signup variant', () => {
+    const testContent = <span>Signup form</span>;
+
     const node = renderUI(
       <AuthBackground circlePosition="signup">
-        <span>Signup form</span>
+        {testContent}
       </AuthBackground>,
     );
+
     expect(node).toMatchSnapshot();
   });
 
   it('falls back to login config when circlePosition is invalid', () => {
+    const testContent = <span>Invalid pos</span>;
+
     const node = renderUI(
       <AuthBackground circlePosition="does-not-exist">
-        <span>Invalid pos</span>
+        {testContent}
       </AuthBackground>,
     );
+
     expect(node).toMatchSnapshot();
   });
 });

@@ -20,12 +20,16 @@ describe('<App />', () => {
   afterEach(() => cleanup());
 
   it('wraps the whole app in a light-themed div', () => {
+
     const { container } = render(<App />);
+
     expect(container.firstChild).toHaveAttribute('data-theme', 'light');
   });
 
   it('renders the Login page on route "/"', () => {
+
     render(<App />);
+
     expect(screen.getByTestId('login-page')).toBeInTheDocument();
   });
 });

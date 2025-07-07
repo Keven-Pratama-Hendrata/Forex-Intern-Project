@@ -4,7 +4,7 @@ import {
   getButtonEventHandlers,
   getButtonCoreProps,
   renderButton
-} from './buttonUtils.jsx';
+} from './buttonHandler.jsx';
 import { ButtonProps } from './Button.type';
 import { UI_CONSTANTS } from '../../../data';
 

@@ -6,12 +6,14 @@ import {
     renderCenteredSpinner,
     renderCustomSpinner,
     renderSpinnerVariant,
-} from './LoadingSpinnerUtil.jsx';
+} from './LoadingSpinnerHandler.jsx';
 
 describe('LoadingSpinnerUtil', () => {
     describe('renderDefaultSpinner', () => {
         it('renders a fullscreen spinner with correct size and style', () => {
-            const { container } = render(renderDefaultSpinner('lg'));
+            const size = 'lg';
+
+            const { container } = render(renderDefaultSpinner(size));
             const div = container.querySelector('div');
             const span = div.querySelector('span');
 
@@ -22,7 +24,9 @@ describe('LoadingSpinnerUtil', () => {
 
     describe('renderInlineSpinner', () => {
         it('renders an inline spinner with correct size and class', () => {
-            const { container } = render(renderInlineSpinner('md'));
+            const size = 'md';
+
+            const { container } = render(renderInlineSpinner(size));
             const span = container.querySelector('span');
 
             expect(span).toHaveClass('loading-md');
@@ -32,7 +36,9 @@ describe('LoadingSpinnerUtil', () => {
 
     describe('renderCenteredSpinner', () => {
         it('renders a centered spinner with correct size and layout', () => {
-            const { container } = render(renderCenteredSpinner('sm'));
+            const size = 'sm';
+
+            const { container } = render(renderCenteredSpinner(size));
             const div = container.querySelector('div');
             const span = div.querySelector('span');
 
@@ -43,7 +49,10 @@ describe('LoadingSpinnerUtil', () => {
 
     describe('renderCustomSpinner', () => {
         it('renders a custom spinner with correct size and additional class', () => {
-            const { container } = render(renderCustomSpinner('xl', 'my-custom'));
+            const size = 'xl';
+            const customClass = 'my-custom';
+
+            const { container } = render(renderCustomSpinner(size, customClass));
             const span = container.querySelector('span');
 
             expect(span).toHaveClass('loading-xl');
@@ -54,8 +63,10 @@ describe('LoadingSpinnerUtil', () => {
     describe('renderSpinnerVariant', () => {
         it('renders correct spinner based on variant type', () => {
             const renderAndAssert = (variant, size, expectedClass, extraClass) => {
+
                 const { container } = render(renderSpinnerVariant(variant, size, extraClass));
                 const element = container.querySelector('div') || container.querySelector('span');
+
                 expect(element).toHaveClass(expectedClass);
                 if (extraClass) expect(element).toHaveClass(extraClass);
             };

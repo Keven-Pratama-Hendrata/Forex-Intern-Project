@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { renderSpinnerVariant } from './LoadingSpinnerUtil.jsx';
+import { renderSpinnerVariant } from './LoadingSpinnerHandler.jsx';
 import { LoadingSpinnerProps } from './LoadingSpinner.type';
 
 /**

@@ -8,7 +8,7 @@ import {
     getButtonEventHandlers,
     getButtonCoreProps,
     renderButton
-} from './buttonUtils';
+} from './buttonHandler';
 import { UI_CONSTANTS, UI_CLASSES } from '../../../data';
 
 const createMockElement = () => {
@@ -25,7 +25,9 @@ describe('Button Utils', () => {
     describe('handleMouseEnter', () => {
         it('sets background color to hover color', () => {
             const element = createMockElement();
+
             handleMouseEnter(element);
+
             expect(element.currentTarget.style.backgroundColor).toBe(UI_CONSTANTS.BUTTON_COLORS.BLUE_HOVER);
         });
     });
@@ -33,7 +35,9 @@ describe('Button Utils', () => {
     describe('handleMouseLeave', () => {
         it('resets background color to default', () => {
             const element = createMockElement();
+
             handleMouseLeave(element);
+
             expect(element.currentTarget.style.backgroundColor).toBe(UI_CONSTANTS.BUTTON_COLORS.BLUE);
         });
     });
@@ -41,7 +45,9 @@ describe('Button Utils', () => {
     describe('handleMouseDown', () => {
         it('scales down the element', () => {
             const element = createMockElement();
+
             handleMouseDown(element);
+
             expect(element.currentTarget.style.transform).toBe('scale(0.97)');
         });
     });
@@ -49,20 +55,27 @@ describe('Button Utils', () => {
     describe('handleMouseUp', () => {
         it('resets the scale', () => {
             const element = createMockElement();
+
             handleMouseUp(element);
+
             expect(element.currentTarget.style.transform).toBe('scale(1)');
         });
     });
 
     describe('getButtonClassName', () => {
         it('returns base class when no additional class provided', () => {
-            const result = getButtonClassName('');
+            const additionalClass = '';
+
+            const result = getButtonClassName(additionalClass);
+
             expect(result).toBe(UI_CLASSES.BUTTON.BASE);
         });
 
         it('combines base class with additional class', () => {
             const additionalClass = 'custom-class';
+
             const result = getButtonClassName(additionalClass);
+
             expect(result).toBe(`${UI_CLASSES.BUTTON.BASE} ${additionalClass}`);
         });
     });
@@ -70,6 +83,7 @@ describe('Button Utils', () => {
     describe('getButtonStyle', () => {
         it('returns style object with correct background color', () => {
             const result = getButtonStyle();
+
             expect(result).toEqual({ backgroundColor: UI_CONSTANTS.BUTTON_COLORS.BLUE });
         });
     });
@@ -77,6 +91,7 @@ describe('Button Utils', () => {
     describe('getButtonEventHandlers', () => {
         it('returns object with all event handlers', () => {
             const onClick = jest.fn();
+
             const result = getButtonEventHandlers(onClick);
 
             expect(result).toHaveProperty('onMouseEnter');
@@ -88,9 +103,10 @@ describe('Button Utils', () => {
 
         it('calls onClick when provided', () => {
             const onClick = jest.fn();
-            const result = getButtonEventHandlers(onClick);
 
+            const result = getButtonEventHandlers(onClick);
             result.onClick();
+
             expect(onClick).toHaveBeenCalledTimes(1);
         });
     });
@@ -143,4 +159,3 @@ describe('Button Utils', () => {
         });
     });
 });
-

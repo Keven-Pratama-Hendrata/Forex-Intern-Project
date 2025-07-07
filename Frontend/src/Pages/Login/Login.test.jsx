@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect, jest } from '@jest/globals';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
@@ -63,7 +63,7 @@ jest.mock('../../components/common', () => ({
   setUserData: jest.fn(),
 }));
 
-jest.mock('./loginUtils.jsx', () => {
+jest.mock('./loginHandler.jsx', () => {
   const handleChange = jest.fn(() => () => { });
   const handleSubmit = jest.fn(
     (_form, setLoading) =>
@@ -137,6 +137,7 @@ const renderWithProvider = (ui) =>
 describe('Login Component', () => {
   it('renders correctly with default state', () => {
     const { container } = renderWithProvider(<Login />);
+
     expect(container.firstChild).toMatchSnapshot();
   });
 
@@ -144,7 +145,7 @@ describe('Login Component', () => {
     let loading = false;
     const setLoading = jest.fn((val) => { loading = val; });
 
-    require('./loginUtils.jsx').useLoginState.mockImplementation(() => ({
+    require('./loginHandler.jsx').useLoginState.mockImplementation(() => ({
       navigate: jest.fn(),
       dispatch: jest.fn(),
       loading,
@@ -154,23 +155,18 @@ describe('Login Component', () => {
     }));
 
     const { container, rerender } = renderWithProvider(<Login />);
-
     const button = screen.getByTestId('login-button');
+
     expect(button).toHaveTextContent('Log in');
     expect(button).not.toBeDisabled();
 
     fireEvent.submit(button.closest('form'));
-
     loading = true;
     rerender(<Provider store={createMockStore()}><Login /></Provider>);
 
-    await waitFor(() =>
-      expect(screen.getByTestId('loading-spinner')).toBeInTheDocument(),
-    );
-
-    expect(button).toBeDisabled();
     expect(button).toHaveTextContent('Loading...');
-
+    expect(button).toBeDisabled();
+    expect(screen.getByTestId('loading-spinner')).toBeInTheDocument();
     expect(container.firstChild).toMatchSnapshot();
   });
 });

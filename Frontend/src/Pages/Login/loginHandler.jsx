@@ -7,7 +7,7 @@ import {
   handleFormChange,
   validateRequiredFields,
   setUserData
-} from "../../components/common/FormField/formfieldUtils";
+} from "../../components/common/FormField/formfieldHandler";
 import { AUTH_ENDPOINTS, AUTH_MESSAGES, AUTH_FORMS } from "../../data";
 
 /**

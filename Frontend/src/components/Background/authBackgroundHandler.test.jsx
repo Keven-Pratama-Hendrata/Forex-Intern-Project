@@ -7,7 +7,7 @@ import {
   getConfig,
   renderWaveBackground,
   renderCircles,
-} from './authBackgroundUtils';
+} from './authBackgroundHandler';
 
 describe('authBackgroundUtils – config helpers', () => {
   it('returns fresh, complete circle-config objects', () => {
@@ -24,6 +24,7 @@ describe('authBackgroundUtils – config helpers', () => {
 
   it('getConfig selects explicit position or falls back to login', () => {
     const cfg = getCircleConfigs();
+
     expect(getConfig('login', cfg)).toBe(cfg.login);
     expect(getConfig('signup', cfg)).toBe(cfg.signup);
     expect(getConfig('does-not-exist', cfg)).toBe(cfg.login);
