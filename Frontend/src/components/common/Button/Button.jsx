@@ -1,12 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {
   getButtonEventHandlers,
   getButtonCoreProps,
   renderButton
 } from './buttonHandler.jsx';
 import { ButtonProps } from './Button.type';
-import { UI_CONSTANTS } from '../../../data';
 
 /**
  * Styled button component with interactive hover and press effects.

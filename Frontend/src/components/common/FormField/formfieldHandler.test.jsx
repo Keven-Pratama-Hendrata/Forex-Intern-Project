@@ -27,7 +27,7 @@ describe('handleFormChange', () => {
       { name: 'username', value: '' },
       { username: '', password: 'secret' },
     ],
-  ])('%s', (_title, initial, evtTarget, expected) => {
+  ])('%s', (title, initial, evtTarget, expected) => {
     const setForm = jest.fn();
 
     handleFormChange(initial, setForm)({ target: evtTarget });
@@ -74,7 +74,7 @@ describe('validateRequiredFields', () => {
     ],
   ];
 
-  it.each(invalidCases)('invalid when %s', (_lbl, form, req, msg) => {
+  it.each(invalidCases)('invalid when %s', (lbl, form, req, msg) => {
     const messages = {};
 
     const res = validateRequiredFields(form, req, messages);

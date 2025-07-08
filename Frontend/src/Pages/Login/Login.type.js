@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 
 export const LoginFormState = {
-    user_name: PropTypes.string.isRequired,
+    username: PropTypes.string.isRequired,
     password: PropTypes.string.isRequired,
 };
 

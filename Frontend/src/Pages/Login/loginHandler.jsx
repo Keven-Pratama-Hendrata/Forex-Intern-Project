@@ -20,7 +20,7 @@ export const useLoginState = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
-  const [form, setForm] = useState({ user_name: "", password: "" });
+  const [form, setForm] = useState({ username: "", password: "" });
 
   return { navigate, dispatch, loading, setLoading, form, setForm };
 };
@@ -30,7 +30,7 @@ export const useLoginState = () => {
  * @returns {Object} Validation error messages object
  */
 const createValidationMessages = () => ({
-  user_name: AUTH_MESSAGES.VALIDATION.USERNAME_REQUIRED,
+  username: AUTH_MESSAGES.VALIDATION.USERNAME_REQUIRED,
   password: AUTH_MESSAGES.VALIDATION.PASSWORD_REQUIRED
 });
 
@@ -38,7 +38,7 @@ const createValidationMessages = () => ({
  * Validates login form fields for required username and password
  * Checks if both fields are present and shows error toast if validation fails
  * @param {Object} form Form data object containing username and password fields
- * @param {string} form.user_name User's username input
+ * @param {string} form.username User's username input
  * @param {string} form.password User's password input
  * @returns {boolean} True if both username and password are provided, false otherwise
  */
@@ -61,7 +61,7 @@ export const validateForm = (form) => {
  * Creates HTTP request configuration for login API endpoint
  * Sets up POST request with JSON content type and form data in request body
  * @param {Object} form Form data object containing username and password
- * @param {string} form.user_name User's username for authentication
+ * @param {string} form.username User's username for authentication
  * @param {string} form.password User's password for authentication
  * @returns {Object} Fetch request configuration with method, headers, and body
  */
@@ -116,7 +116,7 @@ const handleLoginResponse = async (response) => {
  * Performs HTTP request to login API endpoint
  * Orchestrates the complete API call process including request creation and response handling
  * @param {Object} form Form data object containing username and password
- * @param {string} form.user_name User's username for authentication
+ * @param {string} form.username User's username for authentication
  * @param {string} form.password User's password for authentication
  * @returns {Promise<Object>} Login response data with user details and authentication token
  * @throws {Error} When API request fails or returns error response
@@ -133,14 +133,14 @@ const makeLoginRequest = async (form) => {
  * @param {Function} dispatch Redux dispatch function for updating store state
  * @param {Object} data Login response data from successful API call
  * @param {string} data.token JWT authentication token
- * @param {string} data.userId Unique user identifier
- * @param {string} data.userName User's display name
+ * @param {string} data.userid Unique user identifier
+ * @param {string} data.username User's display name
  * @param {Object} data.balances User's account balance information
  */
 const handleLoginSuccess = (dispatch, data) => {
   setUserData(dispatch, loginSuccess, data.token, {
-    id: data.userId,
-    username: data.userName,
+    id: data.userid,
+    username: data.username,
     balances: data.balances
   });
 
@@ -151,7 +151,7 @@ const handleLoginSuccess = (dispatch, data) => {
  * Orchestrates the complete login authentication process
  * Manages loading state, API communication, error handling, and navigation
  * @param {Object} form Form data object containing username and password
- * @param {string} form.user_name User's username for authentication
+ * @param {string} form.username User's username for authentication
  * @param {string} form.password User's password for authentication
  * @param {Function} setLoading Function to update loading state during API call
  * @param {Function} navigate React Router navigation function for redirecting after login
@@ -175,7 +175,7 @@ export const handleLogin = async (form, setLoading, navigate, dispatch) => {
  * Creates form submission event handler for login form
  * Prevents default form submission, validates form data, and initiates login process
  * @param {Object} form Form data object containing username and password
- * @param {string} form.user_name User's username for authentication
+ * @param {string} form.username User's username for authentication
  * @param {string} form.password User's password for authentication
  * @param {Function} setLoading Function to update loading state during form submission
  * @param {Function} navigate React Router navigation function for post-login redirect

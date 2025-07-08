@@ -19,18 +19,19 @@ exports[`Login Component renders correctly with default state 1`] = `
       Ready to conquer the markets?
     </p>
     <div
-      data-testid="form-field-user_name"
+      data-testid="form-field-username"
     >
       <label>
         Username
       </label>
       <input
         autocomplete="username"
-        data-testid="input-user_name"
-        name="user_name"
+        data-testid="input-username"
+        name="username"
         placeholder="John Doe"
         required=""
         type="text"
+        value=""
       />
     </div>
     <div
@@ -90,18 +91,19 @@ exports[`Login Component toggles to loading state after form submit (covers line
       Ready to conquer the markets?
     </p>
     <div
-      data-testid="form-field-user_name"
+      data-testid="form-field-username"
     >
       <label>
         Username
       </label>
       <input
         autocomplete="username"
-        data-testid="input-user_name"
-        name="user_name"
+        data-testid="input-username"
+        name="username"
         placeholder="John Doe"
         required=""
         type="text"
+        value=""
       />
     </div>
     <div

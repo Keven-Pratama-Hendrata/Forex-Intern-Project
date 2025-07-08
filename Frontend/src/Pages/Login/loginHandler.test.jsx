@@ -1,6 +1,5 @@
 import { validateForm, handleChange, useLoginState } from './loginHandler.jsx';
 import * as formfieldUtils from '../../components/common/FormField/formfieldHandler';
-import { AUTH_MESSAGES } from '../../data/authData.js';
 import toast from 'react-hot-toast';
 import { renderHook } from '@testing-library/react';
 import { Provider } from 'react-redux';
@@ -20,7 +19,7 @@ describe('loginUtils', () => {
         });
         it('returns true if all required fields are present', () => {
             jest.spyOn(formfieldUtils, 'validateRequiredFields').mockReturnValue({ isValid: true });
-            const form = { user_name: 'user', password: 'pass' };
+            const form = { username: 'user', password: 'pass' };
 
             const result = validateForm(form);
 
@@ -29,7 +28,7 @@ describe('loginUtils', () => {
         });
         it('returns false and shows toast if required fields are missing', () => {
             jest.spyOn(formfieldUtils, 'validateRequiredFields').mockReturnValue({ isValid: false, message: 'Username is required' });
-            const form = { user_name: '', password: 'pass' };
+            const form = { username: '', password: 'pass' };
 
             const result = validateForm(form);
 
@@ -45,7 +44,7 @@ describe('loginUtils', () => {
             setLoading = jest.fn();
             navigate = jest.fn();
             dispatch = jest.fn();
-            form = { user_name: 'user', password: 'pass' };
+            form = { username: 'user', password: 'pass' };
         });
 
         it('handles successful login with all fields', async () => {
@@ -53,8 +52,8 @@ describe('loginUtils', () => {
                 ok: true,
                 json: async () => ({
                     token: 'abc',
-                    userId: 'id',
-                    userName: 'user',
+                    userid: 'id',
+                    username: 'user',
                     balances: { usd: 100 }
                 }),
             });
@@ -106,7 +105,7 @@ describe('loginUtils', () => {
         it('handles successful login with missing balances', async () => {
             global.fetch = jest.fn().mockResolvedValue({
                 ok: true,
-                json: async () => ({ token: 'abc', userId: 'id', userName: 'user' }),
+                json: async () => ({ token: 'abc', userid: 'id', username: 'user' }),
             });
             jest.spyOn(formfieldUtils, 'setUserData').mockImplementation(() => { });
             const { handleLogin } = require('./loginHandler.jsx');
@@ -118,7 +117,7 @@ describe('loginUtils', () => {
             expect(navigate).toHaveBeenCalledWith('/dashboard');
         });
 
-        it('handles successful login with missing userId/userName', async () => {
+        it('handles successful login with missing userid/username', async () => {
             global.fetch = jest.fn().mockResolvedValue({
                 ok: true,
                 json: async () => ({ token: 'abc', balances: { usd: 100 } }),
@@ -136,7 +135,7 @@ describe('loginUtils', () => {
         it('handles error if setUserData throws', async () => {
             global.fetch = jest.fn().mockResolvedValue({
                 ok: true,
-                json: async () => ({ token: 'abc', userId: 'id', userName: 'user', balances: {} }),
+                json: async () => ({ token: 'abc', userid: 'id', username: 'user', balances: {} }),
             });
             jest.spyOn(formfieldUtils, 'setUserData').mockImplementation(() => { throw new Error('setUserData error'); });
             const { handleLogin } = require('./loginHandler.jsx');
@@ -149,7 +148,7 @@ describe('loginUtils', () => {
         it('handles error if toast.success throws', async () => {
             global.fetch = jest.fn().mockResolvedValue({
                 ok: true,
-                json: async () => ({ token: 'abc', userId: 'id', userName: 'user', balances: {} }),
+                json: async () => ({ token: 'abc', userid: 'id', username: 'user', balances: {} }),
             });
             jest.spyOn(formfieldUtils, 'setUserData').mockImplementation(() => { });
             toast.success.mockImplementationOnce(() => { throw new Error('toast error'); });
@@ -166,7 +165,7 @@ describe('loginUtils', () => {
             const setLoading = jest.fn();
             const navigate = jest.fn();
             const dispatch = jest.fn();
-            const form = { user_name: 'user', password: 'pass' };
+            const form = { username: 'user', password: 'pass' };
 
             await handleLogin(form, setLoading, navigate, dispatch);
 
@@ -227,7 +226,7 @@ describe('loginUtils', () => {
             const setLoading = jest.fn();
             const navigate = jest.fn();
             const dispatch = jest.fn();
-            const form = { user_name: '', password: '' };
+            const form = { username: '', password: '' };
             const mockEvent = { preventDefault: jest.fn() };
             jest.spyOn(formfieldUtils, 'validateRequiredFields').mockReturnValue({ isValid: false, message: 'Username is required' });
             const { handleSubmit } = require('./loginHandler.jsx');
@@ -243,7 +242,7 @@ describe('loginUtils', () => {
             const setLoading = jest.fn();
             const navigate = jest.fn();
             const dispatch = jest.fn();
-            const form = { user_name: 'user', password: 'pass' };
+            const form = { username: 'user', password: 'pass' };
             const mockEvent = { preventDefault: jest.fn() };
             jest.spyOn(formfieldUtils, 'validateRequiredFields').mockReturnValue({ isValid: true });
             const { handleSubmit } = require('./loginHandler.jsx');
@@ -259,7 +258,7 @@ describe('loginUtils', () => {
             const setLoading = jest.fn();
             const navigate = jest.fn();
             const dispatch = jest.fn();
-            const form = { user_name: 'user', password: 'pass' };
+            const form = { username: 'user', password: 'pass' };
             jest.spyOn(formfieldUtils, 'validateRequiredFields').mockReturnValue({ isValid: true });
             const { handleSubmit } = require('./loginHandler.jsx');
             const handleLoginMock = jest.fn().mockResolvedValue();
@@ -272,7 +271,7 @@ describe('loginUtils', () => {
             const setLoading = jest.fn();
             const navigate = jest.fn();
             const dispatch = jest.fn();
-            const form = { user_name: 'user', password: 'pass' };
+            const form = { username: 'user', password: 'pass' };
             jest.spyOn(formfieldUtils, 'validateRequiredFields').mockReturnValue({ isValid: true });
             global.fetch = jest.fn().mockResolvedValue({
                 ok: false,

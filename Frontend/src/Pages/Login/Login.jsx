@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router";
-import PropTypes from 'prop-types';
 
 import AuthBackground from "../../components/Background";
 import { Button, LoadingSpinner, FormField } from "../../components/common";
@@ -119,9 +118,9 @@ const UsernameField = ({ form, setForm }) => (
   <FormField
     label="Username"
     type="text"
-    name="user_name"
+    name="username"
     placeholder={AUTH_FORMS.LOGIN.PLACEHOLDERS.USERNAME}
-    value={form.user_name}
+    value={form.username}
     onChange={handleChange(form, setForm)}
     autoComplete={AUTH_FORMS.LOGIN.AUTOCOMPLETE.USERNAME}
     required

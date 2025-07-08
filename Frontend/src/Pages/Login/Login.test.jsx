@@ -66,7 +66,7 @@ jest.mock('../../components/common', () => ({
 jest.mock('./loginHandler.jsx', () => {
   const handleChange = jest.fn(() => () => { });
   const handleSubmit = jest.fn(
-    (_form, setLoading) =>
+    (form, setLoading) =>
       (e) => {
         e?.preventDefault?.();
         setLoading(true);

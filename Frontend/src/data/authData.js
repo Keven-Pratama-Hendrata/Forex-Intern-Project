@@ -28,7 +28,7 @@ export const AUTH_MESSAGES = {
 
 export const AUTH_FORMS = {
     LOGIN: {
-        FIELDS: ['user_name', 'password'],
+        FIELDS: ['username', 'password'],
         PLACEHOLDERS: {
             USERNAME: 'John Doe',
             PASSWORD: '••••••••',
@@ -39,7 +39,7 @@ export const AUTH_FORMS = {
         },
     },
     SIGNUP: {
-        FIELDS: ['user_name', 'email', 'password', 'confirm_password'],
+        FIELDS: ['username', 'email', 'password', 'confirm_password'],
         PLACEHOLDERS: {
             USERNAME: 'John Doe',
             EMAIL: 'john@example.com',
