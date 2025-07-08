@@ -3,9 +3,10 @@
  */
 class UserController {
   /**
-   * @param {Object} root0 Dependencies for UserController
-   * @param {Object} root0.userService The user service
-   * @param {Object} root0.logger The logger instance
+   * Creates an instance of UserController.
+   * @param {Object} dependencies An object containing all dependencies for UserController.
+   * @param {Object} dependencies.userService The user service
+   * @param {Object} dependencies.logger The logger instance
    */
   constructor({ userService, logger }) {
     this.userService = userService;
@@ -14,45 +15,60 @@ class UserController {
 
   /**
    * Retrieves the user profile
-   * @param {import('express').Request} req Express request object
-   * @param {import('express').Response} res Express response object
+   * @param {Object} req Express request object
+   * @param {Object} res Express response object
    * @param {Function} next Express next middleware function
    */
   async getUserProfile(req, res, next) {
     try {
-      const userId = req.user.id;
-      this.logger.info('Getting user profile', { userId });
+      if (!req.user) {
+        this.logger.error('User not found in request');
+        throw new Error('User not found in request');
+      }
+      const { id } = req.user;
 
-      const profile = await this.userService.getUserProfile(userId);
+      this.logger.info('Getting user profile', { userid: id });
 
-      this.logger.info('User profile retrieved successfully', { userId });
+      const profile = await this.userService.getUserProfile(id);
+
+      this.logger.info('User profile retrieved successfully', { userid: id });
+
       res.status(200).json(profile);
     } catch (err) {
-      this.logger.error('Failed to get user profile', { userId: req.user?.id, error: err.message });
+      const { id } = req.user || {};
+      this.logger.error('Failed to get user profile', { userid: id, error: err.message });
       next(err);
     }
   }
 
   /**
    * Updates the user's balance
-   * @param {import('express').Request} req Express request object
-   * @param {import('express').Response} res Express response object
+   * @param {Object} req Express request object
+   * @param {Object} res Express response object
    * @param {Function} next Express next middleware function
    */
   async updateBalance(req, res, next) {
     try {
-      const userId = req.user.id;
+      if (!req.user) {
+        this.logger.error('User not found in request');
+        throw new Error('User not found in request');
+      }
+      const { id } = req.user;
       const { balance } = req.body;
-      this.logger.info('Updating user balance', { userId, balance });
 
-      const result = await this.userService.handleUpdateBalance(userId, balance);
+      this.logger.info('Updating user balance', { userid: id, balance });
 
-      this.logger.info('Balance updated successfully', { userId, balance });
+      const result = await this.userService.handleUpdateBalance(id, balance);
+
+      this.logger.info('Balance updated successfully', { userid: id, balance });
+
       res.status(200).json(result);
     } catch (err) {
+      const { id } = req.user || {};
+      const { balance } = req.body || {};
       this.logger.error('Failed to update balance', {
-        userId: req.user?.id,
-        balance: req.body.balance,
+        userid: id,
+        balance,
         error: err.message
       });
       next(err);

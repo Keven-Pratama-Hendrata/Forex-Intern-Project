@@ -22,32 +22,32 @@ describe('MongooseUserRepository', () => {
     afterEach(() => sinon.restore());
 
     it('should find user by id', async () => {
-        const fakeUser = { _id: '1', user_name: 'test' };
+        const fakeUser = { id: '1', username: 'test' };
         findByIdStub.resolves(fakeUser);
-        const result = await repo.ofId('1');
+        const result = await repo.findOneById('1');
         expect(findByIdStub).to.have.been.calledWith('1');
         expect(result).to.equal(fakeUser);
     });
 
     it('should find user by user name', async () => {
-        const fakeUser = { _id: '2', user_name: 'foo' };
+        const fakeUser = { id: '2', username: 'foo' };
         findOneStub.resolves(fakeUser);
-        const result = await repo.ofUserName('foo');
-        expect(findOneStub).to.have.been.calledWith({ user_name: 'foo' });
+        const result = await repo.findOneByUsername('foo');
+        expect(findOneStub).to.have.been.calledWith({ username: 'foo' });
         expect(result).to.equal(fakeUser);
     });
 
-    it('should update user if _id exists', async () => {
-        const fakeUser = { _id: '3', user_name: 'bar' };
+    it('should update user if id exists', async () => {
+        const fakeUser = { id: '3', username: 'bar' };
         findByIdAndUpdateStub.resolves(fakeUser);
         const result = await repo.save(fakeUser);
         expect(findByIdAndUpdateStub).to.have.been.calledWith('3', fakeUser, { new: true });
         expect(result).to.equal(fakeUser);
     });
 
-    it('should create user if _id does not exist', async () => {
-        const fakeUser = { user_name: 'baz' };
-        const savedUser = { _id: '4', user_name: 'baz' };
+    it('should create user if id does not exist', async () => {
+        const fakeUser = { username: 'baz' };
+        const savedUser = { id: '4', username: 'baz' };
         saveStub.resolves(savedUser);
         const result = await repo.save(fakeUser);
         expect(saveStub).to.have.been.calledOnce;

@@ -45,7 +45,7 @@ describe('userRoute', () => {
             call.args[1] &&
             call.args[1].method === 'GET' &&
             call.args[1].path === '/profile' &&
-            call.args[1].userId === 'test'
+            call.args[1].userid === 'test'
         );
         expect(found).to.be.true;
         expect(userController.getUserProfile).to.have.been.calledWith(req, res, next);
@@ -64,7 +64,7 @@ describe('userRoute', () => {
             call.args[1] &&
             call.args[1].method === 'POST' &&
             call.args[1].path === '/balance' &&
-            call.args[1].userId === 'test'
+            call.args[1].userid === 'test'
         );
         expect(found).to.be.true;
         expect(userController.updateBalance).to.have.been.calledWith(req, res, next);

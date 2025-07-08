@@ -7,8 +7,8 @@ import rateLimit from 'express-rate-limit';
  */
 export default function createRateLimiter(config) {
   return rateLimit({
-    windowMs: config.rateLimit.windowMs || 15 * 60 * 1000,
-    max: config.rateLimit.max || 100,
+    windowMs: config.rateLimit.windowMs,
+    max: config.rateLimit.max,
     message: {
       code: 'TOO_MANY_REQUESTS',
       error: { message: 'Too many requests, please try again later.' },

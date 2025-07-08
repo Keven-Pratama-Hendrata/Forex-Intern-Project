@@ -9,12 +9,12 @@ describe('UserRepository (abstract)', () => {
         repo = new UserRepository();
     });
 
-    it('should throw error for ofId()', async () => {
-        await expect(repo.ofId('id')).to.be.rejectedWith('Method ofId() must be implemented');
+    it('should throw error for findOneById()', async () => {
+        await expect(repo.findOneById('id')).to.be.rejectedWith('Method findOneById() must be implemented');
     });
 
-    it('should throw error for ofUserName()', async () => {
-        await expect(repo.ofUserName('user')).to.be.rejectedWith('Method ofUserName() must be implemented');
+    it('should throw error for findOneByUsername()', async () => {
+        await expect(repo.findOneByUsername('user')).to.be.rejectedWith('Method findOneByUsername() must be implemented');
     });
 
     it('should throw error for save()', async () => {

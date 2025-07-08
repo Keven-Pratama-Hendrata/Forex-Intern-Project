@@ -25,10 +25,7 @@ export default [
             'jsdoc/require-jsdoc': [
                 'error',
                 {
-                    publicOnly: {
-                        esm: true,
-                        cjs: true,
-                    },
+                    publicOnly: false,
                     require: {
                         FunctionDeclaration: true,
                         MethodDefinition: true,

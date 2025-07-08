@@ -5,11 +5,11 @@ import Constants from '../constants.js';
  */
 class UserService {
   /**
-   * Create a UserService instance.
-   * @param {Object} root0 Dependencies for UserService
-   * @param {Object} root0.userRepository The user repository
-   * @param {Object} root0.logger The logger instance
-   * @param {Object} root0.config The configuration object
+   * Creates an instance of UserService.
+   * @param {Object} dependencies An object containing all dependencies for UserService.
+   * @param {Object} dependencies.userRepository The user repository
+   * @param {Object} dependencies.logger The logger instance
+   * @param {Object} dependencies.config The configuration object
    */
   constructor({ userRepository, logger, config }) {
     this.userRepository = userRepository;
@@ -25,16 +25,16 @@ class UserService {
    * @returns {Object} The updated user object
    */
   updateBalance(user, currency, amount) {
-    this.logger.info('Updating user balance', { userId: user._id, currency, amount });
+    this.logger.info('Updating user balance', { userid: user.id, currency, amount });
 
     const balances = [...user.balances];
-    const balanceHistory = [...user.balance_history];
+    const balanceHistory = [...user.balanceHistory];
     const existingBalanceIndex = balances.findIndex((b) => b.currency === currency);
 
     if (existingBalanceIndex === -1) {
       if (parseFloat(amount) < 0) {
         this.logger.error('Insufficient funds for new balance', {
-          userId: user._id, currency, amount
+          userid: user.id, currency, amount
         });
         throw new Error('Insufficient funds');
       }
@@ -44,7 +44,7 @@ class UserService {
         parseFloat(balances[existingBalanceIndex].amount) + parseFloat(amount);
       if (newBalance < 0) {
         this.logger.error('Insufficient funds for balance update', {
-          userId: user._id, currency, amount, newBalance
+          userid: user.id, currency, amount, newBalance
         });
         throw new Error('Insufficient funds');
       }
@@ -59,12 +59,12 @@ class UserService {
     });
 
     this.logger.info('Balance updated successfully', {
-      userId: user._id,
+      userid: user.id,
       currency,
       newAmount: balances.find((b) => b.currency === currency).amount
     });
 
-    return { ...user, balances, balance_history: balanceHistory };
+    return { ...user, balances, balanceHistory: balanceHistory };
   }
 
   /**
@@ -74,75 +74,75 @@ class UserService {
    * @returns {Object} The updated user object
    */
   updateTodayBalanceUsd(user, amount) {
-    this.logger.info('Updating today balance USD', { userId: user._id, amount });
+    this.logger.info('Updating today balance USD', { userid: user.id, amount });
 
     return {
       ...user,
-      today_balance_usd: parseFloat(amount),
-      last_fetched_date: new Date()
+      todayBalanceUsd: parseFloat(amount),
+      lastFetchedDate: new Date()
     };
   }
 
   /**
    * Get the user profile by user ID.
-   * @param {string} userId The user ID
+   * @param {string} userid The user ID
    * @returns {Promise<Object>} The user profile object
    */
-  async getUserProfile(userId) {
-    this.logger.info('Getting user profile', { userId });
+  async getUserProfile(userid) {
+    this.logger.info('Getting user profile', { userid });
 
-    const user = await this.userRepository.ofId(userId);
+    const user = await this.userRepository.findOneById(userid);
 
     if (!user) {
-      this.logger.error('User not found', { userId });
+      this.logger.error('User not found', { userid });
       throw new Error('User not found');
     }
 
     const today = new Date();
-    const lastFetched = new Date(user.last_fetched_date);
+    const lastFetched = new Date(user.lastFetchedDate);
     let userWithUpdatedHistory = user;
 
     if (today.toDateString() !== lastFetched.toDateString()) {
-      this.logger.info('Updating user history for new day', { userId });
+      this.logger.info('Updating user history for new day', { userid });
       userWithUpdatedHistory = this.updateTodayBalanceUsd(
         user,
-        user.today_balance_usd
+        user.todayBalanceUsd
       );
       userWithUpdatedHistory = await this.userRepository.save(userWithUpdatedHistory);
     }
 
-    this.logger.info('User profile retrieved successfully', { userId });
+    this.logger.info('User profile retrieved successfully', { userid });
 
     return {
-      user_id: userWithUpdatedHistory._id,
-      user_name: userWithUpdatedHistory.user_name,
+      userid: userWithUpdatedHistory.id,
+      username: userWithUpdatedHistory.username,
       balances: userWithUpdatedHistory.balances,
-      daily_total_usd_history: userWithUpdatedHistory.daily_total_usd_history,
-      last_fetched_date: userWithUpdatedHistory.last_fetched_date,
-      today_balance_usd: userWithUpdatedHistory.today_balance_usd
+      dailyTotalUsdHistory: userWithUpdatedHistory.dailyTotalUsdHistory,
+      lastFetchedDate: userWithUpdatedHistory.lastFetchedDate,
+      todayBalanceUsd: userWithUpdatedHistory.todayBalanceUsd
     };
   }
 
   /**
    * Handle updating the user's balance.
-   * @param {string} userId The user ID
+   * @param {string} userid The user ID
    * @param {Object} balance The balance update object
    * @returns {Promise<Object>} The result of the balance update
    */
-  async handleUpdateBalance(userId, balance) {
-    this.logger.info('Handling balance update', { userId, balance });
+  async handleUpdateBalance(userid, balance) {
+    this.logger.info('Handling balance update', { userid, balance });
 
-    const user = await this.userRepository.ofId(userId);
+    const user = await this.userRepository.findOneById(userid);
 
     if (!user) {
-      this.logger.error('User not found for balance update', { userId });
+      this.logger.error('User not found for balance update', { userid });
       throw new Error('User not found');
     }
 
     const updatedUserObj = this.updateBalance(user, balance.currency, balance.amount);
     const updatedUser = await this.userRepository.save(updatedUserObj);
 
-    this.logger.info('Balance update completed successfully', { userId, balance });
+    this.logger.info('Balance update completed successfully', { userid, balance });
 
     return {
       message: 'Balance updated',

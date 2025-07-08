@@ -18,7 +18,7 @@ export default function createAuthMiddleware({ authService, logger }) {
       }
       const decoded = authService.verifyToken(token);
       req.user = decoded;
-      logger.info('Token verified successfully', { userId: decoded.user_id });
+      logger.info('Token verified successfully', { userid: decoded.userid });
       next();
     } catch (error) {
       if (error instanceof CustomError) {

@@ -37,7 +37,7 @@ describe('AuthMiddleware', () => {
     describe('verifyToken', () => {
         it('should verify token successfully and set user in request', () => {
             const token = 'valid.jwt.token';
-            const decodedToken = { user_id: '123', user_name: 'test_user' };
+            const decodedToken = { userid: '123', username: 'test_user' };
 
             mockReq.headers.authorization = `Bearer ${token}`;
             mockAuthService.verifyToken.returns(decodedToken);
@@ -47,7 +47,7 @@ describe('AuthMiddleware', () => {
             expect(mockAuthService.verifyToken).to.have.been.calledWith(token);
             expect(mockReq.user).to.deep.equal(decodedToken);
             expect(mockNext).to.have.been.calledWith();
-            expect(mockLogger.info).to.have.been.calledWith('Token verified successfully', { userId: decodedToken.user_id });
+            expect(mockLogger.info).to.have.been.calledWith('Token verified successfully', { userid: decodedToken.userid });
         });
 
         it('should throw error when no authorization header is provided', () => {

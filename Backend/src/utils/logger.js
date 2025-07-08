@@ -40,8 +40,8 @@ const Logger = {
 
   /**
    * Express middleware to log HTTP requests.
-   * @param {import('express').Request} req Express request object
-   * @param {import('express').Response} res Express response object
+   * @param {Object} req Express request object
+   * @param {Object} res Express response object
    * @param {Function} next Express next middleware function
    */
   logRequest(req, res, next) {

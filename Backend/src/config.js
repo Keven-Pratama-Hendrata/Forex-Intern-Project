@@ -10,7 +10,7 @@ const config = {
         uri: process.env.DB_URI
     },
     jwt: {
-        secretKey: process.env.JWT_SECRET || 'a7c8d9e0f1g2h3i4j5k6l7m8n9o0p1q2r3s4t5u6v7w8x9y0z1',
+        secretKey: process.env.JWT_SECRET,
         keyAlgorithm: process.env.JWT_ALGORITHM || 'HS256',
         expiry: process.env.JWT_EXPIRY || '24h',
         audience: process.env.JWT_AUDIENCE || 'forex-app'

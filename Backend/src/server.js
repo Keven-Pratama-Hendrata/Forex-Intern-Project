@@ -7,7 +7,18 @@ import errorHandler from './middleware/errorHandler.js';
 
 dotenv.config();
 
+/**
+ * Main application class for the backend server.
+ * Handles initialization, middleware, routes, error handling, and server lifecycle.
+ * @class
+ */
 class App {
+  /**
+   * Constructs the App instance and initializes the application.
+   * @param {Object} opts Options for the app.
+   * @param {Object} opts.container Dependency injection container.
+   * @param {number} [opts.port] Port to run the server on.
+   */
   constructor(opts) {
     this.app = express();
     this.container = opts.container;
@@ -17,6 +28,10 @@ class App {
     this.initializeApp();
   }
 
+  /**
+   * Initializes the application by setting up middleware, routes, and error handling.
+   * @returns {void}
+   */
   initializeApp() {
     this.logger.info('Initializing application');
     this.setupMiddleware();
@@ -25,6 +40,10 @@ class App {
     this.logger.info('Application initialization completed');
   }
 
+  /**
+   * Sets up all middleware for the Express app, including CORS and custom middleware.
+   * @returns {void}
+   */
   setupMiddleware() {
     this.logger.info('Setting up middleware');
 
@@ -51,6 +70,10 @@ class App {
     this.logger.info('Middleware setup completed');
   }
 
+  /**
+   * Sets up all application routes.
+   * @returns {void}
+   */
   setupRoutes() {
     this.logger.info('Setting up routes');
 
@@ -60,6 +83,10 @@ class App {
     this.logger.info('Routes setup completed');
   }
 
+  /**
+   * Sets up global error handling middleware.
+   * @returns {void}
+   */
   setupErrorHandling() {
     this.logger.info('Setting up error handling');
 
@@ -68,6 +95,11 @@ class App {
     this.logger.info('Error handling setup completed');
   }
 
+  /**
+   * Starts the server and runs initializations.
+   * @async
+   * @returns {Promise<void>} Resolves when the server has started.
+   */
   async start() {
     try {
       this.logger.info('Starting server', { port: this.port });
@@ -86,24 +118,45 @@ class App {
     }
   }
 
+  /**
+   * Runs all required initializations before starting the server.
+   * @async
+   * @returns {Promise<void>}
+   */
   async runInitializations() {
     const databaseInit = this.container.getInitialization('database');
+
     await databaseInit();
   }
 
+  /**
+   * Stops the server if it is running.
+   * @async
+   * @returns {Promise<void>|void} Resolves when the server has stopped, or void if the server was not running.
+   */
   async stop() {
     if (this.server) {
       this.logger.info('Stopping server');
+
       this.server.close();
+
       this.logger.info('Server stopped successfully');
     }
   }
 
+  /**
+   * Returns the Express app instance used by the server.
+   * @returns {import('express').Express} The Express app instance used by the server to handle HTTP requests.
+   */
   getApp() {
     return this.app;
   }
 }
 
+/**
+ * The main application instance.
+ * @type {App}
+ */
 const app = new App({
   container,
   port: config.server.port

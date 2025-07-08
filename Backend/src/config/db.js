@@ -9,9 +9,11 @@ import config from '../config.js';
 export const connectDB = async () => {
   try {
     await mongoose.connect(config.db.uri);
+
     Logger.info('MongoDB connected');
   } catch (error) {
     Logger.error('Error connecting to database', { error });
+
     process.exit(1);
   }
 };

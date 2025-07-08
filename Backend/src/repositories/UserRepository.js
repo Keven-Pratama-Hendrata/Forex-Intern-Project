@@ -4,31 +4,31 @@
 class UserRepository {
   /**
    * Find a user by ID.
-   * @param {string} _id The user ID
+   * @param {string} id The user ID
    * @returns {Promise<Object|null>} The user object or null if not found
    */
   // eslint-disable-next-line no-unused-vars
-  async ofId(_id) {
-    throw new Error('Method ofId() must be implemented');
+  async findOneById(id) {
+    throw new Error('Method findOneById() must be implemented');
   }
 
   /**
-   * Find a user by user name.
-   * @param {string} _userName The user name
+   * Find a user by username.
+   * @param {string} username The username
    * @returns {Promise<Object|null>} The user object or null if not found
    */
   // eslint-disable-next-line no-unused-vars
-  async ofUserName(_userName) {
-    throw new Error('Method ofUserName() must be implemented');
+  async findOneByUsername(username) {
+    throw new Error('Method findOneByUsername() must be implemented');
   }
 
   /**
    * Save a user object.
-   * @param {Object} _user - The user object to save
+   * @param {Object} user - The user object to save
    * @returns {Promise<Object>} The saved user object
    */
   // eslint-disable-next-line no-unused-vars
-  async save(_user) {
+  async save(user) {
     throw new Error('Method save() must be implemented');
   }
 }

@@ -11,19 +11,19 @@ class MongooseUserRepository extends UserRepository {
    * @param {string} id The user ID
    * @returns {Promise<Object|null>} The user object or null if not found
    */
-  async ofId(id) {
+  async findOneById(id) {
     const mongooseUser = await UserModel.findById(id);
 
     return mongooseUser;
   }
 
   /**
-   * Find a user by user name
-   * @param {string} userName The user name
+   * Find a user by username
+   * @param {string} username The username
    * @returns {Promise<Object|null>} The user object or null if not found
    */
-  async ofUserName(userName) {
-    const mongooseUser = await UserModel.findOne({ user_name: userName });
+  async findOneByUsername(username) {
+    const mongooseUser = await UserModel.findOne({ username: username });
 
     return mongooseUser;
   }
@@ -35,14 +35,16 @@ class MongooseUserRepository extends UserRepository {
    */
   async save(user) {
     let updatedMongooseUser;
-    if (user._id) {
+
+    if (user.id) {
       updatedMongooseUser = await UserModel.findByIdAndUpdate(
-        user._id,
+        user.id,
         user,
         { new: true }
       );
     } else {
       const newUser = new UserModel(user);
+
       updatedMongooseUser = await newUser.save();
     }
 

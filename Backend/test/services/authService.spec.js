@@ -17,7 +17,7 @@ describe('AuthService', () => {
 
     beforeEach(() => {
         mockUserRepository = {
-            ofUserName: sinon.stub(),
+            findOneByUsername: sinon.stub(),
         };
         mockLogger = {
             info: sinon.stub(),
@@ -45,14 +45,14 @@ describe('AuthService', () => {
 
     describe('generateToken', () => {
         it('should generate JWT token successfully', () => {
-            const userId = '507f1f77bcf86cd799439011';
-            const userName = 'test_user';
+            const userid = '507f1f77bcf86cd799439011';
+            const username = 'test_user';
             const jwtSpy = sinon.spy(jwt, 'sign');
 
-            const token = authService.generateToken(userId, userName);
+            const token = authService.generateToken(userid, username);
 
             expect(jwtSpy).to.have.been.calledWith(
-                { user_id: userId, user_name: userName },
+                { userid: userid, username: username },
                 mockConfig.jwt.secretKey,
                 {
                     expiresIn: mockConfig.jwt.expiry,
@@ -72,63 +72,63 @@ describe('AuthService', () => {
             });
 
             expect(() => {
-                authServiceWithoutSecret.generateToken('user_id', 'user_name');
+                authServiceWithoutSecret.generateToken('userid', 'username');
             }).to.throw('JWT_SECRET is not configured');
         });
     });
 
     describe('authenticateUser', () => {
         it('should authenticate user successfully with correct credentials', async () => {
-            const userName = 'test_user';
+            const username = 'test_user';
             const password = 'test_password';
-            mockUserRepository.ofUserName.resolves(mockUserForAuth);
+            mockUserRepository.findOneByUsername.resolves(mockUserForAuth);
 
-            const result = await authService.authenticateUser(userName, password);
+            const result = await authService.authenticateUser(username, password);
 
-            expect(mockUserRepository.ofUserName).to.have.been.calledWith(userName);
+            expect(mockUserRepository.findOneByUsername).to.have.been.calledWith(username);
             expect(result).to.deep.equal(mockUserForAuth);
             expect(mockLogger.info).to.have.been.calledWith('User authenticated successfully', {
-                userId: mockUserForAuth._id,
-                userName
+                userid: mockUserForAuth.id,
+                username
             });
         });
 
         it('should throw error when user is not found', async () => {
-            const userName = 'nonexistent_user';
+            const username = 'nonexistent_user';
             const password = 'test_password';
-            mockUserRepository.ofUserName.resolves(null);
+            mockUserRepository.findOneByUsername.resolves(null);
 
             try {
-                await authService.authenticateUser(userName, password);
+                await authService.authenticateUser(username, password);
                 expect.fail('Should have thrown an error');
             } catch (error) {
                 expect(error.message).to.equal('User not found');
                 expect(error.error).to.equal(Constants.ERROR_CODES.USER_NOT_FOUND);
-                expect(mockLogger.error).to.have.been.calledWith('User not found during authentication', { userName });
+                expect(mockLogger.error).to.have.been.calledWith('User not found during authentication', { username });
             }
         });
 
         it('should throw error when password is incorrect', async () => {
-            const userName = 'test_user';
+            const username = 'test_user';
             const password = 'wrong_password';
-            mockUserRepository.ofUserName.resolves(mockUserForAuth);
+            mockUserRepository.findOneByUsername.resolves(mockUserForAuth);
 
             try {
-                await authService.authenticateUser(userName, password);
+                await authService.authenticateUser(username, password);
                 expect.fail('Should have thrown an error');
             } catch (error) {
                 expect(error.message).to.equal('Password is incorrect');
                 expect(error.error).to.equal(Constants.ERROR_CODES.INVALID_PASSWORD);
-                expect(mockLogger.error).to.have.been.calledWith('Invalid password during authentication', { userName });
+                expect(mockLogger.error).to.have.been.calledWith('Invalid password during authentication', { username });
             }
         });
     });
 
     describe('verifyToken', () => {
         it('should verify valid JWT token successfully', () => {
-            const userId = '507f1f77bcf86cd799439011';
-            const userName = 'test_user';
-            const payload = { user_id: userId, user_name: userName };
+            const userid = '507f1f77bcf86cd799439011';
+            const username = 'test_user';
+            const payload = { userid: userid, username: username };
             const token = jwt.sign(payload, mockConfig.jwt.secretKey, {
                 expiresIn: '1h',
                 audience: mockConfig.jwt.audience,
@@ -137,9 +137,9 @@ describe('AuthService', () => {
 
             const result = authService.verifyToken(token);
 
-            expect(result).to.have.property('user_id', userId);
-            expect(result).to.have.property('user_name', userName);
-            expect(mockLogger.info).to.have.been.calledWith('JWT token verified successfully', { userId });
+            expect(result).to.have.property('userid', userid);
+            expect(result).to.have.property('username', username);
+            expect(mockLogger.info).to.have.been.calledWith('JWT token verified successfully', { userid });
         });
 
         it('should throw error for invalid token', () => {
@@ -153,7 +153,7 @@ describe('AuthService', () => {
 
         it('should throw error for expired token', () => {
             const expiredToken = jwt.sign(
-                { user_id: 'test', user_name: 'test' },
+                { userid: 'test', username: 'test' },
                 mockConfig.jwt.secretKey,
                 {
                     expiresIn: '0s',

@@ -1,5 +1,10 @@
 import { v4 as uuidv4Default } from 'uuid';
 
+/**
+ * Checks if the provided flowId is a valid string matching the required pattern.
+ * @param {string} flowId The flow ID to validate.
+ * @returns {boolean} True if valid, false otherwise.
+ */
 function isValidFlowId(flowId) {
   return (
     typeof flowId === 'string'
@@ -9,8 +14,8 @@ function isValidFlowId(flowId) {
 
 /**
  * Middleware to assign a unique flow ID to each request.
- * @param {import('express').Request} req Express request object
- * @param {import('express').Response} res Express response object
+ * @param {Object} req Express request object
+ * @param {Object} res Express response object
  * @param {Function} next Express next middleware function
  * @param {Function} uuidv4 (optional) UUID generator for testability
  */
