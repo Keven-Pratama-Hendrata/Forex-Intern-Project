@@ -1,5 +1,3 @@
-import Constants from '../constants.js';
-
 /**
  * Service for user-related operations.
  */

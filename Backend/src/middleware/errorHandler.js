@@ -1,5 +1,3 @@
-import Logger from '../utils/logger.js';
-
 /**
  * Express error handling middleware.
  * @param {Error} err The error object
