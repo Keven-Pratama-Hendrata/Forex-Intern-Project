@@ -1,2 +1,3 @@
 export { default } from './Button';
-export * from './Button.type'; 
+export * from './Button.type';
+export * from './buttonHandler'; 
