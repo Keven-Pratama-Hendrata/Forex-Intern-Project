@@ -41,9 +41,10 @@ export const handleApiError = (error, defaultMessage = 'Operation failed') => {
  * @param {Function} dispatch Redux store's dispatch function
  * @param {Function} loginSuccess Redux action creator that returns LOGIN_SUCCESS action
  * @param {string} token JWT authentication token received from API
+ * @param {Object} userData Additional user data to store
  */
-export const setUserData = (dispatch, loginSuccess, token) => {
-  dispatch(loginSuccess({ token }));
+export const setUserData = (dispatch, loginSuccess, token, userData = {}) => {
+  dispatch(loginSuccess({ token, ...userData }));
 };
 
 /**
@@ -54,6 +55,52 @@ export const setUserData = (dispatch, loginSuccess, token) => {
 export const clearUserData = (dispatch, logout) => {
   dispatch(logout());
 };
+
+/**
+ * Creates HTTP request configuration for API calls
+ * @param {string} method HTTP method (GET, POST, etc.)
+ * @param {Object} body Request body data
+ * @returns {Object} Fetch request configuration
+ */
+export const createRequestConfig = (method, body = null) => ({
+  method,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  ...(body && { body: JSON.stringify(body) }),
+});
+
+/**
+ * Creates CSS classes for input element
+ * @returns {string} CSS classes string
+ */
+const createInputClasses = () => {
+  return 'input input-bordered w-full rounded-full';
+};
+
+/**
+ * Creates input element props
+ * @param {Object} props Input props
+ * @param {string} props.type Input type
+ * @param {string} props.name Input name
+ * @param {string} [props.placeholder] Placeholder text
+ * @param {string|number} [props.value] Input value
+ * @param {function} props.onChange Change handler
+ * @param {string} [props.autoComplete] Autocomplete attribute
+ * @param {boolean} [props.required] Required flag
+ * @returns {Object} Input element props
+ */
+const createInputProps = ({ type, name, placeholder, value, onChange, autoComplete, required }) => ({
+  id: name,
+  type,
+  name,
+  placeholder,
+  className: createInputClasses(),
+  value: value ?? "",
+  onChange,
+  autoComplete,
+  required,
+});
 
 /**
  * Renders an input element for a form field.
@@ -67,20 +114,9 @@ export const clearUserData = (dispatch, logout) => {
  * @param {boolean} [props.required] Required flag.
  * @returns {JSX.Element} Input element.
  */
-export function renderInput({ type, name, placeholder, value, onChange, autoComplete, required }) {
-  return (
-    <input
-      id={name}
-      type={type}
-      name={name}
-      placeholder={placeholder}
-      className="input input-bordered w-full rounded-full"
-      value={value ?? ""}
-      onChange={onChange}
-      autoComplete={autoComplete}
-      required={required}
-    />
-  );
+export function renderInput(props) {
+  const inputProps = createInputProps(props);
+  return <input {...inputProps} />;
 }
 
 /**

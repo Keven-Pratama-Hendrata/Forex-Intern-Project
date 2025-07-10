@@ -21,7 +21,7 @@ import { FormFieldProps } from './FormField.type';
  */
 function FormField({
   label,
-  type,
+  type = 'text',
   name,
   placeholder,
   value,

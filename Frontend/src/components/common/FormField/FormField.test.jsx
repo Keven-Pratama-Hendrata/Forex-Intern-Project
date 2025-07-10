@@ -53,6 +53,23 @@ describe('FormField', () => {
     expect(container.firstChild).toHaveClass('custom-form-field');
   });
 
+  it('uses type="text" by default when type prop is not provided', () => {
+    // Arrange
+    const formFieldProps = {
+      label: "Username",
+      name: "username",
+      placeholder: "Enter username",
+      onChange: () => { },
+    };
+
+    // Act
+    render(<FormField {...formFieldProps} />);
+    const input = screen.getByLabelText('Username');
+
+    // Assert
+    expect(input).toHaveAttribute('type', 'text');
+  });
+
   it('matches snapshot', () => {
     const formFieldProps = {
       label: "Password",

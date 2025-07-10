@@ -1,0 +1,89 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Signup.jsx matches the snapshot 1`] = `
+<div
+  data-circle-position="signup"
+  data-testid="auth-background"
+>
+  <form
+    class="rounded-2xl bg-white/60 p-8 shadow-xl backdrop-blur-md ring-1 ring-white/40"
+    data-testid="signup-form"
+  >
+    <h2
+      class="mb-1 text-center text-2xl font-extrabold text-gray-800"
+    >
+      Create an Account
+    </h2>
+    <p
+      class="mb-6 text-center text-sm text-gray-600"
+    >
+      Join us to start trading!
+    </p>
+    <div
+      data-testid="form-field-username"
+    >
+      <label>
+        Username
+      </label>
+      <input
+        autocomplete="username"
+        data-testid="input-username"
+        name="username"
+        placeholder="John Doe"
+        required=""
+        value=""
+      />
+    </div>
+    <div
+      data-testid="form-field-password"
+    >
+      <label>
+        Password
+      </label>
+      <input
+        autocomplete="new-password"
+        data-testid="input-password"
+        name="password"
+        placeholder="••••••••"
+        required=""
+        type="password"
+        value=""
+      />
+    </div>
+    <div
+      data-testid="form-field-confirmPassword"
+    >
+      <label>
+        Confirm Password
+      </label>
+      <input
+        autocomplete="new-password"
+        data-testid="input-confirmPassword"
+        name="confirmPassword"
+        placeholder="••••••••"
+        required=""
+        type="password"
+        value=""
+      />
+    </div>
+    <button
+      data-testid="signup-button"
+      type="submit"
+    >
+      Create Account
+    </button>
+  </form>
+  <p
+    class="mt-5 text-center text-sm text-gray-700"
+  >
+    Already have an account?
+     
+    <a
+      class="font-medium text-sky-950 hover:underline"
+      href="/"
+    >
+      Sign in
+    </a>
+  </p>
+</div>
+`;

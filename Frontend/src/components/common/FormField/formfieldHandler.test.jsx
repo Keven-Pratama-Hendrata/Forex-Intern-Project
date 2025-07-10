@@ -5,6 +5,7 @@ import {
   handleApiError,
   setUserData,
   clearUserData,
+  createRequestConfig,
 } from './formfieldHandler';
 
 describe('handleFormChange', () => {
@@ -129,5 +130,68 @@ describe('user-data helpers', () => {
 
     expect(logout).toHaveBeenCalled();
     expect(dispatch).toHaveBeenCalledWith({ type: 'LOGOUT' });
+  });
+});
+
+describe('setUserData', () => {
+  it('calls dispatch with loginSuccess action containing token and userData', () => {
+    const dispatch = jest.fn();
+    const loginSuccess = jest.fn((payload) => ({ type: 'LOGIN', payload }));
+    const token = 'tok123';
+    const userData = { name: 'Alice' };
+
+    setUserData(dispatch, loginSuccess, token, userData);
+
+    expect(loginSuccess).toHaveBeenCalledWith({ token: 'tok123', name: 'Alice' });
+    expect(dispatch).toHaveBeenCalledWith({ type: 'LOGIN', payload: { token: 'tok123', name: 'Alice' } });
+  });
+
+  it('calls dispatch with loginSuccess action containing only token if userData is omitted', () => {
+    const dispatch = jest.fn();
+    const loginSuccess = jest.fn((payload) => ({ type: 'LOGIN', payload }));
+    const token = 'tok123';
+
+    setUserData(dispatch, loginSuccess, token);
+
+    expect(loginSuccess).toHaveBeenCalledWith({ token: 'tok123' });
+    expect(dispatch).toHaveBeenCalledWith({ type: 'LOGIN', payload: { token: 'tok123' } });
+  });
+});
+
+describe('clearUserData', () => {
+  it('dispatches logout action', () => {
+    const dispatch = jest.fn();
+    const logout = jest.fn(() => ({ type: 'LOGOUT' }));
+
+    clearUserData(dispatch, logout);
+
+    expect(logout).toHaveBeenCalled();
+    expect(dispatch).toHaveBeenCalledWith({ type: 'LOGOUT' });
+  });
+});
+
+describe('createRequestConfig', () => {
+  it('creates config with method and headers, and stringifies body if provided', () => {
+    const method = 'POST';
+    const body = { foo: 'bar' };
+
+    const config = createRequestConfig(method, body);
+
+    expect(config).toEqual({
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ foo: 'bar' }),
+    });
+  });
+
+  it('creates config without body if not provided', () => {
+    const method = 'GET';
+
+    const config = createRequestConfig(method);
+
+    expect(config).toEqual({
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+    });
   });
 });

@@ -8,7 +8,7 @@ import {
   handleSubmit,
   useLoginState
 } from "./loginHandler.jsx";
-import { AUTH_FORMS, AUTH_MESSAGES } from "../../data";
+import { AUTH_FORMS, AUTH_HEADERS } from "../../data";
 import {
   LoginContentProps,
   LoginFormProps,
@@ -175,10 +175,10 @@ SubmitButton.propTypes = SubmitButtonProps;
 const LoginHeader = () => (
   <>
     <h2 className="mb-1 text-center text-2xl font-extrabold text-gray-800">
-      Sign in to Trade FX
+      {AUTH_HEADERS.LOGIN.TITLE}
     </h2>
     <p className="mb-6 text-center text-sm text-gray-600">
-      Ready to conquer the markets?
+      {AUTH_HEADERS.LOGIN.SUBTITLE}
     </p>
   </>
 );
