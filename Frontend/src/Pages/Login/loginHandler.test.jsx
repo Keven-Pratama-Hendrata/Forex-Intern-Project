@@ -1,5 +1,5 @@
 import { validateForm, handleChange, useLoginState } from './loginHandler.jsx';
-import * as formfieldUtils from '../../components/common';
+import * as formfieldUtils from '../../components/common/FormField/formfieldHandler';
 import toast from 'react-hot-toast';
 import { renderHook } from '@testing-library/react';
 import { Provider } from 'react-redux';
