@@ -5,6 +5,7 @@ chai.use(sinonChai);
 const expect = chai.expect;
 
 import flowIdMiddleware from '../../src/middleware/flowId.js';
+import { createMockReq, createMockRes, createMockNext } from '../mock/index.js';
 
 describe('flowIdMiddleware', () => {
     let req, res, next;
@@ -12,14 +13,19 @@ describe('flowIdMiddleware', () => {
     const fakeUuidFn = () => fakeUuid;
 
     beforeEach(() => {
-        req = { header: sinon.stub(), flowId: undefined };
-        res = { setHeader: sinon.stub() };
-        next = sinon.stub();
+        req = createMockReq();
+        req.header = sinon.stub();
+        req.flowId = undefined;
+        res = createMockRes();
+        res.setHeader = sinon.stub();
+        next = createMockNext();
     });
 
     it('should use valid flow ID from header', () => {
         req.header.withArgs('X-Flow-ID').returns('abcd1234ABCD');
+
         flowIdMiddleware(req, res, next, fakeUuidFn);
+
         expect(req.flowId).to.equal('abcd1234ABCD');
         expect(res.setHeader).to.have.been.calledWith('X-Flow-ID', 'abcd1234ABCD');
         expect(next).to.have.been.calledOnce;
@@ -27,7 +33,9 @@ describe('flowIdMiddleware', () => {
 
     it('should generate new flow ID if header is missing', () => {
         req.header.withArgs('X-Flow-ID').returns(undefined);
+
         flowIdMiddleware(req, res, next, fakeUuidFn);
+
         expect(req.flowId).to.equal(fakeUuid);
         expect(res.setHeader).to.have.been.calledWith('X-Flow-ID', fakeUuid);
         expect(next).to.have.been.calledOnce;
@@ -35,7 +43,9 @@ describe('flowIdMiddleware', () => {
 
     it('should generate new flow ID if header is invalid', () => {
         req.header.withArgs('X-Flow-ID').returns('!@#$');
+
         flowIdMiddleware(req, res, next, fakeUuidFn);
+
         expect(req.flowId).to.equal(fakeUuid);
         expect(res.setHeader).to.have.been.calledWith('X-Flow-ID', fakeUuid);
         expect(next).to.have.been.calledOnce;

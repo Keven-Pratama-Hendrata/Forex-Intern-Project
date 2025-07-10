@@ -3,7 +3,9 @@ import CustomError from '../../src/utils/error.js';
 describe('CustomError', () => {
     describe('constructor', () => {
         it('should create CustomError with default values', () => {
-            const error = new CustomError('Test error');
+            const message = 'Test error';
+
+            const error = new CustomError(message);
 
             expect(error.message).to.equal('Test error');
             expect(error.statusCode).to.equal(500);
@@ -14,7 +16,10 @@ describe('CustomError', () => {
         });
 
         it('should create CustomError with custom status code', () => {
-            const error = new CustomError('Not found', 404);
+            const message = 'Not found';
+            const statusCode = 404;
+
+            const error = new CustomError(message, statusCode);
 
             expect(error.message).to.equal('Not found');
             expect(error.statusCode).to.equal(404);
@@ -23,7 +28,11 @@ describe('CustomError', () => {
         });
 
         it('should create CustomError with custom status code and error code', () => {
-            const error = new CustomError('Unauthorized', 401, 'UNAUTHORIZED');
+            const message = 'Unauthorized';
+            const statusCode = 401;
+            const code = 'UNAUTHORIZED';
+
+            const error = new CustomError(message, statusCode, code);
 
             expect(error.message).to.equal('Unauthorized');
             expect(error.statusCode).to.equal(401);
@@ -32,22 +41,30 @@ describe('CustomError', () => {
         });
 
         it('should capture stack trace', () => {
-            const error = new CustomError('Test error');
+            const message = 'Test error';
+
+            const error = new CustomError(message);
 
             expect(error.stack).to.be.a('string');
             expect(error.stack).to.include('CustomError');
         });
 
         it('should be throwable', () => {
+            const message = 'Test error';
+
             expect(() => {
-                throw new CustomError('Test error');
+                throw new CustomError(message);
             }).to.throw('Test error');
         });
     });
 
     describe('error properties', () => {
         it('should have correct property types', () => {
-            const error = new CustomError('Test error', 400, 'BAD_REQUEST');
+            const message = 'Test error';
+            const statusCode = 400;
+            const code = 'BAD_REQUEST';
+
+            const error = new CustomError(message, statusCode, code);
 
             expect(typeof error.message).to.equal('string');
             expect(typeof error.statusCode).to.equal('number');
@@ -57,7 +74,11 @@ describe('CustomError', () => {
         });
 
         it('should be serializable', () => {
-            const error = new CustomError('Test error', 500, 'INTERNAL_ERROR');
+            const message = 'Test error';
+            const statusCode = 500;
+            const code = 'INTERNAL_ERROR';
+
+            const error = new CustomError(message, statusCode, code);
             const serialized = JSON.stringify(error);
 
             expect(serialized).to.include('Test error');

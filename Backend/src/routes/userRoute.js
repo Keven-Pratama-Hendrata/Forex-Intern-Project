@@ -24,6 +24,17 @@ export default function createUserRoutes({ userController, authController, verif
   });
 
   /**
+   * Route handler for user signup.
+   * @param {Object} req Express request object
+   * @param {Object} res Express response object
+   * @param {Function} next Express next middleware function
+   */
+  router.post('/signup', (req, res, next) => {
+    logger.info('Signup route accessed', { method: 'POST', path: '/signup' });
+    authController.signupUser(req, res, next);
+  });
+
+  /**
    * Route handler for getting user profile.
    * @param {Object} req Express request object
    * @param {Object} res Express response object

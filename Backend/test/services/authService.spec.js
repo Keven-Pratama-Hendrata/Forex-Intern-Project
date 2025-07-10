@@ -1,13 +1,18 @@
 import chai from 'chai';
+import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
 chai.use(sinonChai);
-import sinon from 'sinon';
 const expect = chai.expect;
-
 import jwt from 'jsonwebtoken';
+
 import AuthService from '../../src/services/authService.js';
 import Constants from '../../src/constants.js';
-import { mockUserForAuth } from '../mock/index.js';
+import {
+    mockUserForAuth,
+    createMockUserRepository,
+    createMockLogger,
+    createMockConfig
+} from '../mock/index.js';
 
 describe('AuthService', () => {
     let authService;
@@ -16,21 +21,9 @@ describe('AuthService', () => {
     let mockConfig;
 
     beforeEach(() => {
-        mockUserRepository = {
-            findOneByUsername: sinon.stub(),
-        };
-        mockLogger = {
-            info: sinon.stub(),
-            error: sinon.stub(),
-        };
-        mockConfig = {
-            jwt: {
-                secretKey: 'test-secret-key',
-                expiry: '1h',
-                audience: 'CUSTOMER',
-                keyAlgorithm: 'HS256'
-            }
-        };
+        mockUserRepository = createMockUserRepository();
+        mockLogger = createMockLogger();
+        mockConfig = createMockConfig();
 
         authService = new AuthService({
             userRepository: mockUserRepository,
@@ -166,6 +159,56 @@ describe('AuthService', () => {
                 authService.verifyToken(expiredToken);
             }).to.throw('Invalid token');
             expect(mockLogger.error).to.have.been.called;
+        });
+    });
+
+    describe('registerUser', () => {
+        it('should register new user successfully', async () => {
+            const username = 'new_user';
+            const password = 'new_password';
+            const newUser = { id: '507f1f77bcf86cd799439012', username, password };
+            mockUserRepository.findOneByUsername.resolves(null);
+            mockUserRepository.create.resolves(newUser);
+
+            const result = await authService.registerUser(username, password);
+
+            expect(mockLogger.info).to.have.been.calledWith('Registering new user', { username });
+            expect(mockUserRepository.findOneByUsername).to.have.been.calledWith(username);
+            expect(mockUserRepository.create).to.have.been.calledWith({ username, password });
+            expect(mockLogger.info).to.have.been.calledWith('User registered successfully', { userid: newUser.id, username });
+            expect(result).to.deep.equal(newUser);
+        });
+
+        it('should throw error when username already exists', async () => {
+            const username = 'existing_user';
+            const password = 'new_password';
+            const existingUser = { id: '507f1f77bcf86cd799439013', username, password: 'old_password' };
+            mockUserRepository.findOneByUsername.resolves(existingUser);
+
+            try {
+                await authService.registerUser(username, password);
+                expect.fail('Should have thrown an error');
+            } catch (error) {
+                expect(error.message).to.equal('Username already exists');
+                expect(error.error).to.equal(Constants.ERROR_CODES.USERNAME_EXISTS || 'USERNAME_EXISTS');
+                expect(mockLogger.error).to.have.been.calledWith('Username already exists', { username });
+            }
+        });
+
+        it('should handle case when USERNAME_EXISTS constant is not defined', async () => {
+            const username = 'existing_user';
+            const password = 'new_password';
+            const existingUser = { id: '507f1f77bcf86cd799439014', username, password: 'old_password' };
+            mockUserRepository.findOneByUsername.resolves(existingUser);
+
+            try {
+                await authService.registerUser(username, password);
+                expect.fail('Should have thrown an error');
+            } catch (error) {
+                expect(error.message).to.equal('Username already exists');
+                expect(error.error).to.equal('USERNAME_EXISTS');
+                expect(mockLogger.error).to.have.been.calledWith('Username already exists', { username });
+            }
         });
     });
 }); 

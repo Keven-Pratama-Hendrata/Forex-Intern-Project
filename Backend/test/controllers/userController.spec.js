@@ -5,20 +5,26 @@ chai.use(sinonChai);
 const expect = chai.expect;
 
 import UserController from '../../src/controllers/userController.js';
-import { createMockLogger } from '../mock/logger.mock.js';
-import { createMockReq, createMockRes, createMockNext } from '../mock/express.mock.js';
+import {
+    createMockLogger,
+    createMockReq,
+    createMockRes,
+    createMockNext,
+    createMockUserService,
+    getMockUserWithId,
+    createMockError,
+    mockErrorMessages,
+    mockBalanceRequest
+} from '../mock/index.js';
 
 describe('UserController', () => {
     let req, res, next, mockUserService, mockLogger, controller;
 
     beforeEach(() => {
-        req = createMockReq({ user: { id: '1' }, body: { balance: { currency: 'USD', amount: 100 } } });
+        req = createMockReq({ user: { id: '1' }, body: mockBalanceRequest });
         res = createMockRes();
         next = createMockNext();
-        mockUserService = {
-            getUserProfile: sinon.stub(),
-            handleUpdateBalance: sinon.stub()
-        };
+        mockUserService = createMockUserService();
         mockLogger = createMockLogger();
         controller = new UserController({ userService: mockUserService, logger: mockLogger });
     });
@@ -27,7 +33,7 @@ describe('UserController', () => {
 
     describe('getUserProfile', () => {
         it('should return user profile on success', async () => {
-            const fakeProfile = { userid: '1', username: 'test' };
+            const fakeProfile = getMockUserWithId('1');
             mockUserService.getUserProfile.resolves(fakeProfile);
 
             await controller.getUserProfile(req, res, next);
@@ -40,7 +46,7 @@ describe('UserController', () => {
         });
 
         it('should handle errors and call next with error', async () => {
-            const error = new Error('fail');
+            const error = createMockError(mockErrorMessages.GENERIC);
             mockUserService.getUserProfile.rejects(error);
 
             await controller.getUserProfile(req, res, next);
@@ -68,7 +74,7 @@ describe('UserController', () => {
         });
 
         it('should handle service errors with proper error logging', async () => {
-            const error = new Error('Service error');
+            const error = createMockError(mockErrorMessages.SERVICE_ERROR);
             mockUserService.getUserProfile.rejects(error);
 
             await controller.getUserProfile(req, res, next);
@@ -93,7 +99,7 @@ describe('UserController', () => {
         });
 
         it('should handle errors and call next with error', async () => {
-            const error = new Error('fail');
+            const error = createMockError(mockErrorMessages.GENERIC);
             mockUserService.handleUpdateBalance.rejects(error);
 
             await controller.updateBalance(req, res, next);
@@ -103,7 +109,7 @@ describe('UserController', () => {
         });
 
         it('should throw error when req.user is not found', async () => {
-            const reqWithoutUser = createMockReq({ body: { balance: { currency: 'USD', amount: 100 } } });
+            const reqWithoutUser = createMockReq({ body: mockBalanceRequest });
 
             await controller.updateBalance(reqWithoutUser, res, next);
 
@@ -112,7 +118,7 @@ describe('UserController', () => {
         });
 
         it('should handle errors when req.user is undefined in catch block', async () => {
-            const reqWithoutUser = createMockReq({ body: { balance: { currency: 'USD', amount: 100 } } });
+            const reqWithoutUser = createMockReq({ body: mockBalanceRequest });
 
             await controller.updateBalance(reqWithoutUser, res, next);
 
@@ -122,7 +128,7 @@ describe('UserController', () => {
 
         it('should handle errors when req.body is undefined in catch block', async () => {
             const reqWithoutBody = createMockReq({ user: { id: '1' } });
-            const error = new Error('Service error');
+            const error = createMockError(mockErrorMessages.SERVICE_ERROR);
             mockUserService.handleUpdateBalance.rejects(error);
 
             await controller.updateBalance(reqWithoutBody, res, next);
@@ -141,7 +147,7 @@ describe('UserController', () => {
         });
 
         it('should handle service errors with proper error logging', async () => {
-            const error = new Error('Service error');
+            const error = createMockError(mockErrorMessages.SERVICE_ERROR);
             mockUserService.handleUpdateBalance.rejects(error);
 
             await controller.updateBalance(req, res, next);

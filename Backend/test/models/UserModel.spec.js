@@ -2,10 +2,12 @@ import chai from 'chai';
 const expect = chai.expect;
 
 import User from '../../src/models/UserModel.js';
+import { mockUsers } from '../mock/index.js';
 
 describe('UserModel', () => {
     it('should have required fields', () => {
         const schemaPaths = User.schema.paths;
+
         expect(schemaPaths).to.have.property('username');
         expect(schemaPaths.username.options.required).to.be.true;
         expect(schemaPaths).to.have.property('password');
@@ -23,48 +25,67 @@ describe('UserModel', () => {
 
     it('should use getter for todayBalanceUsd', () => {
         const path = User.schema.paths.todayBalanceUsd;
+        const testValue = 123.45;
+
+        const result = path.options.get(testValue);
+
         expect(path.options.get).to.be.a('function');
-        expect(path.options.get(123.45)).to.equal(123.45);
+        expect(result).to.equal(123.45);
     });
 
     it('should use getter for balances.amount', () => {
         const balancesSchema = User.schema.paths.balances.schema;
         const amountPath = balancesSchema.paths.amount;
+        const testValue = '123.45';
+
+        const result = amountPath.options.get(testValue);
+
         expect(amountPath.options.get).to.be.a('function');
-        expect(amountPath.options.get('123.45')).to.equal(123.45);
+        expect(result).to.equal(123.45);
     });
 
     it('should use getter for balanceHistory.balance', () => {
         const balanceHistorySchema = User.schema.paths.balanceHistory.schema;
         const balancePath = balanceHistorySchema.paths.balance;
+        const testValue = '456.78';
+
+        const result = balancePath.options.get(testValue);
+
         expect(balancePath.options.get).to.be.a('function');
-        expect(balancePath.options.get('456.78')).to.equal(456.78);
+        expect(result).to.equal(456.78);
     });
 
     it('should use getter for dailyTotalUsdHistory.totalUsd', () => {
         const dailyTotalUsdHistorySchema = User.schema.paths.dailyTotalUsdHistory.schema;
         const totalUsdPath = dailyTotalUsdHistorySchema.paths.totalUsd;
+        const testValue = '789.01';
+
+        const result = totalUsdPath.options.get(testValue);
+
         expect(totalUsdPath.options.get).to.be.a('function');
-        expect(totalUsdPath.options.get('789.01')).to.equal(789.01);
+        expect(result).to.equal(789.01);
     });
 
     it('should apply getters when converting to JSON', () => {
-        const user = new User({
-            username: 'testuser',
-            password: 'pass',
-            balances: [{ amount: '123.45', currency: 'USD' }],
-            balanceHistory: [{ balance: '456.78', currency: 'USD', amount: '10.00', date: new Date() }],
-            todayBalanceUsd: '789.01',
-            dailyTotalUsdHistory: [{
-                totalUsd: '234.56',
-                date: new Date(),
-                rates: { USD: '1.0' }
-            }]
-        });
+        const user = new User(mockUsers[0]);
+
         const json = user.toJSON();
-        expect(json.todayBalanceUsd).to.equal(789.01);
-        expect(json.balances[0].amount).to.equal(123.45);
-        expect(json.balanceHistory[0].balance).to.equal(456.78);
-        expect(json.dailyTotalUsdHistory[0].totalUsd).to.equal(234.56);
+
+        expect(json.todayBalanceUsd).to.equal(1500.75);
+        expect(json.balances[0].amount).to.equal(1000.50);
+        expect(json.balanceHistory[0].balance).to.equal(1000.50);
+        expect(json.dailyTotalUsdHistory[0].totalUsd).to.equal(1500.75);
+    });
+
+    it('should apply getters when converting second mock user to JSON', () => {
+        const user = new User(mockUsers[1]);
+
+        const json = user.toJSON();
+
+        expect(json.todayBalanceUsd).to.equal(3250.80);
+        expect(json.balances[0].amount).to.equal(2500.00);
+        expect(json.balances[1].amount).to.equal(750.80);
+        expect(json.balanceHistory[0].balance).to.equal(2500.00);
+        expect(json.dailyTotalUsdHistory[0].totalUsd).to.equal(3250.80);
     });
 }); 

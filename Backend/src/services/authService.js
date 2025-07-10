@@ -77,6 +77,28 @@ class AuthService {
   }
 
   /**
+   * Register a new user with username and password.
+   * @param {string} username The username
+   * @param {string} password The user password
+   * @returns {Promise<Object>} The created user object
+   */
+  async registerUser(username, password) {
+    this.logger.info('Registering new user', { username });
+
+    const existingUser = await this.userRepository.findOneByUsername(username);
+    if (existingUser) {
+      this.logger.error('Username already exists', { username });
+      const error = new Error('Username already exists');
+      error.error = Constants.ERROR_CODES.USERNAME_EXISTS || 'USERNAME_EXISTS';
+      throw error;
+    }
+
+    const newUser = await this.userRepository.create({ username, password });
+    this.logger.info('User registered successfully', { userid: newUser.id, username });
+    return newUser;
+  }
+
+  /**
    * Verify a JWT token.
    * @param {string} token The JWT token
    * @returns {Object} The decoded token payload

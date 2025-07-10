@@ -18,7 +18,8 @@ export const mockUsers = [
         dailyTotalUsdHistory: [
             {
                 date: new Date('2024-01-15'),
-                total: 1500.75
+                totalUsd: 1500.75,
+                rates: new Map()
             }
         ],
         lastFetchedDate: new Date('2024-01-15'),
@@ -43,7 +44,8 @@ export const mockUsers = [
         dailyTotalUsdHistory: [
             {
                 date: new Date('2024-01-15'),
-                total: 3250.80
+                totalUsd: 3250.80,
+                rates: new Map()
             }
         ],
         lastFetchedDate: new Date('2024-01-15'),

@@ -1,23 +1,25 @@
 import chai from 'chai';
-import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
 chai.use(sinonChai);
 const expect = chai.expect;
 
 import errorHandler from '../../src/middleware/errorHandler.js';
+import { createMockReq, createMockRes, createMockNext, createMockError, mockErrorMessages } from '../mock/index.js';
 
 describe('errorHandler middleware', () => {
     let req, res, next;
 
     beforeEach(() => {
-        req = {};
-        res = { status: sinon.stub().returnsThis(), json: sinon.stub() };
-        next = sinon.stub();
+        req = createMockReq();
+        res = createMockRes();
+        next = createMockNext();
     });
 
     it('should handle default error', () => {
-        const err = new Error('Something went wrong');
+        const err = createMockError(mockErrorMessages.SOMETHING_WRONG);
+
         errorHandler(err, req, res, next);
+
         expect(res.status).to.have.been.calledWith(500);
         expect(res.json).to.have.been.calledWith({
             code: 'INTERNAL_ERROR',
@@ -27,10 +29,12 @@ describe('errorHandler middleware', () => {
     });
 
     it('should handle custom error code and statusCode', () => {
-        const err = new Error('Custom error');
+        const err = createMockError(mockErrorMessages.CUSTOM_ERROR);
         err.code = 'CUSTOM_CODE';
         err.statusCode = 400;
+
         errorHandler(err, req, res, next);
+
         expect(res.status).to.have.been.calledWith(400);
         expect(res.json).to.have.been.calledWith({
             code: 'CUSTOM_CODE',
@@ -41,7 +45,9 @@ describe('errorHandler middleware', () => {
 
     it('should handle missing error message', () => {
         const err = {};
+
         errorHandler(err, req, res, next);
+
         expect(res.status).to.have.been.calledWith(500);
         expect(res.json).to.have.been.calledWith({
             code: 'INTERNAL_ERROR',

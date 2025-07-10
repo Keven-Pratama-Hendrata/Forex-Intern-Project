@@ -50,6 +50,16 @@ class MongooseUserRepository extends UserRepository {
 
     return updatedMongooseUser;
   }
+
+  /**
+   * Create and save a new user
+   * @param {Object} userData The user data to create
+   * @returns {Promise<Object>} The created user object
+   */
+  async create(userData) {
+    const newUser = new UserModel(userData);
+    return await newUser.save();
+  }
 }
 
 export default MongooseUserRepository;

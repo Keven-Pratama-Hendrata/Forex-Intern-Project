@@ -20,7 +20,11 @@ describe('Logger utility', () => {
     });
 
     it('should log info messages', () => {
-        Logger.info('Test info', { foo: 'bar' });
+        const message = 'Test info';
+        const data = { foo: 'bar' };
+
+        Logger.info(message, data);
+
         expect(consoleLogStub).to.have.been.calledWithMatch(
             sinon.match(/^\[INFO\] .+ - Test info$/),
             { foo: 'bar' }
@@ -28,7 +32,11 @@ describe('Logger utility', () => {
     });
 
     it('should log error messages', () => {
-        Logger.error('Test error', { foo: 'bar' });
+        const message = 'Test error';
+        const data = { foo: 'bar' };
+
+        Logger.error(message, data);
+
         expect(consoleErrorStub).to.have.been.calledWithMatch(
             sinon.match(/^\[ERROR\] .+ - Test error$/),
             { foo: 'bar' }
@@ -36,7 +44,11 @@ describe('Logger utility', () => {
     });
 
     it('should log warn messages', () => {
-        Logger.warn('Test warn', { foo: 'bar' });
+        const message = 'Test warn';
+        const data = { foo: 'bar' };
+
+        Logger.warn(message, data);
+
         expect(consoleWarnStub).to.have.been.calledWithMatch(
             sinon.match(/^\[WARN\] .+ - Test warn$/),
             { foo: 'bar' }
@@ -44,7 +56,11 @@ describe('Logger utility', () => {
     });
 
     it('should log debug messages', () => {
-        Logger.debug('Test debug', { foo: 'bar' });
+        const message = 'Test debug';
+        const data = { foo: 'bar' };
+
+        Logger.debug(message, data);
+
         expect(consoleLogStub).to.have.been.calledWithMatch(
             sinon.match(/^\[DEBUG\] .+ - Test debug$/),
             { foo: 'bar' }
@@ -69,6 +85,7 @@ describe('Logger utility', () => {
         });
 
         Logger.logRequest(req, res, next);
+
         expect(res.on).to.have.been.calledWith('finish', sinon.match.func);
         expect(consoleLogStub).to.have.been.calledWithMatch(
             sinon.match(/^\[INFO\] .+ - HTTP Request$/),

@@ -5,7 +5,15 @@ import sinon from 'sinon';
 const expect = chai.expect;
 
 import UserService from '../../src/services/userService.js';
-import { mockUsers } from '../mock/index.js';
+import {
+    mockUsers,
+    createMockUserRepository,
+    createMockLogger,
+    createMockConfig,
+    getMockBalance,
+    createMockError,
+    mockErrorMessages
+} from '../mock/index.js';
 
 describe('UserService', () => {
     let userService;
@@ -14,22 +22,9 @@ describe('UserService', () => {
     let mockConfig;
 
     beforeEach(() => {
-        mockUserRepository = {
-            findOneById: sinon.stub(),
-            save: sinon.stub(),
-        };
-        mockLogger = {
-            info: sinon.stub(),
-            error: sinon.stub(),
-        };
-        mockConfig = {
-            jwt: {
-                secretKey: 'test-secret-key',
-                expiry: '1h',
-                audience: 'CUSTOMER',
-                keyAlgorithm: 'HS256'
-            }
-        };
+        mockUserRepository = createMockUserRepository();
+        mockLogger = createMockLogger();
+        mockConfig = createMockConfig();
 
         userService = new UserService({
             userRepository: mockUserRepository,
@@ -194,7 +189,7 @@ describe('UserService', () => {
             const userid = '507f1f77bcf86cd799439011';
             const user = JSON.parse(JSON.stringify(mockUsers[0]));
             user.lastFetchedDate = new Date(user.lastFetchedDate);
-            const balance = { currency: 'USD', amount: 100.50 };
+            const balance = getMockBalance();
             const updatedUser = { ...user, balances: [{ currency: 'USD', amount: 1101.00 }] };
 
             mockUserRepository.findOneById.resolves(user);
@@ -204,14 +199,16 @@ describe('UserService', () => {
 
             expect(mockUserRepository.findOneById).to.have.been.calledWith(userid);
             expect(mockUserRepository.save).to.have.been.called;
-            expect(result).to.have.property('message', 'Balance updated');
-            expect(result).to.have.property('balances');
+            expect(result).to.deep.equal({
+                message: 'Balance updated',
+                balances: updatedUser.balances
+            });
             expect(mockLogger.info).to.have.been.calledWith('Balance update completed successfully', { userid, balance });
         });
 
-        it('should throw error when user is not found for balance update', async () => {
+        it('should throw error when user is not found', async () => {
             const userid = 'nonexistent_id';
-            const balance = { currency: 'USD', amount: 100 };
+            const balance = getMockBalance();
             mockUserRepository.findOneById.resolves(null);
 
             try {
@@ -220,6 +217,21 @@ describe('UserService', () => {
             } catch (error) {
                 expect(error.message).to.equal('User not found');
                 expect(mockLogger.error).to.have.been.calledWith('User not found for balance update', { userid });
+            }
+        });
+
+        it('should handle service errors', async () => {
+            const userid = '507f1f77bcf86cd799439011';
+            const balance = getMockBalance();
+            const error = createMockError(mockErrorMessages.SERVICE_ERROR);
+            mockUserRepository.findOneById.rejects(error);
+
+            try {
+                await userService.handleUpdateBalance(userid, balance);
+                expect.fail('Should have thrown an error');
+            } catch (caughtError) {
+                expect(caughtError.message).to.equal('Service error');
+                expect(mockLogger.error).to.not.have.been.called;
             }
         });
     });

@@ -1,6 +1,14 @@
 import createAuthMiddleware from '../../src/middleware/authMiddleware.js';
 import CustomError from '../../src/utils/error.js';
 import sinon from 'sinon';
+import {
+    createMockAuthService,
+    createMockLogger,
+    createMockReq,
+    createMockRes,
+    createMockNext,
+    mockErrorMessages
+} from '../mock/index.js';
 
 describe('AuthMiddleware', () => {
     let authMiddleware;
@@ -11,18 +19,11 @@ describe('AuthMiddleware', () => {
     let mockNext;
 
     beforeEach(() => {
-        mockAuthService = {
-            verifyToken: sinon.stub(),
-        };
-        mockLogger = {
-            info: sinon.stub(),
-            error: sinon.stub(),
-        };
-        mockReq = {
-            headers: {},
-        };
-        mockRes = {};
-        mockNext = sinon.stub();
+        mockAuthService = createMockAuthService();
+        mockLogger = createMockLogger();
+        mockReq = createMockReq({ headers: {} });
+        mockRes = createMockRes();
+        mockNext = createMockNext();
 
         authMiddleware = createAuthMiddleware({
             authService: mockAuthService,
@@ -38,7 +39,6 @@ describe('AuthMiddleware', () => {
         it('should verify token successfully and set user in request', () => {
             const token = 'valid.jwt.token';
             const decodedToken = { userid: '123', username: 'test_user' };
-
             mockReq.headers.authorization = `Bearer ${token}`;
             mockAuthService.verifyToken.returns(decodedToken);
 
@@ -75,8 +75,7 @@ describe('AuthMiddleware', () => {
 
         it('should handle custom errors from auth service', () => {
             const token = 'valid.jwt.token';
-            const customError = new CustomError('Token expired', 401, 'TOKEN_EXPIRED');
-
+            const customError = new CustomError(mockErrorMessages.TOKEN_EXPIRED, 401, 'TOKEN_EXPIRED');
             mockReq.headers.authorization = `Bearer ${token}`;
             mockAuthService.verifyToken.throws(customError);
 
@@ -91,8 +90,7 @@ describe('AuthMiddleware', () => {
 
         it('should handle generic errors from auth service', () => {
             const token = 'invalid.jwt.token';
-            const genericError = new Error('JWT verification failed');
-
+            const genericError = new Error(mockErrorMessages.JWT_FAILED);
             mockReq.headers.authorization = `Bearer ${token}`;
             mockAuthService.verifyToken.throws(genericError);
 

@@ -23,6 +23,16 @@ class UserRepository {
   }
 
   /**
+   * Abstract create method to be implemented by subclasses
+   * @param {Object} userData The user data to create (unused)
+   * @throws {Error} If not implemented
+   */
+  // eslint-disable-next-line no-unused-vars
+  async create(userData) {
+    throw new Error('Method create() must be implemented');
+  }
+
+  /**
    * Save a user object.
    * @param {Object} user - The user object to save
    * @returns {Promise<Object>} The saved user object
