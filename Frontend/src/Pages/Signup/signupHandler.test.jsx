@@ -4,7 +4,7 @@ import toast from 'react-hot-toast';
 import { renderHook } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { act, waitFor } from '@testing-library/react';
-import { validatePasswordLength, validateSignupFormFields } from './signupHandler.jsx';
+import { validatePasswordLength } from './signupHandler.jsx';
 
 jest.mock('react-hot-toast', () => ({
     success: jest.fn(),
@@ -26,52 +26,41 @@ describe('signupHandler', () => {
 
         it('returns true for valid form data', () => {
             const result = validateSignupForm(validFormData);
-
             expect(result).toBe(true);
             expect(toast.error).not.toHaveBeenCalled();
         });
 
         it('returns false and shows toast when username is empty', () => {
             const formData = { ...validFormData, username: '' };
-
             const result = validateSignupForm(formData);
-
             expect(result).toBe(false);
             expect(toast.error).toHaveBeenCalledWith('Username is required');
         });
 
         it('returns false and shows toast when password is empty', () => {
             const formData = { ...validFormData, password: '' };
-
             const result = validateSignupForm(formData);
-
             expect(result).toBe(false);
             expect(toast.error).toHaveBeenCalledWith('Password is required');
         });
 
         it('returns false and shows toast when password is too short', () => {
             const formData = { ...validFormData, password: '123' };
-
             const result = validateSignupForm(formData);
-
             expect(result).toBe(false);
-            expect(toast.error).toHaveBeenCalledWith('Password must be at least 6 characters long');
+            expect(toast.error).toHaveBeenCalledWith('Password must be at least 6 characters');
         });
 
         it('returns false and shows toast when confirmPassword is empty', () => {
             const formData = { ...validFormData, confirmPassword: '' };
-
             const result = validateSignupForm(formData);
-
             expect(result).toBe(false);
             expect(toast.error).toHaveBeenCalledWith('Please confirm your password');
         });
 
         it('returns false and shows toast when passwords do not match', () => {
             const formData = { ...validFormData, confirmPassword: 'differentpassword' };
-
             const result = validateSignupForm(formData);
-
             expect(result).toBe(false);
             expect(toast.error).toHaveBeenCalledWith('Passwords do not match');
         });
@@ -82,55 +71,57 @@ describe('signupHandler', () => {
                 password: '',
                 confirmPassword: ''
             };
-
             const result = validateSignupForm(formData);
-
             expect(result).toBe(false);
             expect(toast.error).toHaveBeenCalledTimes(1);
             expect(toast.error).toHaveBeenCalledWith('Username is required');
         });
     });
 
+    describe('validatePasswordLength', () => {
+        it('returns true if password meets default min length', () => {
+            const password = '123456';
+            const shortPassword = '12345';
+            const resultValid = validatePasswordLength(password);
+            const resultInvalid = validatePasswordLength(shortPassword);
+            expect(resultValid).toBe(true);
+            expect(resultInvalid).toBe(false);
+        });
+        it('returns true if password meets custom min length', () => {
+            const password = '1234';
+            const shortPassword = '123';
+            const minLength = 4;
+            const resultValid = validatePasswordLength(password, minLength);
+            const resultInvalid = validatePasswordLength(shortPassword, minLength);
+            expect(resultValid).toBe(true);
+            expect(resultInvalid).toBe(false);
+        });
+    });
+
     describe('handleSignupChange', () => {
         it('updates form data with new field value', () => {
             const setFormData = jest.fn();
-            const handleChange = handleSignupChange({ setFormData });
+            const handleChange = handleSignupChange({ formData: {}, setFormData });
             const mockEvent = {
                 target: {
                     name: 'username',
                     value: 'newusername'
                 }
             };
-
             handleChange(mockEvent);
-
-            expect(setFormData).toHaveBeenCalledWith(expect.any(Function));
+            expect(setFormData).toHaveBeenCalledWith({ username: 'newusername' });
         });
-
         it('preserves existing form data when updating single field', () => {
             const setFormData = jest.fn();
-            const handleChange = handleSignupChange({ setFormData });
+            const handleChange = handleSignupChange({ formData: { username: 'old', password: 'oldpass' }, setFormData });
             const mockEvent = {
                 target: {
                     name: 'password',
-                    value: 'newpassword'
+                    value: 'newpass'
                 }
             };
-
             handleChange(mockEvent);
-
-            const updateFunction = setFormData.mock.calls[0][0];
-            const previousState = {
-                username: 'existinguser',
-                password: 'oldpassword',
-                confirmPassword: 'oldpassword'
-            };
-            const newState = updateFunction(previousState);
-            expect(newState).toEqual({
-                username: 'existinguser',
-                password: 'newpassword',
-                confirmPassword: 'oldpassword'
-            });
+            expect(setFormData).toHaveBeenCalledWith({ username: 'old', password: 'newpass' });
         });
     });
 
@@ -365,65 +356,5 @@ describe('signupHandler', () => {
                 });
             }).not.toThrow();
         });
-    });
-});
-
-describe('validatePasswordLength', () => {
-    it('returns true if password meets default min length', () => {
-        const password = '123456';
-        const shortPassword = '12345';
-
-        const resultValid = validatePasswordLength(password);
-        const resultInvalid = validatePasswordLength(shortPassword);
-
-        expect(resultValid).toBe(true);
-        expect(resultInvalid).toBe(false);
-    });
-
-    it('returns true if password meets custom min length', () => {
-        const password = '1234';
-        const shortPassword = '123';
-        const minLength = 4;
-
-        const resultValid = validatePasswordLength(password, minLength);
-        const resultInvalid = validatePasswordLength(shortPassword, minLength);
-
-        expect(resultValid).toBe(true);
-        expect(resultInvalid).toBe(false);
-    });
-});
-
-describe('validateSignupFormFields', () => {
-    const validationMessages = {
-        USERNAME_REQUIRED: 'Username required',
-        PASSWORD_REQUIRED: 'Password required',
-        PASSWORD_TOO_SHORT: 'Password too short',
-        CONFIRM_PASSWORD_REQUIRED: 'Confirm required',
-        PASSWORDS_DONT_MATCH: 'No match',
-    };
-
-    it('uses default minPasswordLength when not provided', () => {
-        const formData = {
-            username: 'user',
-            password: '12345',
-            confirmPassword: '12345',
-        };
-
-        const result = validateSignupFormFields(formData, validationMessages);
-
-        expect(result).toBe('Password too short');
-    });
-
-    it('uses custom minPasswordLength when provided', () => {
-        const formData = {
-            username: 'user',
-            password: '12345',
-            confirmPassword: '12345',
-        };
-        const minPasswordLength = 5;
-
-        const result = validateSignupFormFields(formData, validationMessages, minPasswordLength);
-
-        expect(result).toBeNull();
     });
 }); 

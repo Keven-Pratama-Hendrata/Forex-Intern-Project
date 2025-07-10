@@ -2,119 +2,66 @@ import toast from "react-hot-toast";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AUTH_ENDPOINTS, AUTH_MESSAGES, AUTH_FORMS } from "../../data";
+import { handleFormChange, validateRequiredFields } from '../../components/common';
 
 /**
- * Validates password length meets minimum requirement
- * @param {string} password The password to validate
- * @param {number} minLength Minimum required password length
- * @returns {boolean} True if password meets length requirement
+ * Checks if password meets minimum length.
+ * @param {string} password - The password string.
+ * @param {number} minLength - The minimum length required.
+ * @returns {boolean} True if password is long enough.
  */
-const validatePasswordLength = (password, minLength = 6) => {
-    return password.length >= minLength;
-};
+const validatePasswordLength = (password, minLength = 6) => password.length >= minLength;
 
 /**
- * Validates that password and confirm password match
- * @param {string} password The password
- * @param {string} confirmPassword The confirm password
- * @returns {boolean} True if passwords match
+ * Checks if password and confirmPassword match.
+ * @param {string} password - The password string.
+ * @param {string} confirmPassword - The confirmation password string.
+ * @returns {boolean} True if passwords match.
  */
-const validatePasswordMatch = (password, confirmPassword) => {
-    return password === confirmPassword;
-};
+const validatePasswordMatch = (password, confirmPassword) => password === confirmPassword;
 
 /**
- * Validates username field for required value
- * @param {Object} formData Form data object
- * @param {Object} validationMessages Validation error messages
- * @returns {string|null} Error message if validation fails, null if valid
+ * Validates password length and match for signup form.
+ * @param {Object} formData - The form data object.
+ * @returns {boolean} True if valid, false otherwise.
  */
-const validateUsernameField = (formData, validationMessages) => {
-    if (!formData.username) {
-        return validationMessages.USERNAME_REQUIRED;
-    }
-    return null;
-};
-
-/**
- * Validates password field for required value and minimum length
- * @param {Object} formData Form data object
- * @param {Object} validationMessages Validation error messages
- * @param {number} minPasswordLength Minimum required password length
- * @returns {string|null} Error message if validation fails, null if valid
- */
-const validatePasswordField = (formData, validationMessages, minPasswordLength) => {
-    if (!formData.password) {
-        return validationMessages.PASSWORD_REQUIRED;
-    }
-    if (!validatePasswordLength(formData.password, minPasswordLength)) {
-        return validationMessages.PASSWORD_TOO_SHORT;
-    }
-    return null;
-};
-
-/**
- * Validates confirm password field for required value and password match
- * @param {Object} formData Form data object
- * @param {Object} validationMessages Validation error messages
- * @returns {string|null} Error message if validation fails, null if valid
- */
-const validateConfirmPasswordField = (formData, validationMessages) => {
-    if (!formData.confirmPassword) {
-        return validationMessages.CONFIRM_PASSWORD_REQUIRED;
+function validateSignupPasswords(formData) {
+    if (!validatePasswordLength(formData.password, AUTH_FORMS.SIGNUP.VALIDATION.MIN_PASSWORD_LENGTH)) {
+        toast.error(AUTH_MESSAGES.VALIDATION.PASSWORD_TOO_SHORT);
+        return false;
     }
     if (!validatePasswordMatch(formData.password, formData.confirmPassword)) {
-        return validationMessages.PASSWORDS_DONT_MATCH;
-    }
-    return null;
-};
-
-/**
- * Validates signup form fields and returns the first error if any
- * @param {Object} formData Form data object
- * @param {Object} validationMessages Validation error messages
- * @param {number} minPasswordLength Minimum required password length
- * @returns {string|null} First error message if validation fails, null if valid
- */
-const validateSignupFormFields = (formData, validationMessages, minPasswordLength = 6) => {
-    const usernameError = validateUsernameField(formData, validationMessages);
-    if (usernameError) return usernameError;
-
-    const passwordError = validatePasswordField(formData, validationMessages, minPasswordLength);
-    if (passwordError) return passwordError;
-
-    const confirmPasswordError = validateConfirmPasswordField(formData, validationMessages);
-    if (confirmPasswordError) return confirmPasswordError;
-
-    return null;
-};
-
-/**
- * Validates signup form fields for required username, password, and confirm password
- * Checks if all fields are present, password is at least 6 characters, and passwords match
- * Shows toast for validation error if any
- * @param {Object} formData The form data object
- * @returns {boolean} True if validation passes, false otherwise
- */
-export const validateSignupForm = (formData) => {
-    const error = validateSignupFormFields(
-        formData,
-        AUTH_MESSAGES.VALIDATION,
-        AUTH_FORMS.SIGNUP.VALIDATION.MIN_PASSWORD_LENGTH
-    );
-
-    if (error) {
-        toast.error(error);
+        toast.error(AUTH_MESSAGES.VALIDATION.PASSWORDS_DONT_MATCH);
         return false;
     }
     return true;
+}
+
+/**
+ * Validates signup form fields for required fields and password rules.
+ * @param {Object} formData - The form data object.
+ * @returns {boolean} True if valid, false otherwise.
+ */
+const validateSignupForm = (formData) => {
+    const requiredFields = ['username', 'password', 'confirmPassword'];
+    const requiredMessages = {
+        username: AUTH_MESSAGES.VALIDATION.USERNAME_REQUIRED,
+        password: AUTH_MESSAGES.VALIDATION.PASSWORD_REQUIRED,
+        confirmPassword: AUTH_MESSAGES.VALIDATION.CONFIRM_PASSWORD_REQUIRED,
+    };
+    const requiredCheck = validateRequiredFields(formData, requiredFields, requiredMessages);
+    if (!requiredCheck.isValid) {
+        toast.error(requiredCheck.message);
+        return false;
+    }
+    return validateSignupPasswords(formData);
 };
 
 /**
- * Creates HTTP request configuration for signup API endpoint
- * @param {string} method HTTP method
- * @param {Object} body Request body
- * @returns {Object} Fetch request configuration
+ * Creates HTTP request configuration for signup API endpoint.
+ * @param {string} method - HTTP method.
+ * @param {Object} body - Request body.
+ * @returns {Object} Fetch request configuration.
  */
 const createRequestConfig = (method, body) => ({
     method,
@@ -125,9 +72,9 @@ const createRequestConfig = (method, body) => ({
 });
 
 /**
- * Creates request body for signup API call
- * @param {Object} formData Form data object
- * @returns {Object} Request body object
+ * Creates request body for signup API call.
+ * @param {Object} formData - The form data object.
+ * @returns {Object} Request body object.
  */
 const createSignupRequestBody = (formData) => ({
     username: formData.username,
@@ -135,38 +82,31 @@ const createSignupRequestBody = (formData) => ({
 });
 
 /**
- * Makes the signup API request
- * @param {Object} formData Form data object containing username and password
- * @returns {Promise<Object>} API response data
+ * Makes the signup API request.
+ * @param {Object} formData - The form data object.
+ * @returns {Promise<Object>} API response data.
  */
 const signupUserRequest = async (formData) => {
     const requestBody = createSignupRequestBody(formData);
     const config = createRequestConfig("POST", requestBody);
-
     const response = await fetch(AUTH_ENDPOINTS.SIGNUP, config);
     const data = await response.json();
-
     return { ok: response.ok, data };
 };
 
 /**
- * Handles input change for signup form fields
- * @param {Object} params Parameters object
- * @param {Function} params.setFormData Function to update form state
- * @returns {Function} Event handler for input change
+ * Handles input change for signup form fields.
+ * @param {Object} params - Parameters object.
+ * @param {Object} params.formData - Current form data.
+ * @param {Function} params.setFormData - Function to update form state.
+ * @returns {Function} Event handler for input change.
  */
-export const handleSignupChange = ({ setFormData }) => (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-        ...prev,
-        [name]: value
-    }));
-};
+export const handleSignupChange = ({ formData, setFormData }) => handleFormChange(formData, setFormData);
 
 /**
- * Determines error message for signup failure
- * @param {Object} data API response data
- * @returns {string} Error message
+ * Determines error message for signup failure.
+ * @param {Object} data - API response data.
+ * @returns {string} Error message.
  */
 const getSignupErrorMessage = (data) => {
     if (data.error === "USERNAME_EXISTS") {
@@ -176,9 +116,9 @@ const getSignupErrorMessage = (data) => {
 };
 
 /**
- * Handles successful signup result
- * @param {Function} setLoading Function to update loading state
- * @param {Function} navigate Function to redirect after signup
+ * Handles successful signup result.
+ * @param {Function} setLoading - Function to update loading state.
+ * @param {Function} navigate - Function to redirect after signup.
  */
 const handleSignupSuccess = (setLoading, navigate) => {
     toast.success(AUTH_MESSAGES.SUCCESS.SIGNUP);
@@ -187,9 +127,9 @@ const handleSignupSuccess = (setLoading, navigate) => {
 };
 
 /**
- * Handles failed signup result
- * @param {Object} data API response data
- * @param {Function} setLoading Function to update loading state
+ * Handles failed signup result.
+ * @param {Object} data - API response data.
+ * @param {Function} setLoading - Function to update loading state.
  */
 const handleSignupFailure = (data, setLoading) => {
     const errorMsg = getSignupErrorMessage(data);
@@ -198,26 +138,25 @@ const handleSignupFailure = (data, setLoading) => {
 };
 
 /**
- * Handles the result of the signup API call and updates UI accordingly
- * @param {Object} args Arguments object
- * @param {Object} args.data Response data from API
- * @param {boolean} args.ok Whether the API call was successful
- * @param {Function} args.setLoading Function to update loading state
- * @param {Function} args.navigate Function to redirect after signup
+ * Handles the result of the signup API call and updates UI accordingly.
+ * @param {Object} args - Arguments object.
+ * @param {Object} args.data - API response data.
+ * @param {boolean} args.ok - Whether the API call was successful.
+ * @param {Function} args.setLoading - Function to update loading state.
+ * @param {Function} args.navigate - Function to redirect after signup.
  */
 const handleSignupResult = ({ data, ok, setLoading, navigate }) => {
     if (!ok) {
         handleSignupFailure(data, setLoading);
         return;
     }
-
     handleSignupSuccess(setLoading, navigate);
 };
 
 /**
- * Handles API request errors
- * @param {Error} error The caught error
- * @param {Function} setLoading Function to update loading state
+ * Handles API request errors.
+ * @param {Error} error - The caught error.
+ * @param {Function} setLoading - Function to update loading state.
  */
 const handleSignupRequestError = (error, setLoading) => {
     const errorMsg = error?.message || AUTH_MESSAGES.ERROR.NETWORK_ERROR;
@@ -226,15 +165,14 @@ const handleSignupRequestError = (error, setLoading) => {
 };
 
 /**
- * Processes the signup logic after validation
- * @param {Object} args Arguments object
- * @param {Object} args.formData Form data object to send to API
- * @param {Function} args.setLoading Function to update loading state
- * @param {Function} args.navigate Function to redirect after signup
+ * Processes the signup logic after validation.
+ * @param {Object} args - Arguments object.
+ * @param {Object} args.formData - Form data object to send to API.
+ * @param {Function} args.setLoading - Function to update loading state.
+ * @param {Function} args.navigate - Function to redirect after signup.
  */
 const processSignup = async ({ formData, setLoading, navigate }) => {
     setLoading(true);
-
     try {
         const { ok, data } = await signupUserRequest(formData);
         handleSignupResult({ data, ok, setLoading, navigate });
@@ -244,25 +182,22 @@ const processSignup = async ({ formData, setLoading, navigate }) => {
 };
 
 /**
- * Handles form submission for signup
- * Validates form and makes API call
- * @param {Object} params Parameters object
- * @param {Object} params.formData Form data object
- * @param {Function} params.setLoading Function to update loading state
- * @param {Function} params.navigate Function to redirect after signup
- * @returns {Function} Event handler for form submit
+ * Handles form submission for signup.
+ * @param {Object} params - Parameters object.
+ * @param {Object} params.formData - Form data object.
+ * @param {Function} params.setLoading - Function to update loading state.
+ * @param {Function} params.navigate - Function to redirect after signup.
+ * @returns {Function} Event handler for form submit.
  */
 export const handleSignupSubmit = ({ formData, setLoading, navigate }) => async (e) => {
     e.preventDefault();
-
     if (!validateSignupForm(formData)) return;
-
     await processSignup({ formData, setLoading, navigate });
 };
 
 /**
- * Initializes signup form state
- * @returns {Object} Initial form state object
+ * Initializes signup form state.
+ * @returns {Object} Initial form state object.
  */
 const getInitialFormState = () => ({
     username: "",
@@ -271,21 +206,20 @@ const getInitialFormState = () => ({
 });
 
 /**
- * Custom hook for signup form state and handlers
- * @returns {Object} Object containing formData, loading, handleChange, handleSubmit
+ * Custom hook for signup form state and handlers.
+ * @returns {Object} Object containing formData, loading, handleChange, handleSubmit.
  */
 const useSignupHandler = () => {
     const [formData, setFormData] = useState(getInitialFormState());
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
-
     return {
         formData,
         loading,
-        handleChange: handleSignupChange({ setFormData }),
+        handleChange: handleSignupChange({ formData, setFormData }),
         handleSubmit: handleSignupSubmit({ formData, setLoading, navigate })
     };
 };
 
 export default useSignupHandler;
-export { validatePasswordLength, validateSignupFormFields }; 
+export { validatePasswordLength, validateSignupForm }; 
