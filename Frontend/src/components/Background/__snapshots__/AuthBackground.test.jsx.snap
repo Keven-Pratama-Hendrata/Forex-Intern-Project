@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`AuthBackground falls back to login config when circlePosition is invalid 1`] = `
+<div
+  class="min-h-screen flex items-center justify-center relative overflow-hidden"
+>
+  <div
+    data-testid="bg-gradient"
+  />
+  <div
+    data-testid="circles-cfg-login"
+  />
+  <div
+    class="relative z-10 w-full max-w-sm"
+  >
+    <span>
+      Invalid pos
+    </span>
+  </div>
+</div>
+`;
+
+exports[`AuthBackground renders default (login) background 1`] = `
+<div
+  class="min-h-screen flex items-center justify-center relative overflow-hidden"
+>
+  <div
+    data-testid="bg-gradient"
+  />
+  <div
+    data-testid="circles-cfg-login"
+  />
+  <div
+    class="relative z-10 w-full max-w-sm"
+  >
+    <span>
+      Any content
+    </span>
+  </div>
+</div>
+`;
+
+exports[`AuthBackground renders signup variant 1`] = `
+<div
+  class="min-h-screen flex items-center justify-center relative overflow-hidden"
+>
+  <div
+    data-testid="bg-gradient"
+  />
+  <div
+    data-testid="circles-cfg-signup"
+  />
+  <div
+    class="relative z-10 w-full max-w-sm"
+  >
+    <span>
+      Signup form
+    </span>
+  </div>
+</div>
+`;
