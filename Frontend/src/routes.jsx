@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
-import { Login } from './Pages';
+import { Login, Dashboard } from './Pages';
 
 /**
  * Main application routing component
@@ -12,6 +12,7 @@ const AppRoutes = () => {
     return (
         <Routes>
             <Route path="/" element={<Login />} />
+            <Route path="/Dashboard" element={<Dashboard />} />
         </Routes>
     );
 };
