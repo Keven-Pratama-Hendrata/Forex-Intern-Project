@@ -12,7 +12,8 @@ describe('userRoute', () => {
     beforeEach(() => {
         userController = {
             getUserProfile: sinon.stub(),
-            updateBalance: sinon.stub()
+            updateBalance: sinon.stub(),
+            getDashboardData: sinon.stub()
         };
         authController = {
             loginUser: sinon.stub()
@@ -68,6 +69,24 @@ describe('userRoute', () => {
         );
         expect(found).to.be.true;
         expect(userController.updateBalance).to.have.been.calledWith(req, res, next);
+    });
+
+    it('should register /dashboard GET and call verifyTokenMiddleware, userController.getDashboardData, and logger', () => {
+        const req = { user: { id: 'test' } }, res = {}, next = () => { };
+        const route = router.stack.find(r => r.route && r.route.path === '/dashboard');
+        expect(route).to.exist;
+        route.route.stack[0].handle(req, res, () => {
+            route.route.stack[1].handle(req, res, next);
+        });
+        expect(verifyTokenMiddleware).to.have.been.called;
+        const found = logger.info.getCalls().some(call =>
+            call.args[0] === 'Dashboard route accessed' &&
+            call.args[1] &&
+            call.args[1].method === 'GET' &&
+            call.args[1].path === '/dashboard'
+        );
+        expect(found).to.be.true;
+        expect(userController.getDashboardData).to.have.been.calledWith(req, res, next);
     });
 
     it('should log routes initialized', () => {

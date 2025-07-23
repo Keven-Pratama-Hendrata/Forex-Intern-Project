@@ -45,6 +45,17 @@ export default function createUserRoutes({ userController, authController, verif
     userController.updateBalance(req, res, next);
   });
 
+  /**
+   * Route handler for getting dashboard data.
+   * @param {Object} req Express request object
+   * @param {Object} res Express response object
+   * @param {Function} next Express next middleware function
+   */
+  router.get('/dashboard', verifyTokenMiddleware, (req, res, next) => {
+    logger.info('Dashboard route accessed', { method: 'GET', path: '/dashboard' });
+    userController.getDashboardData(req, res, next);
+  });
+
   logger.info('User routes initialized successfully');
   return router;
 }

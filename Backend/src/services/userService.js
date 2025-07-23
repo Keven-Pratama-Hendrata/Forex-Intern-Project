@@ -75,9 +75,9 @@ class UserService {
     this.logger.info('Updating today balance USD', { userid: user.id, amount });
 
     return {
-      ...user,
+      id: user.id,
       todayBalanceUsd: parseFloat(amount),
-      lastFetchedDate: new Date()
+      lastFetchedDate: new Date(),
     };
   }
 
@@ -87,8 +87,6 @@ class UserService {
    * @returns {Promise<Object>} The user profile object
    */
   async getUserProfile(userid) {
-    this.logger.info('Getting user profile', { userid });
-
     const user = await this.userRepository.findOneById(userid);
 
     if (!user) {
@@ -110,7 +108,6 @@ class UserService {
     }
 
     this.logger.info('User profile retrieved successfully', { userid });
-
     return {
       userid: userWithUpdatedHistory.id,
       username: userWithUpdatedHistory.username,
@@ -145,6 +142,30 @@ class UserService {
     return {
       message: 'Balance updated',
       balances: updatedUser.balances
+    };
+  }
+
+  /**
+   * Get dashboard data for the user.
+   * @param {string} userid The user ID
+   * @returns {Promise<Object>} The dashboard data object
+   */
+  async getDashboardData(userid) {
+    this.logger.info('Getting dashboard data', { userid });
+
+    const user = await this.userRepository.findOneById(userid);
+
+    if (!user) {
+      this.logger.error('User not found for dashboard', { userid });
+      throw new Error('User not found');
+    }
+
+    this.logger.info('Dashboard data retrieved successfully', { userid });
+
+    return {
+      username: user.username,
+      todayBalanceUsd: user.todayBalanceUsd,
+      dailyTotalUsdHistory: user.dailyTotalUsdHistory
     };
   }
 }

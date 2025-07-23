@@ -1,5 +1,5 @@
 import React from 'react';
-import AppRoutes from '../routes';
+import AppRoutes from '../Routes/routes';
 
 /**
  * Main application component that handles the overall app structure

@@ -5,7 +5,7 @@ import sinon from 'sinon';
 const expect = chai.expect;
 
 import UserService from '../../src/services/userService.js';
-import { mockUsers } from '../mock/index.js';
+import { mockUsers } from '../mock/users.mock.js';
 
 describe('UserService', () => {
     let userService;
@@ -220,6 +220,37 @@ describe('UserService', () => {
             } catch (error) {
                 expect(error.message).to.equal('User not found');
                 expect(mockLogger.error).to.have.been.calledWith('User not found for balance update', { userid });
+            }
+        });
+    });
+
+    describe('getDashboardData', () => {
+        it('should get dashboard data successfully', async () => {
+            const userid = '507f1f77bcf86cd799439011';
+            const user = JSON.parse(JSON.stringify(mockUsers[0]));
+            user.lastFetchedDate = new Date(user.lastFetchedDate);
+            mockUserRepository.findOneById.resolves(user);
+
+            const result = await userService.getDashboardData(userid);
+
+            expect(mockUserRepository.findOneById).to.have.been.calledWith(userid);
+            expect(result).to.have.property('username', user.username);
+            expect(result).to.have.property('todayBalanceUsd', user.todayBalanceUsd);
+            expect(result).to.have.property('dailyTotalUsdHistory', user.dailyTotalUsdHistory);
+            expect(mockLogger.info).to.have.been.calledWith('Getting dashboard data', { userid });
+            expect(mockLogger.info).to.have.been.calledWith('Dashboard data retrieved successfully', { userid });
+        });
+
+        it('should throw error when user is not found', async () => {
+            const userid = 'nonexistent_id';
+            mockUserRepository.findOneById.resolves(null);
+
+            try {
+                await userService.getDashboardData(userid);
+                expect.fail('Should have thrown an error');
+            } catch (error) {
+                expect(error.message).to.equal('User not found');
+                expect(mockLogger.error).to.have.been.calledWith('User not found for dashboard', { userid });
             }
         });
     });

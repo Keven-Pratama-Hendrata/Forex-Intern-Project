@@ -15,6 +15,7 @@ describe('Redux store integration', () => {
             token: null,
             loading: false,
             error: null,
+            justLoggedOut: false,
         });
     });
 
@@ -57,6 +58,7 @@ describe('Redux store integration', () => {
             token: null,
             loading: false,
             error: null,
+            justLoggedOut: true,
         });
     });
 
@@ -67,5 +69,14 @@ describe('Redux store integration', () => {
         const state = store.getState().auth;
 
         expect(state.error).toBeNull();
+    });
+
+    it('should handle clearJustLoggedOut', () => {
+        store.dispatch(loginSuccess({ token: 'abc123' }));
+        store.dispatch(logout());
+
+        store.dispatch(require('./slices/authSlice').clearJustLoggedOut());
+
+        expect(store.getState().auth.justLoggedOut).toBe(false);
     });
 }); 

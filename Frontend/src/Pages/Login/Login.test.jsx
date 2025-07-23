@@ -6,7 +6,7 @@ import authReducer from '../../store/slices/authSlice';
 import Login from './Login';
 import React from 'react';
 
-jest.mock('../../components/Background/AuthBackground.jsx', () => {
+jest.mock('../../components/Background/Auth/AuthBackground.jsx', () => {
   return function MockAuthBackground({ children, circlePosition }) {
     return (
       <div data-testid="auth-background" data-circle-position={circlePosition}>

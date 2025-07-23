@@ -80,6 +80,9 @@ class App {
     const userRoute = this.container.getRoute('userRoute');
     this.app.use('/api/users', userRoute);
 
+    const marketPriceRoute = this.container.getRoute('marketPriceRoute');
+    this.app.use('/api/market', marketPriceRoute);
+
     this.logger.info('Routes setup completed');
   }
 

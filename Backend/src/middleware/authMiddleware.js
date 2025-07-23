@@ -10,12 +10,13 @@ import CustomError from '../utils/error.js';
 export default function createAuthMiddleware({ authService, logger }) {
   return function verifyToken(req, res, next) {
     try {
-      logger.info('Verifying authentication token');
+      logger.info('Checking for Authorization header in authentication middleware');
       const token = req.headers.authorization?.split(' ')[1];
       if (!token) {
         logger.error('No token provided in authorization header');
         throw new CustomError('Access denied. No token provided.', 401, 'NO_TOKEN');
       }
+      logger.info('Calling AuthService.verifyToken from authentication middleware');
       const decoded = authService.verifyToken(token);
       req.user = decoded;
       logger.info('Token verified successfully', { userid: decoded.userid });

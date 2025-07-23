@@ -7,7 +7,7 @@ const expect = chai.expect;
 import jwt from 'jsonwebtoken';
 import AuthService from '../../src/services/authService.js';
 import Constants from '../../src/constants.js';
-import { mockUserForAuth } from '../mock/index.js';
+import { mockUserForAuth } from '../mock/users.mock.js';
 
 describe('AuthService', () => {
     let authService;

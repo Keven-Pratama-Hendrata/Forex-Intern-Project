@@ -9,7 +9,6 @@ import {
     getButtonCoreProps,
     renderButton
 } from './buttonHandler';
-import { UI_CONSTANTS, UI_CLASSES } from '../../../data';
 
 const createMockElement = () => {
     const element = {
@@ -28,7 +27,7 @@ describe('Button Utils', () => {
 
             handleMouseEnter(element);
 
-            expect(element.currentTarget.style.backgroundColor).toBe(UI_CONSTANTS.BUTTON_COLORS.BLUE_HOVER);
+            expect(element.currentTarget.style.backgroundColor).toBe('#426989');
         });
     });
 
@@ -38,7 +37,7 @@ describe('Button Utils', () => {
 
             handleMouseLeave(element);
 
-            expect(element.currentTarget.style.backgroundColor).toBe(UI_CONSTANTS.BUTTON_COLORS.BLUE);
+            expect(element.currentTarget.style.backgroundColor).toBe('#507fa1');
         });
     });
 
@@ -63,12 +62,13 @@ describe('Button Utils', () => {
     });
 
     describe('getButtonClassName', () => {
+        const base = 'btn w-full rounded-full border-none text-white font-semibold tracking-wide transition-transform duration-200';
         it('returns base class when no additional class provided', () => {
             const additionalClass = '';
 
             const result = getButtonClassName(additionalClass);
 
-            expect(result).toBe(UI_CLASSES.BUTTON.BASE);
+            expect(result).toBe(base);
         });
 
         it('combines base class with additional class', () => {
@@ -76,7 +76,7 @@ describe('Button Utils', () => {
 
             const result = getButtonClassName(additionalClass);
 
-            expect(result).toBe(`${UI_CLASSES.BUTTON.BASE} ${additionalClass}`);
+            expect(result).toBe(`${base} ${additionalClass}`);
         });
     });
 
@@ -84,7 +84,7 @@ describe('Button Utils', () => {
         it('returns style object with correct background color', () => {
             const result = getButtonStyle();
 
-            expect(result).toEqual({ backgroundColor: UI_CONSTANTS.BUTTON_COLORS.BLUE });
+            expect(result).toEqual({ backgroundColor: '#507fa1' });
         });
     });
 
@@ -125,7 +125,7 @@ describe('Button Utils', () => {
             expect(result.type).toBe('button');
             expect(result.disabled).toBe(false);
             expect(result.children).toBe('Test Button');
-            expect(result.style).toEqual({ backgroundColor: UI_CONSTANTS.BUTTON_COLORS.BLUE });
+            expect(result.style).toEqual({ backgroundColor: '#507fa1' });
         });
 
         it('includes additional props', () => {

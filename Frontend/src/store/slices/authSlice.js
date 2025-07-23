@@ -5,6 +5,7 @@ const initialState = {
   token: null,
   loading: false,
   error: null,
+  justLoggedOut: false,
 };
 
 const authSlice = createSlice({
@@ -29,6 +30,7 @@ const authSlice = createSlice({
       state.token = action.payload.token;
       state.loading = false;
       state.error = null;
+      state.justLoggedOut = false;
     },
     /**
      * Handles failed login by updating the error state and resetting authentication.
@@ -40,6 +42,7 @@ const authSlice = createSlice({
       state.error = action.payload;
       state.isAuthenticated = false;
       state.token = null;
+      state.justLoggedOut = false;
     },
     /**
      * Logs out the user and resets authentication state.
@@ -50,6 +53,7 @@ const authSlice = createSlice({
       state.token = null;
       state.loading = false;
       state.error = null;
+      state.justLoggedOut = true;
     },
     /**
      * Clears any authentication errors from the state.
@@ -58,8 +62,15 @@ const authSlice = createSlice({
     clearError: (state) => {
       state.error = null;
     },
+    /**
+     * Resets the justLoggedOut flag to false after logout is handled.
+     * @param {Object} state The current auth slice state.
+     */
+    clearJustLoggedOut: (state) => {
+      state.justLoggedOut = false;
+    },
   },
 });
 
-export const { loginStart, loginSuccess, loginFailure, logout, clearError } = authSlice.actions;
+export const { loginStart, loginSuccess, loginFailure, logout, clearError, clearJustLoggedOut } = authSlice.actions;
 export default authSlice.reducer; 

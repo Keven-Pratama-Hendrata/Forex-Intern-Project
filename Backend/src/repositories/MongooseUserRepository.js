@@ -39,7 +39,7 @@ class MongooseUserRepository extends UserRepository {
     if (user.id) {
       updatedMongooseUser = await UserModel.findByIdAndUpdate(
         user.id,
-        user,
+        { $set: user },
         { new: true }
       );
     } else {

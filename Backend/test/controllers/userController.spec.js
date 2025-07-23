@@ -12,7 +12,7 @@ describe('UserController', () => {
     let req, res, next, mockUserService, mockLogger, controller;
 
     beforeEach(() => {
-        req = createMockReq({ user: { id: '1' }, body: { balance: { currency: 'USD', amount: 100 } } });
+        req = createMockReq({ user: { userid: '1' }, body: { balance: { currency: 'USD', amount: 100 } } });
         res = createMockRes();
         next = createMockNext();
         mockUserService = {
@@ -121,7 +121,7 @@ describe('UserController', () => {
         });
 
         it('should handle errors when req.body is undefined in catch block', async () => {
-            const reqWithoutBody = createMockReq({ user: { id: '1' } });
+            const reqWithoutBody = createMockReq({ user: { userid: '1' } });
             const error = new Error('Service error');
             mockUserService.handleUpdateBalance.rejects(error);
 
@@ -132,7 +132,7 @@ describe('UserController', () => {
         });
 
         it('should handle errors when req.body is null in catch block', async () => {
-            const reqWithNullBody = createMockReq({ user: { id: '1' }, body: null });
+            const reqWithNullBody = createMockReq({ user: { userid: '1' }, body: null });
 
             await controller.updateBalance(reqWithNullBody, res, next);
 
@@ -148,6 +148,40 @@ describe('UserController', () => {
 
             expect(mockLogger.error).to.have.been.calledWith('Failed to update balance', { userid: '1', balance: req.body.balance, error: error.message });
             expect(next).to.have.been.calledWith(error);
+        });
+    });
+
+    describe('getDashboardData', () => {
+        it('should return dashboard data on success', async () => {
+            const fakeDashboard = { username: 'test', todayBalanceUsd: 100, dailyTotalUsdHistory: [] };
+            mockUserService.getDashboardData = sinon.stub().resolves(fakeDashboard);
+            req = createMockReq({ user: { userid: '1' } });
+
+            await controller.getDashboardData(req, res, next);
+
+            expect(mockUserService.getDashboardData).to.have.been.calledWith('1');
+            expect(res.status).to.have.been.calledWith(200);
+            expect(res.json).to.have.been.calledWith(fakeDashboard);
+        });
+
+        it('should handle errors and call next with error', async () => {
+            const error = new Error('fail');
+            mockUserService.getDashboardData = sinon.stub().rejects(error);
+            req = createMockReq({ user: { userid: '1' } });
+
+            await controller.getDashboardData(req, res, next);
+
+            expect(mockLogger.error).to.have.been.calledWith('Failed to get dashboard data', { userid: '1', error: error.message });
+            expect(next).to.have.been.calledWith(error);
+        });
+
+        it('should throw error when req.user is not found', async () => {
+            req = createMockReq();
+
+            await controller.getDashboardData(req, res, next);
+
+            expect(mockLogger.error).to.have.been.calledWith('User not found in request');
+            expect(next).to.have.been.calledWith(sinon.match.instanceOf(Error));
         });
     });
 }); 

@@ -1,13 +1,13 @@
 import React from 'react';
-import { renderWaveBackground, renderCircles, getCircleConfigs, getConfig } from './authBackgroundHandler.jsx';
+import { renderWaveBackground, renderCircles, getCircleConfigs, getConfig } from './Auth/authBackgroundHandler';
 import PropTypes from 'prop-types';
 
 /**
  * Generalized background component with wave and optional circles
- * @param {Object} props
- * @param {React.ReactNode} props.children - Child components to render
- * @param {boolean} [props.showCircles=false] - Whether to show circles
- * @param {string} [props.circlePosition='login'] - Circle config position
+ * @param {Object} props Props object containing children and optional configuration for the background.
+ * @param {React.ReactNode} props.children Child components to render
+ * @param {boolean} [props.showCircles=false] Whether to show circles
+ * @param {string} [props.circlePosition='login'] Circle config position
  * @returns {JSX.Element} The background with wave and optional circles
  */
 const Background = ({ children, showCircles = false, circlePosition = "login" }) => {

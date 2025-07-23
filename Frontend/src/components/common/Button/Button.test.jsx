@@ -2,7 +2,6 @@ import React from 'react';
 import { render, screen, fireEvent, cleanup } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Button from './Button';
-import { UI_CONSTANTS } from '../../../data';
 
 describe('Button Component', () => {
   const defaultProps = {
@@ -67,7 +66,7 @@ describe('Button Component', () => {
     render(<Button {...defaultProps} />);
     const btn = screen.getByRole('button');
 
-    expect(btn).toHaveStyle(`background-color: ${UI_CONSTANTS.BUTTON_COLORS.BLUE}`);
+    expect(btn).toHaveStyle('background-color: #507fa1');
   });
 
   it('applies hover effects on mouse events', () => {
@@ -76,11 +75,11 @@ describe('Button Component', () => {
 
     fireEvent.mouseEnter(btn);
 
-    expect(btn).toHaveStyle(`background-color: ${UI_CONSTANTS.BUTTON_COLORS.BLUE_HOVER}`);
+    expect(btn).toHaveStyle('background-color: #426989');
 
     fireEvent.mouseLeave(btn);
 
-    expect(btn).toHaveStyle(`background-color: ${UI_CONSTANTS.BUTTON_COLORS.BLUE}`);
+    expect(btn).toHaveStyle('background-color: #507fa1');
   });
 
   it('applies press effects on mouse down/up', () => {

@@ -18,6 +18,10 @@ const config = {
     rateLimit: {
         windowMs: process.env.RATE_LIMIT_WINDOW_MS || 15 * 60 * 1000,
         max: process.env.RATE_LIMIT_MAX || 100
+    },
+    currencyApi: {
+        baseUrl: process.env.BASE_URL,
+        apiKey: process.env.CURRENCY_API_KEY
     }
 };
 

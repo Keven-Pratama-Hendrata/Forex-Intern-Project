@@ -1,44 +1,16 @@
-export const UI_CONSTANTS = {
-    BUTTON_COLORS: {
-        BLUE: '#507fa1',
-        BLUE_HOVER: '#426989',
-    },
-    ANIMATION_DELAYS: {
-        SHORT: 200,
-        MEDIUM: 500,
-        LONG: 800,
-    },
-    BREAKPOINTS: {
-        MOBILE: 'sm',
-        TABLET: 'md',
-        DESKTOP: 'lg',
-        LARGE: 'xl',
-    },
+export const DASHBOARD_CHART_CONFIG = {
+    LABEL: 'IDR Rate',
+    BORDER_COLOR: '#1e3a8a',
+    BACKGROUND_COLOR: '#c7d6ee',
+    TITLE: 'IDR Rate History',
+    TITLE_PADDING: { top: 0, bottom: 16 }
 };
 
-export const UI_MESSAGES = {
-    LOADING: 'Loading...',
-    SUBMIT: 'Submit',
-    CANCEL: 'Cancel',
-    SAVE: 'Save',
-    DELETE: 'Delete',
-    EDIT: 'Edit',
-    CLOSE: 'Close',
+export const DASHBOARD_ERROR_MESSAGES = {
+    FETCH_HISTORY_FAILED: 'Failed to fetch IDR history',
+    GENERIC: 'Error fetching IDR history',
 };
 
-export const UI_CLASSES = {
-    BUTTON: {
-        BASE: 'btn w-full rounded-full border-none text-white font-semibold tracking-wide transition-transform duration-200',
-        DISABLED: 'opacity-50 cursor-not-allowed',
-    },
-    FORM: {
-        FIELD: 'input input-bordered w-full',
-        ERROR: 'input-error',
-        SUCCESS: 'input-success',
-    },
-    LAYOUT: {
-        CONTAINER: 'container mx-auto px-4',
-        CENTER: 'flex items-center justify-center',
-        FULL_HEIGHT: 'min-h-screen',
-    },
+export const DASHBOARD_ROUTES = {
+    HISTORY: 'http://localhost:5001/api/market/history',
 }; 

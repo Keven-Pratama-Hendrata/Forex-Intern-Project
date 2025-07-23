@@ -10,6 +10,10 @@ import UserRoute from '../routes/userRoute.js';
 import AuthService from '../services/authService.js';
 import UserService from '../services/userService.js';
 import Logger from '../utils/logger.js';
+import { MongooseMarketPriceRepository } from '../repositories/index.js';
+import MarketPriceService from '../services/marketPriceService.js';
+import MarketPriceController from '../controllers/marketPriceController.js';
+import createMarketPriceRoutes from '../routes/marketRoute.js';
 
 import { connectDB } from './db.js';
 
@@ -60,6 +64,7 @@ class Container {
    */
   initializeRepositories() {
     this.services.set('userRepository', new MongooseUserRepository());
+    this.services.set('marketPriceRepository', new MongooseMarketPriceRepository());
   }
 
   /**
@@ -68,6 +73,7 @@ class Container {
    */
   initializeServices() {
     const userRepository = this.services.get('userRepository');
+    const marketPriceRepository = this.services.get('marketPriceRepository');
     const logger = this.services.get('logger');
 
     this.services.set('userService', new UserService({
@@ -81,6 +87,12 @@ class Container {
       logger,
       config: this.config
     }));
+
+    this.services.set('marketPriceService', new MarketPriceService({
+      marketPriceRepository,
+      logger,
+      config: this.config
+    }));
   }
 
   /**
@@ -90,6 +102,7 @@ class Container {
   initializeControllers() {
     const userService = this.services.get('userService');
     const authService = this.services.get('authService');
+    const marketPriceService = this.services.get('marketPriceService');
     const logger = this.services.get('logger');
 
     this.controllers.set('userController', new UserController({
@@ -102,6 +115,11 @@ class Container {
       authService,
       logger,
       config: this.config
+    }));
+
+    this.controllers.set('marketPriceController', new MarketPriceController({
+      marketPriceService,
+      logger
     }));
   }
 
@@ -130,6 +148,7 @@ class Container {
   initializeRoutes() {
     const userController = this.controllers.get('userController');
     const authController = this.controllers.get('authController');
+    const marketPriceController = this.controllers.get('marketPriceController');
     const verifyTokenMiddleware = this.middlewares.get('authMiddleware');
     const logger = this.services.get('logger');
 
@@ -139,6 +158,11 @@ class Container {
       verifyTokenMiddleware,
       logger,
       config: this.config
+    }));
+
+    this.routes.set('marketPriceRoute', createMarketPriceRoutes({
+      marketPriceController,
+      logger
     }));
   }
 

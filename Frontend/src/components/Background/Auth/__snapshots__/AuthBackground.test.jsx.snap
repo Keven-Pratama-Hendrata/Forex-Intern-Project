@@ -11,11 +11,15 @@ exports[`AuthBackground falls back to login config when circlePosition is invali
     data-testid="circles-cfg-login"
   />
   <div
-    class="relative z-10 w-full max-w-sm"
+    class="absolute inset-0 flex items-center justify-center z-10"
   >
-    <span>
-      Invalid pos
-    </span>
+    <div
+      class="relative z-10 w-full max-w-sm"
+    >
+      <span>
+        Invalid pos
+      </span>
+    </div>
   </div>
 </div>
 `;
@@ -31,11 +35,15 @@ exports[`AuthBackground renders default (login) background 1`] = `
     data-testid="circles-cfg-login"
   />
   <div
-    class="relative z-10 w-full max-w-sm"
+    class="absolute inset-0 flex items-center justify-center z-10"
   >
-    <span>
-      Any content
-    </span>
+    <div
+      class="relative z-10 w-full max-w-sm"
+    >
+      <span>
+        Any content
+      </span>
+    </div>
   </div>
 </div>
 `;
@@ -51,11 +59,15 @@ exports[`AuthBackground renders signup variant 1`] = `
     data-testid="circles-cfg-signup"
   />
   <div
-    class="relative z-10 w-full max-w-sm"
+    class="absolute inset-0 flex items-center justify-center z-10"
   >
-    <span>
-      Signup form
-    </span>
+    <div
+      class="relative z-10 w-full max-w-sm"
+    >
+      <span>
+        Signup form
+      </span>
+    </div>
   </div>
 </div>
 `;

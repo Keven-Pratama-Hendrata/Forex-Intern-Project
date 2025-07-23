@@ -41,7 +41,7 @@ describe('MongooseUserRepository', () => {
         const fakeUser = { id: '3', username: 'bar' };
         findByIdAndUpdateStub.resolves(fakeUser);
         const result = await repo.save(fakeUser);
-        expect(findByIdAndUpdateStub).to.have.been.calledWith('3', fakeUser, { new: true });
+        expect(findByIdAndUpdateStub).to.have.been.calledWith('3', { $set: fakeUser }, { new: true });
         expect(result).to.equal(fakeUser);
     });
 
