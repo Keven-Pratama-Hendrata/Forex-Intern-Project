@@ -30,7 +30,7 @@ export default function createUserRoutes({ userController, authController, verif
    * @param {Function} next Express next middleware function
    */
   router.get('/profile', verifyTokenMiddleware, (req, res, next) => {
-    logger.info('Profile route accessed', { method: 'GET', path: '/profile', userid: req.user?.id });
+    logger.info('Profile route accessed', { method: 'GET', path: '/profile' });
     userController.getUserProfile(req, res, next);
   });
 
@@ -41,7 +41,7 @@ export default function createUserRoutes({ userController, authController, verif
    * @param {Function} next Express next middleware function
    */
   router.post('/balance', verifyTokenMiddleware, (req, res, next) => {
-    logger.info('Balance route accessed', { method: 'POST', path: '/balance', userid: req.user?.id });
+    logger.info('Balance route accessed', { method: 'POST', path: '/balance' });
     userController.updateBalance(req, res, next);
   });
 

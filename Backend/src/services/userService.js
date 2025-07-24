@@ -62,7 +62,9 @@ class UserService {
       newAmount: balances.find((b) => b.currency === currency).amount
     });
 
-    return { ...user, balances, balanceHistory: balanceHistory };
+    user.balances = balances;
+    user.balanceHistory = balanceHistory;
+    return user;
   }
 
   /**
