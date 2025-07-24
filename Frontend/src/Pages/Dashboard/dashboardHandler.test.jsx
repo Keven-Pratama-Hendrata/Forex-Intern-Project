@@ -1,5 +1,7 @@
 import { fetchIdrHistory, handleLogout } from './dashboardHandler.jsx';
 import { logout } from '../../store/slices/authSlice.js';
+import { renderHook } from '@testing-library/react';
+import { useDashboardData, useIdrMarketChartData } from './dashboardHandler.jsx';
 
 const DASHBOARD_ERROR_MESSAGES = {
     FETCH_HISTORY_FAILED: 'Failed to fetch history',
@@ -10,6 +12,13 @@ global.fetch = jest.fn();
 
 jest.mock('../../store/slices/authSlice', () => ({
     logout: jest.fn(() => ({ type: 'LOGOUT' })),
+}));
+
+jest.mock('react-redux', () => ({
+    useDispatch: () => jest.fn(),
+}));
+jest.mock('react-router-dom', () => ({
+    useNavigate: () => jest.fn(),
 }));
 
 const flushPromises = () => new Promise(resolve => setTimeout(resolve, 0));
@@ -77,5 +86,37 @@ describe('fetchChartHistory', () => {
             data: [15000, null, null],
         });
         expect(setLoading).toHaveBeenLastCalledWith(false);
+    });
+});
+
+describe('useDashboardData', () => {
+    it('calls handleLogout when onLogout is invoked', () => {
+        const dispatch = jest.fn();
+        const navigate = jest.fn();
+        jest.spyOn(require('react-redux'), 'useDispatch').mockReturnValue(dispatch);
+        jest.spyOn(require('react-router-dom'), 'useNavigate').mockReturnValue(navigate);
+
+        const { result } = renderHook(() => useDashboardData());
+        result.current.onLogout();
+
+        expect(dispatch).toHaveBeenCalled();
+        expect(navigate).toHaveBeenCalledWith('/login');
+    });
+});
+
+describe('useIdrMarketChartData', () => {
+    beforeEach(() => {
+        global.fetch = jest.fn(() =>
+            Promise.resolve({
+                json: () => Promise.resolve([]),
+            })
+        );
+    });
+    it('returns initial chart data and loading state', () => {
+        const { result } = renderHook(() => useIdrMarketChartData());
+
+        expect(result.current).toHaveProperty('labels');
+        expect(result.current).toHaveProperty('data');
+        expect(result.current).toHaveProperty('loading', true);
     });
 }); 
