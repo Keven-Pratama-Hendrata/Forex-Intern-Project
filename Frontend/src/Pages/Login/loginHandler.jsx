@@ -165,7 +165,9 @@ export const handleLogin = async (form, setLoading, navigate, dispatch) => {
     handleLoginSuccess(dispatch, data);
     navigate('/dashboard');
   } catch (error) {
-    toast.error(error.message || AUTH_MESSAGES.ERROR.LOGIN_FAILED);
+    if (!((error.message || '').toLowerCase().includes('too many requests'))) {
+      toast.error(error.message || AUTH_MESSAGES.ERROR.LOGIN_FAILED);
+    }
   } finally {
     setLoading(false);
   }

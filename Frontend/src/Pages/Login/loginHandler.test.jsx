@@ -219,6 +219,24 @@ describe('loginUtils', () => {
 
             expect(toast.error).toHaveBeenCalledWith('Login failed');
         });
+
+        it('suppresses toast for too many requests error', async () => {
+            global.fetch = jest.fn().mockRejectedValue(new Error('Too many requests'));
+            const { handleLogin } = require('./loginHandler.jsx');
+
+            await handleLogin(form, setLoading, navigate, dispatch);
+
+            expect(toast.error).not.toHaveBeenCalled();
+        });
+
+        it('calls setLoading(false) in finally block even on error', async () => {
+            global.fetch = jest.fn().mockRejectedValue(new Error('Some error'));
+            const { handleLogin } = require('./loginHandler.jsx');
+
+            await handleLogin(form, setLoading, navigate, dispatch);
+
+            expect(setLoading).toHaveBeenCalledWith(false);
+        });
     });
 
     describe('handleSubmit', () => {

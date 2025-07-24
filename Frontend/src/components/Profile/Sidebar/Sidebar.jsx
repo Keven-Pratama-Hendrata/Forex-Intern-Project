@@ -19,7 +19,7 @@ const Sidebar = ({ active = "Home", onSelect = () => { } }) => {
             mode="inline"
             selectedKeys={[active]}
             onClick={(e) => handleMenuClick(e, navigate, onSelect)}
-            style={{ minWidth: 110, padding: '24px 0', borderRight: 0, background: 'transparent' }}
+            style={{ minWidth: 110, padding: 0, borderRight: 0, background: 'transparent' }}
             items={navItems}
         />
     );
