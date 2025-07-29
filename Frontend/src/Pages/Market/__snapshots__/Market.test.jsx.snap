@@ -63,7 +63,7 @@ exports[`Market (unit and snapshot) matches snapshot when loaded 1`] = `
             </div>
           </div>
           <main
-            class="flex-1 flex justify-center items-center pl-1"
+            class="flex-1 flex justify-center items-center pl-1 pr-1"
           >
             <table
               style="width: 100%; border-collapse: collapse; font-size: 18px;"

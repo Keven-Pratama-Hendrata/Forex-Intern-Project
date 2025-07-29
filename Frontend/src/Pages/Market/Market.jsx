@@ -84,12 +84,13 @@ function MarketTransactionCell() {
 
 /**
  * Renders a table row for a currency.
- * @param {{ cur: object }} props The props object containing currency row data.
+ * @param {{ cur: object, isLast: boolean }} props The props object containing currency row data and last row indicator.
  * @returns {JSX.Element} Table row for a currency.
  */
-function MarketTableRow({ cur }) {
+function MarketTableRow({ cur, isLast }) {
+    const rowStyle = isLast ? {} : { borderBottom: '1px solid #e5e7eb' };
     return (
-        <tr key={cur.code}>
+        <tr key={cur.code} style={rowStyle}>
             <MarketFlagCell cur={cur} />
             <MarketChangeCell cur={cur} />
             <MarketTransactionCell />
@@ -117,8 +118,12 @@ function MarketTable({ rows }) {
     }
     return (
         <tbody>
-            {rows.map((cur) => (
-                <MarketTableRow key={cur.code} cur={cur} />
+            {rows.map((cur, index) => (
+                <MarketTableRow
+                    key={cur.code}
+                    cur={cur}
+                    isLast={index === rows.length - 1}
+                />
             ))}
         </tbody>
     );
@@ -218,7 +223,7 @@ function MarketSidebar({ activeNav, setActiveNav }) {
  */
 function MarketContent({ rows }) {
     return (
-        <main className="flex-1 flex justify-center items-center pl-1">
+        <main className="flex-1 flex justify-center items-center pl-1 pr-1">
             <MarketTableWithHeader rows={rows} />
         </main>
     );
