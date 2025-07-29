@@ -12,8 +12,8 @@ export function _resetRateLimitToastFlag() {
 
 /**
  * Returns a fetch function that handles 429 errors.
- * @param {Function} originalFetch - The original fetch function.
- * @param {Function} navigate - The navigation function from react-router.
+ * @param {Function} originalFetch The original fetch function.
+ * @param {Function} navigate The navigation function from react-router.
  * @returns {Function} The wrapped fetch function.
  */
 function createFetchWith429Handler(originalFetch, navigate) {
@@ -31,7 +31,7 @@ function createFetchWith429Handler(originalFetch, navigate) {
 
 /**
  * Sets up a global fetch override to handle 429 errors with a toast and redirect.
- * @param {Function} navigate - The navigation function from react-router.
+ * @param {Function} navigate The navigation function from react-router.
  * @returns {Function} Cleanup function to restore the original fetch.
  */
 function setupFetchInterceptor(navigate) {

@@ -17,7 +17,7 @@ import {
 
 /**
  * Displays the flag and code for a currency.
- * @param {{ cur: { code: string, flag: string, name: string } }} props - The props object containing currency info.
+ * @param {{ cur: { code: string, flag: string, name: string } }} props The props object containing currency info.
  * @returns {JSX.Element} Table cell with flag and code.
  */
 function MarketFlagCell({ cur }) {
@@ -33,7 +33,7 @@ function MarketFlagCell({ cur }) {
 
 /**
  * Displays the change and today's rate for a currency.
- * @param {{ cur: { change: number, idrValue: number } }} props - The props object containing change and rate.
+ * @param {{ cur: { change: number, idrValue: number } }} props The props object containing change and rate.
  * @returns {JSX.Element} Table cell with change and rate.
  */
 // eslint-disable-next-line max-lines-per-function
@@ -84,7 +84,7 @@ function MarketTransactionCell() {
 
 /**
  * Renders a table row for a currency.
- * @param {{ cur: object }} props - The props object containing currency row data.
+ * @param {{ cur: object }} props The props object containing currency row data.
  * @returns {JSX.Element} Table row for a currency.
  */
 function MarketTableRow({ cur }) {
@@ -99,7 +99,7 @@ function MarketTableRow({ cur }) {
 
 /**
  * Renders the table body for the market rates.
- * @param {{ rows: Array<object> }} props - The props object containing all currency rows.
+ * @param {{ rows: Array<object> }} props The props object containing all currency rows.
  * @returns {JSX.Element} Table body for market rates.
  */
 // eslint-disable-next-line max-lines-per-function
@@ -126,7 +126,7 @@ function MarketTable({ rows }) {
 
 /**
  * Table with header for the market content area.
- * @param {{ rows: Array<object> }} props - The props object containing all currency rows.
+ * @param {{ rows: Array<object> }} props The props object containing all currency rows.
  * @returns {JSX.Element} The table with header and market rows.
  */
 function MarketTableWithHeader({ rows }) {
@@ -179,7 +179,7 @@ function MarketLayout({ username, balance, activeNav, setActiveNav, rows }) {
 
 /**
  * Main card container for the Market page.
- * @param {{ children: React.ReactNode }} props - The props object containing children to render inside the container.
+ * @param {{ children: React.ReactNode }} props The props object containing children to render inside the container.
  * @returns {JSX.Element} The styled card container for the Market page.
  */
 function MarketContainer({ children }) {
@@ -198,7 +198,7 @@ function MarketContainer({ children }) {
 
 /**
  * Sidebar section for navigation.
- * @param {{ activeNav: string, setActiveNav: function }} props - The props object containing sidebar state and setter.
+ * @param {{ activeNav: string, setActiveNav: function }} props The props object containing sidebar state and setter.
  * @returns {JSX.Element} The sidebar navigation section.
  */
 function MarketSidebar({ activeNav, setActiveNav }) {
@@ -213,7 +213,7 @@ function MarketSidebar({ activeNav, setActiveNav }) {
 
 /**
  * Main content area for the market table.
- * @param {{ rows: Array<object> }} props - The props object containing all currency rows.
+ * @param {{ rows: Array<object> }} props The props object containing all currency rows.
  * @returns {JSX.Element} The main content area with the market table.
  */
 function MarketContent({ rows }) {

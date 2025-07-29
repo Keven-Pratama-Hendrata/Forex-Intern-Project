@@ -3,9 +3,9 @@ import { useState, useEffect } from "react";
 
 /**
  * Maps USD market data to a table row.
- * @param {object} current - The latest market data.
- * @param {object} previous - The previous market data.
- * @param {string} code - The currency code (should be 'USD').
+ * @param {object} current The latest market data.
+ * @param {object} previous The previous market data.
+ * @param {string} code The currency code (should be 'USD').
  * @returns {object} Row data for USD.
  */
 function getUsdMarketRow(current, previous, code) {
@@ -24,9 +24,9 @@ function getUsdMarketRow(current, previous, code) {
 
 /**
  * Maps non-USD market data to a table row.
- * @param {object} current - The latest market data.
- * @param {object} previous - The previous market data.
- * @param {string} code - The currency code.
+ * @param {object} current The latest market data.
+ * @param {object} previous The previous market data.
+ * @param {string} code The currency code.
  * @returns {object|null} Row data for non-USD or null if data is missing.
  */
 // eslint-disable-next-line max-lines-per-function
@@ -51,9 +51,9 @@ function getNonUsdMarketRow(current, previous, code) {
 
 /**
  * Maps a single currency's market data to a table row.
- * @param {object} current - The latest market data.
- * @param {object} previous - The previous market data.
- * @param {string} code - The currency code.
+ * @param {object} current The latest market data.
+ * @param {object} previous The previous market data.
+ * @param {string} code The currency code.
  * @returns {object|null} Row data for the table or null if data is missing.
  */
 function getMarketRow(current, previous, code) {
@@ -65,8 +65,8 @@ function getMarketRow(current, previous, code) {
 
 /**
  * Maps market history data to table rows.
- * @param {object} current - The latest market data.
- * @param {object} previous - The previous market data.
+ * @param {object} current The latest market data.
+ * @param {object} previous The previous market data.
  * @returns {Array<object>} Array of row data for the table.
  */
 function mapMarketRows(current, previous) {
