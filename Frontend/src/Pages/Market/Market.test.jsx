@@ -175,4 +175,29 @@ describe('Market (unit and snapshot)', () => {
 
         expect(buySellButton).toBeInTheDocument();
     });
+
+    it('last row has no bottom border while other rows have border', () => {
+        useMarketRates.mockReturnValue({
+            rows: [
+                { code: 'USD', flag: 'test-flag.png', name: 'US Dollar', change: 1, idrValue: 1000 },
+                { code: 'EUR', flag: 'test-flag.png', name: 'Euro', change: -1, idrValue: 900 },
+                { code: 'AUD', flag: 'test-flag.png', name: 'Australian Dollar', change: 0.5, idrValue: 950 }
+            ],
+            loading: false
+        });
+        useHeaderProfile.mockReturnValue({ username: 'user', balance: 100 });
+
+        render(
+            <MemoryRouter>
+                <Market />
+            </MemoryRouter>
+        );
+
+        const rows = screen.getAllByRole('row');
+        const dataRows = rows.slice(1);
+
+        expect(dataRows[0]).toHaveStyle({ borderBottom: '1px solid #e5e7eb' });
+        expect(dataRows[1]).toHaveStyle({ borderBottom: '1px solid #e5e7eb' });
+        expect(dataRows[2]).not.toHaveStyle({ borderBottom: '1px solid #e5e7eb' });
+    });
 }); 
