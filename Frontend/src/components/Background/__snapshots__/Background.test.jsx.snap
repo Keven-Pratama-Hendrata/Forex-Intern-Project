@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Background matches snapshot with circles 1`] = `
+<DocumentFragment>
+  <div
+    class="min-h-screen flex items-center justify-center relative overflow-hidden"
+  >
+    <svg
+      data-testid="wave-bg"
+    />
+    <svg
+      data-testid="circles"
+    />
+    <div
+      class="absolute inset-0 flex items-center justify-center z-10"
+    >
+      <div>
+        Snapshot Child
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

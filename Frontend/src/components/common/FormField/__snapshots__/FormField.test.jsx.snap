@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`FormField matches snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="form-control w-full mb-6 space-y-1 test-snapshot"
+  >
+    <label
+      class="label"
+      for="password"
+    >
+      <span
+        class="label-text font-medium"
+      >
+        Password
+      </span>
+    </label>
+    <input
+      autocomplete="current-password"
+      class="input input-bordered w-full rounded-full"
+      id="password"
+      name="password"
+      placeholder="Enter password"
+      required=""
+      type="password"
+      value=""
+    />
+  </div>
+</DocumentFragment>
+`;

@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Dashboard matches snapshot 1`] = `
+<DocumentFragment>
+  <div
+    data-testid="background"
+  >
+    <div
+      style="width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center;"
+    >
+      <div
+        data-testid="spinner"
+      />
+    </div>
+  </div>
+</DocumentFragment>
+`;

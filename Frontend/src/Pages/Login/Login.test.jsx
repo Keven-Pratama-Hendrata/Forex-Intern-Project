@@ -1,0 +1,172 @@
+import { render, screen, fireEvent } from '@testing-library/react';
+import { describe, it, expect, jest } from '@jest/globals';
+import { Provider } from 'react-redux';
+import { configureStore } from '@reduxjs/toolkit';
+import authReducer from '../../store/slices/authSlice';
+import Login from './Login';
+import React from 'react';
+
+jest.mock('../../components/Background/Auth/AuthBackground.jsx', () => {
+  return function MockAuthBackground({ children, circlePosition }) {
+    return (
+      <div data-testid="auth-background" data-circle-position={circlePosition}>
+        {children}
+      </div>
+    );
+  };
+});
+
+jest.mock('../../components/common', () => ({
+  Button: ({ children, type, disabled, ...props }) => (
+    <button
+      type={type}
+      disabled={disabled}
+      data-testid="login-button"
+      {...props}
+    >
+      {children}
+    </button>
+  ),
+  LoadingSpinner: ({ variant }) => (
+    <div data-testid="loading-spinner" data-variant={variant}>
+      Loading...
+    </div>
+  ),
+  FormField: ({
+    label,
+    type,
+    name,
+    placeholder,
+    value,
+    onChange,
+    autoComplete,
+    required,
+    ...props
+  }) => (
+    <div data-testid={`form-field-${name}`}>
+      <label>{label}</label>
+      <input
+        type={type}
+        name={name}
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange || (() => { })}
+        autoComplete={autoComplete}
+        required={required}
+        data-testid={`input-${name}`}
+        {...props}
+      />
+    </div>
+  ),
+  handleFormChange: jest.fn(),
+  validateRequiredFields: jest.fn(),
+  setUserData: jest.fn(),
+}));
+
+jest.mock('./loginHandler.jsx', () => {
+  const handleChange = jest.fn(() => () => { });
+  const handleSubmit = jest.fn(
+    (form, setLoading) =>
+      (e) => {
+        e?.preventDefault?.();
+        setLoading(true);
+      },
+  );
+
+  const useLoginState = jest.fn(() => ({
+    navigate: jest.fn(),
+    dispatch: jest.fn(),
+    loading: false,
+    setLoading: jest.fn(),
+    form: { username: '', password: '' },
+    setForm: jest.fn(),
+  }));
+
+  const FormField = ({
+    label,
+    type,
+    name,
+    placeholder,
+    value,
+    onChange,
+    autoComplete,
+    required,
+    ...props
+  }) => (
+    <div data-testid={`form-field-${name}`}>
+      <label>{label}</label>
+      <input
+        type={type}
+        name={name}
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange || (() => { })}
+        autoComplete={autoComplete}
+        required={required}
+        data-testid={`input-${name}`}
+        {...props}
+      />
+    </div>
+  );
+
+  return { handleChange, handleSubmit, useLoginState, FormField };
+});
+
+jest.mock('react-router', () => ({
+  useNavigate: () => jest.fn(),
+  Link: ({ children, to, ...props }) => (
+    <a href={to} {...props}>
+      {children}
+    </a>
+  ),
+}));
+
+jest.mock('react-hot-toast', () => ({
+  success: jest.fn(),
+  error: jest.fn(),
+}));
+
+const createMockStore = () =>
+  configureStore({
+    reducer: { auth: authReducer },
+  });
+
+const renderWithProvider = (ui) =>
+  render(<Provider store={createMockStore()}>{ui}</Provider>);
+
+describe('Login Component', () => {
+  it('renders correctly with default state', () => {
+    const { container } = renderWithProvider(<Login />);
+
+    expect(container.firstChild).toMatchSnapshot();
+  });
+
+  it('toggles to loading state after form submit (covers line 55)', async () => {
+    let loading = false;
+    const setLoading = jest.fn((val) => { loading = val; });
+
+    require('./loginHandler.jsx').useLoginState.mockImplementation(() => ({
+      navigate: jest.fn(),
+      dispatch: jest.fn(),
+      loading,
+      setLoading,
+      form: { username: '', password: '' },
+      setForm: jest.fn(),
+    }));
+
+    const { container, rerender } = renderWithProvider(<Login />);
+    const button = screen.getByTestId('login-button');
+
+    expect(button).toHaveTextContent('Log in');
+    expect(button).not.toBeDisabled();
+
+    fireEvent.submit(button.closest('form'));
+    loading = true;
+    rerender(<Provider store={createMockStore()}><Login /></Provider>);
+
+    expect(button).toHaveTextContent('Loading...');
+    expect(button).toBeDisabled();
+    expect(screen.getByTestId('loading-spinner')).toBeInTheDocument();
+    expect(container.firstChild).toMatchSnapshot();
+  });
+});
