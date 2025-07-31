@@ -1,5 +1,3 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import { renderInput, renderFormFieldWrapper } from './formfieldHandler.jsx';
 import { FormFieldProps } from './FormField.type';
 

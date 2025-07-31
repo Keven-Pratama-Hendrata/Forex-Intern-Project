@@ -6,6 +6,7 @@ import User from '../../src/models/UserModel.js';
 describe('UserModel', () => {
     it('should have required fields', () => {
         const schemaPaths = User.schema.paths;
+
         expect(schemaPaths).to.have.property('username');
         expect(schemaPaths.username.options.required).to.be.true;
         expect(schemaPaths).to.have.property('password');
@@ -23,6 +24,7 @@ describe('UserModel', () => {
 
     it('should use getter for todayBalanceUsd', () => {
         const path = User.schema.paths.todayBalanceUsd;
+
         expect(path.options.get).to.be.a('function');
         expect(path.options.get(123.45)).to.equal(123.45);
     });
@@ -30,6 +32,7 @@ describe('UserModel', () => {
     it('should use getter for balances.amount', () => {
         const balancesSchema = User.schema.paths.balances.schema;
         const amountPath = balancesSchema.paths.amount;
+
         expect(amountPath.options.get).to.be.a('function');
         expect(amountPath.options.get('123.45')).to.equal(123.45);
     });
@@ -37,6 +40,7 @@ describe('UserModel', () => {
     it('should use getter for balanceHistory.balance', () => {
         const balanceHistorySchema = User.schema.paths.balanceHistory.schema;
         const balancePath = balanceHistorySchema.paths.balance;
+
         expect(balancePath.options.get).to.be.a('function');
         expect(balancePath.options.get('456.78')).to.equal(456.78);
     });
@@ -44,6 +48,7 @@ describe('UserModel', () => {
     it('should use getter for dailyTotalUsdHistory.totalUsd', () => {
         const dailyTotalUsdHistorySchema = User.schema.paths.dailyTotalUsdHistory.schema;
         const totalUsdPath = dailyTotalUsdHistorySchema.paths.totalUsd;
+
         expect(totalUsdPath.options.get).to.be.a('function');
         expect(totalUsdPath.options.get('789.01')).to.equal(789.01);
     });
@@ -61,7 +66,9 @@ describe('UserModel', () => {
                 rates: { USD: '1.0' }
             }]
         });
+
         const json = user.toJSON();
+
         expect(json.todayBalanceUsd).to.equal(789.01);
         expect(json.balances[0].amount).to.equal(123.45);
         expect(json.balanceHistory[0].balance).to.equal(456.78);

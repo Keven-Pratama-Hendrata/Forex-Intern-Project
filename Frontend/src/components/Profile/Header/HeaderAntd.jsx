@@ -34,11 +34,16 @@ function UserInfo({ username }) {
  * @returns {JSX.Element} Balance display section.
  */
 function BalanceDisplay({ balance }) {
+    const formattedBalance = balance.toLocaleString('en-US', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    });
+
     return (
         <span style={{ display: 'flex', alignItems: 'center', fontWeight: 700, fontSize: 20, color: '#1e3a8a' }}>
             {HEADER_LABELS.balance}:&nbsp;
             <span style={{ fontWeight: 500, fontSize: 18, color: '#1e3a8a' }}>
-                Rp{balance.toFixed(2)}
+                Rp{formattedBalance}
             </span>
         </span>
     );

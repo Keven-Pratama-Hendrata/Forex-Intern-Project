@@ -76,6 +76,44 @@ class UserController {
   }
 
   /**
+   * Processes buy/sell transactions
+   * @param {Object} req Express request object
+   * @param {Object} res Express response object
+   * @param {Function} next Express next middleware function
+   */
+  async processTransaction(req, res, next) {
+    try {
+      if (!req.user) {
+        this.logger.error('User not found in request');
+        throw new Error('User not found in request');
+      }
+      const { userid } = req.user;
+      const { currency, amount, transactionType, exchangeRate } = req.body;
+
+      this.logger.info('Processing transaction', { userid, currency, amount, transactionType, exchangeRate });
+
+      //eslint-disable-next-line max-len
+      const result = await this.userService.processTransaction(userid, { currency, amount, transactionType, exchangeRate });
+      //eslint-disable-next-line max-len
+      this.logger.info('Transaction processed successfully', { userid, currency, amount, transactionType, exchangeRate });
+
+      res.status(200).json(result);
+    } catch (err) {
+      const { userid } = req.user || {};
+      const { currency, amount, transactionType, exchangeRate } = req.body || {};
+      this.logger.error('Failed to process transaction', {
+        userid,
+        currency,
+        amount,
+        transactionType,
+        exchangeRate,
+        error: err.message
+      });
+      next(err);
+    }
+  }
+
+  /**
    * Retrieves dashboard data for the current user
    * @param {Object} req Express request object
    * @param {Object} res Express response object

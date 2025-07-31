@@ -9,6 +9,7 @@ import express from 'express';
  * @param {Object} dependencies.logger The logger instance.
  * @returns {import('express').Router} The configured Express router for user routes.
  */
+//eslint-disable-next-line max-lines-per-function
 export default function createUserRoutes({ userController, authController, verifyTokenMiddleware, logger }) {
   const router = express.Router();
 
@@ -43,6 +44,17 @@ export default function createUserRoutes({ userController, authController, verif
   router.post('/balance', verifyTokenMiddleware, (req, res, next) => {
     logger.info('Balance route accessed', { method: 'POST', path: '/balance' });
     userController.updateBalance(req, res, next);
+  });
+
+  /**
+   * Route handler for processing buy/sell transactions.
+   * @param {Object} req Express request object
+   * @param {Object} res Express response object
+   * @param {Function} next Express next middleware function
+   */
+  router.post('/transaction', verifyTokenMiddleware, (req, res, next) => {
+    logger.info('Transaction route accessed', { method: 'POST', path: '/transaction' });
+    userController.processTransaction(req, res, next);
   });
 
   /**

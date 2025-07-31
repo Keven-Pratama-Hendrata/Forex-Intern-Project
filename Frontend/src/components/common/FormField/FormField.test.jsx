@@ -32,6 +32,7 @@ describe('FormField', () => {
     };
 
     render(<FormField {...formFieldProps} />);
+
     fireEvent.change(screen.getByLabelText('Email'), { target: { value: 'abc' } });
 
     expect(handleChange).toHaveBeenCalled();

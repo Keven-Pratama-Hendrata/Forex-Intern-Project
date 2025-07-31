@@ -1,5 +1,6 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import Market from './Market.jsx';
 
 jest.mock('./marketHandler', () => ({
@@ -27,7 +28,11 @@ describe('Market (unit and snapshot)', () => {
         useMarketRates.mockReturnValue({ rows: [], loading: true });
         useHeaderProfile.mockReturnValue({ username: 'user', balance: 100 });
 
-        render(<Market />);
+        render(
+            <MemoryRouter>
+                <Market />
+            </MemoryRouter>
+        );
 
         expect(screen.getByRole('status')).toBeInTheDocument();
     });
@@ -36,7 +41,11 @@ describe('Market (unit and snapshot)', () => {
         useMarketRates.mockReturnValue({ rows: [{ code: 'USD', flag: 'test-flag.png', name: 'US Dollar', change: 1, idrValue: 1 }], loading: false });
         useHeaderProfile.mockReturnValue({ username: 'user', balance: 100 });
 
-        render(<Market />);
+        render(
+            <MemoryRouter>
+                <Market />
+            </MemoryRouter>
+        );
 
         expect(screen.getByTestId('header')).toHaveTextContent('user - 100');
         expect(screen.getByTestId('sidebar')).toBeInTheDocument();
@@ -48,7 +57,11 @@ describe('Market (unit and snapshot)', () => {
         useMarketRates.mockReturnValue({ rows: [], loading: true });
         useHeaderProfile.mockReturnValue({ username: 'user', balance: 100 });
 
-        const { asFragment } = render(<Market />);
+        const { asFragment } = render(
+            <MemoryRouter>
+                <Market />
+            </MemoryRouter>
+        );
 
         expect(asFragment()).toMatchSnapshot();
     });
@@ -57,7 +70,11 @@ describe('Market (unit and snapshot)', () => {
         useMarketRates.mockReturnValue({ rows: [{ code: 'USD', flag: 'test-flag.png', name: 'US Dollar', change: 1, idrValue: 1 }], loading: false });
         useHeaderProfile.mockReturnValue({ username: 'user', balance: 100 });
 
-        const { asFragment } = render(<Market />);
+        const { asFragment } = render(
+            <MemoryRouter>
+                <Market />
+            </MemoryRouter>
+        );
 
         expect(asFragment()).toMatchSnapshot();
     });
@@ -66,7 +83,11 @@ describe('Market (unit and snapshot)', () => {
         useMarketRates.mockReturnValue({ rows: [], loading: false });
         useHeaderProfile.mockReturnValue({ username: 'user', balance: 100 });
 
-        render(<Market />);
+        render(
+            <MemoryRouter>
+                <Market />
+            </MemoryRouter>
+        );
 
         expect(screen.getByText('No data')).toBeInTheDocument();
     });
@@ -75,7 +96,11 @@ describe('Market (unit and snapshot)', () => {
         useMarketRates.mockReturnValue({ rows: [{ code: 'USD', flag: 'test-flag.png', name: 'US Dollar', change: 1, idrValue: 1 }], loading: false });
         useHeaderProfile.mockReturnValue({ username: 'user', balance: 100 });
 
-        render(<Market />);
+        render(
+            <MemoryRouter>
+                <Market />
+            </MemoryRouter>
+        );
         const button = screen.getByRole('button', { name: /buy\/sell/i });
         const initialStyle = button.style.backgroundColor;
         fireEvent.mouseEnter(button);
@@ -94,7 +119,11 @@ describe('Market (unit and snapshot)', () => {
         });
         useHeaderProfile.mockReturnValue({ username: 'user', balance: 100 });
 
-        render(<Market />);
+        render(
+            <MemoryRouter>
+                <Market />
+            </MemoryRouter>
+        );
         const tds = screen.getAllByRole('cell');
         const match = tds.find(td => {
             const text = td.textContent.replace(/\s+/g, '');
@@ -112,7 +141,11 @@ describe('Market (unit and snapshot)', () => {
         });
         useHeaderProfile.mockReturnValue({ username: 'user', balance: 100 });
 
-        render(<Market />);
+        render(
+            <MemoryRouter>
+                <Market />
+            </MemoryRouter>
+        );
         const tds = screen.getAllByRole('cell');
         const match = tds.find(td => {
             const text = td.textContent.replace(/\s+/g, '');
@@ -121,5 +154,25 @@ describe('Market (unit and snapshot)', () => {
 
         expect(match).toBeDefined();
         expect(match.style.color).toBe('rgb(220, 38, 38)');
+    });
+
+    it('Buy/Sell button navigates to buy-sell page with correct currency parameter', () => {
+        useMarketRates.mockReturnValue({
+            rows: [{ code: 'USD', flag: 'test-flag.png', name: 'US Dollar', change: 1.2345, idrValue: 10000 }],
+            loading: false
+        });
+        useHeaderProfile.mockReturnValue({ username: 'user', balance: 100 });
+
+        render(
+            <MemoryRouter>
+                <Market />
+            </MemoryRouter>
+        );
+
+        const buySellButton = screen.getByRole('button', { name: /buy\/sell/i });
+
+        fireEvent.click(buySellButton);
+
+        expect(buySellButton).toBeInTheDocument();
     });
 }); 

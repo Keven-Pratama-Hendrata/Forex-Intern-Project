@@ -19,7 +19,9 @@ describe('flowIdMiddleware', () => {
 
     it('should use valid flow ID from header', () => {
         req.header.withArgs('X-Flow-ID').returns('abcd1234ABCD');
+
         flowIdMiddleware(req, res, next, fakeUuidFn);
+
         expect(req.flowId).to.equal('abcd1234ABCD');
         expect(res.setHeader).to.have.been.calledWith('X-Flow-ID', 'abcd1234ABCD');
         expect(next).to.have.been.calledOnce;
@@ -27,7 +29,9 @@ describe('flowIdMiddleware', () => {
 
     it('should generate new flow ID if header is missing', () => {
         req.header.withArgs('X-Flow-ID').returns(undefined);
+
         flowIdMiddleware(req, res, next, fakeUuidFn);
+
         expect(req.flowId).to.equal(fakeUuid);
         expect(res.setHeader).to.have.been.calledWith('X-Flow-ID', fakeUuid);
         expect(next).to.have.been.calledOnce;
@@ -35,7 +39,9 @@ describe('flowIdMiddleware', () => {
 
     it('should generate new flow ID if header is invalid', () => {
         req.header.withArgs('X-Flow-ID').returns('!@#$');
+
         flowIdMiddleware(req, res, next, fakeUuidFn);
+
         expect(req.flowId).to.equal(fakeUuid);
         expect(res.setHeader).to.have.been.calledWith('X-Flow-ID', fakeUuid);
         expect(next).to.have.been.calledOnce;

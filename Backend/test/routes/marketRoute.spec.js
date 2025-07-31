@@ -21,6 +21,7 @@ describe('marketRoute', () => {
     it('should register /history GET and call logger and controller', () => {
         const req = {}, res = {}, next = () => { };
         const route = router.stack.find(r => r.route && r.route.path === '/history');
+
         expect(route).to.exist;
 
         route.route.stack[0].handle(req, res, next);

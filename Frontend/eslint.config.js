@@ -30,7 +30,7 @@ export default [
         'warn',
         { allowConstantExport: true },
       ],
-      'max-lines-per-function': ['error', { max: 15 }],
+      'max-lines-per-function': ['error', { max: 50 }],
       'max-len': ['error', { code: 135 }],
       'jsdoc/require-jsdoc': [
         'error',

@@ -29,9 +29,11 @@ describe('HeaderAntd', () => {
         const balance = 12345.67;
 
         const { getByText } = render(<HeaderAntd username={username} balance={balance} />);
+        const balanceElement = getByText('Balance:');
 
         expect(getByText('TestUser')).toBeInTheDocument();
-        expect(getByText(/Rp12345.67/)).toBeInTheDocument();
+        expect(balanceElement).toBeInTheDocument();
+        expect(balanceElement.textContent).toContain('Rp12,345.67');
         expect(getByText('Logout')).toBeInTheDocument();
     });
 

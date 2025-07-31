@@ -17,7 +17,9 @@ describe('errorHandler middleware', () => {
 
     it('should handle default error', () => {
         const err = new Error('Something went wrong');
+
         errorHandler(err, req, res, next);
+
         expect(res.status).to.have.been.calledWith(500);
         expect(res.json).to.have.been.calledWith({
             code: 'INTERNAL_ERROR',
@@ -30,7 +32,9 @@ describe('errorHandler middleware', () => {
         const err = new Error('Custom error');
         err.code = 'CUSTOM_CODE';
         err.statusCode = 400;
+
         errorHandler(err, req, res, next);
+
         expect(res.status).to.have.been.calledWith(400);
         expect(res.json).to.have.been.calledWith({
             code: 'CUSTOM_CODE',
@@ -41,7 +45,9 @@ describe('errorHandler middleware', () => {
 
     it('should handle missing error message', () => {
         const err = {};
+
         errorHandler(err, req, res, next);
+
         expect(res.status).to.have.been.calledWith(500);
         expect(res.json).to.have.been.calledWith({
             code: 'INTERNAL_ERROR',

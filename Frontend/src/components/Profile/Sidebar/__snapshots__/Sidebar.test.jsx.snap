@@ -3,7 +3,7 @@
 exports[`Sidebar Component matches snapshot 1`] = `
 <DocumentFragment>
   <ul
-    class="ant-menu ant-menu-root ant-menu-inline ant-menu-light css-dev-only-do-not-override-16dneet"
+    class="ant-menu ant-menu-root ant-menu-inline ant-menu-light css-dev-only-do-not-override-7t2xvq"
     data-menu-list="true"
     role="menu"
     style="min-width: 110px; padding: 0px; border-right: 0px; background: transparent;"

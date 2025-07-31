@@ -17,6 +17,10 @@ jest.mock('../../data/uiData', () => ({
         AUD: { name: 'Australian Dollar', flag: 'aud-flag' },
     },
     currencyList: ['USD', 'EUR', 'JPY', 'AUD'],
+    API_ROUTES: {
+        HISTORY: 'http://localhost:5001/api/market/history',
+        TRANSACTION: 'http://localhost:5001/api/users/transaction',
+    },
 }));
 
 describe('marketHandler pure functions', () => {

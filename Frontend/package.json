@@ -13,9 +13,10 @@
     "test:coverage": "jest --coverage"
   },
   "dependencies": {
+    "@ant-design/v5-patch-for-react-19": "^1.0.3",
     "@reduxjs/toolkit": "^2.8.2",
     "@testing-library/user-event": "^14.6.1",
-    "antd": "^5.26.5",
+    "antd": "^5.26.6",
     "chart.js": "^4.4.9",
     "prop-types": "^15.8.1",
     "react": "^19.1.0",

@@ -76,20 +76,21 @@ class Container {
     const marketPriceRepository = this.services.get('marketPriceRepository');
     const logger = this.services.get('logger');
 
+    this.services.set('marketPriceService', new MarketPriceService({
+      marketPriceRepository,
+      logger,
+      config: this.config
+    }));
+
     this.services.set('userService', new UserService({
       userRepository,
       logger,
-      config: this.config
+      config: this.config,
+      marketPriceService: this.services.get('marketPriceService')
     }));
 
     this.services.set('authService', new AuthService({
       userRepository,
-      logger,
-      config: this.config
-    }));
-
-    this.services.set('marketPriceService', new MarketPriceService({
-      marketPriceRepository,
       logger,
       config: this.config
     }));

@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import Background from "../../components/Background/Background";
 import Sidebar from "../../components/Profile/Sidebar/Sidebar";
 import HeaderAntd from "../../components/Profile/Header/HeaderAntd.jsx";
@@ -36,7 +37,6 @@ function MarketFlagCell({ cur }) {
  * @param {{ cur: { change: number, idrValue: number } }} props The props object containing change and rate.
  * @returns {JSX.Element} Table cell with change and rate.
  */
-// eslint-disable-next-line max-lines-per-function
 function MarketChangeCell({ cur }) {
     const color = cur.change >= 0 ? "#059669" : "#dc2626";
     const changeStr = `${cur.change >= 0 ? "+" : ""}${cur.change.toFixed(4)}`;
@@ -58,11 +58,12 @@ function MarketChangeCell({ cur }) {
 
 /**
  * Displays the Buy/Sell button for a currency row.
+ * @param {{ cur: object }} props The props object containing currency data.
  * @returns {JSX.Element} Table cell with Buy/Sell button.
  */
-// eslint-disable-next-line max-lines-per-function
-function MarketTransactionCell() {
+function MarketTransactionCell({ cur }) {
     const [hover, setHover] = React.useState(false);
+    const navigate = useNavigate();
     const style = hover
         ? { ...MARKET_BUYSELL_BUTTON_STYLE, ...MARKET_BUYSELL_BUTTON_HOVER_STYLE }
         : MARKET_BUYSELL_BUTTON_STYLE;
@@ -75,6 +76,7 @@ function MarketTransactionCell() {
                 style={style}
                 onMouseEnter={() => setHover(true)}
                 onMouseLeave={() => setHover(false)}
+                onClick={() => navigate(`/buy-sell?currency=${cur.code}`)}
             >
                 Buy/Sell
             </AntdButton>
@@ -92,7 +94,7 @@ function MarketTableRow({ cur }) {
         <tr key={cur.code}>
             <MarketFlagCell cur={cur} />
             <MarketChangeCell cur={cur} />
-            <MarketTransactionCell />
+            <MarketTransactionCell cur={cur} />
         </tr>
     );
 }
@@ -102,7 +104,6 @@ function MarketTableRow({ cur }) {
  * @param {{ rows: Array<object> }} props The props object containing all currency rows.
  * @returns {JSX.Element} Table body for market rates.
  */
-// eslint-disable-next-line max-lines-per-function
 function MarketTable({ rows }) {
     if (!rows.length) {
         return (

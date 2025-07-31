@@ -28,7 +28,9 @@ describe('AuthController', () => {
             const fakeToken = 'token';
             mockAuthService.authenticateUser.resolves(fakeUser);
             mockAuthService.generateToken.returns(fakeToken);
+
             await controller.loginUser(req, res, next);
+
             expect(mockLogger.info).to.have.been.calledWith('Login attempt', { username: 'test' });
             expect(mockAuthService.authenticateUser).to.have.been.calledWith('test', 'pass');
             expect(mockAuthService.generateToken).to.have.been.calledWith('1', 'test');
@@ -39,7 +41,9 @@ describe('AuthController', () => {
         it('should handle errors and call next with error', async () => {
             const error = new Error('fail');
             mockAuthService.authenticateUser.rejects(error);
+
             await controller.loginUser(req, res, next);
+
             expect(mockLogger.error).to.have.been.calledWith('Login failed', { username: 'test', error: error.message });
             expect(next).to.have.been.calledWith(error);
         });

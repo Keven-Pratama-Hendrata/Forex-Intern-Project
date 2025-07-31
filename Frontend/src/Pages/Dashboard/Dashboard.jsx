@@ -64,7 +64,6 @@ IdrChartSection.propTypes = {
  * Loading spinner for the dashboard.
  * @returns {JSX.Element} Spinner section
  */
-// eslint-disable-next-line max-lines-per-function
 function DashboardLoading() {
     return (
         <Background>
@@ -88,7 +87,6 @@ function DashboardLoading() {
  * @param {Object} props Props for the dashboard card
  * @returns {JSX.Element} Card layout
  */
-// eslint-disable-next-line max-lines-per-function
 function DashboardCardLayout(props) {
     return (
         <Background>
@@ -142,7 +140,6 @@ DashboardContent.propTypes = {
  * Main Dashboard component. Uses hooks and renders DashboardContent.
  * @returns {JSX.Element} Dashboard root
  */
-// eslint-disable-next-line max-lines-per-function
 function Dashboard() {
     const dashboardProps = useDashboardData();
     const headerProfile = useHeaderProfile();

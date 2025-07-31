@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../../store/slices/authSlice";
-import { DASHBOARD_CHART_CONFIG, DASHBOARD_ERROR_MESSAGES, DASHBOARD_ROUTES } from '../../data';
+import { DASHBOARD_CHART_CONFIG, DASHBOARD_ERROR_MESSAGES, API_ROUTES } from '../../data';
 
 /**
  * Fetches IDR history from backend and updates state.
@@ -13,7 +13,7 @@ import { DASHBOARD_CHART_CONFIG, DASHBOARD_ERROR_MESSAGES, DASHBOARD_ROUTES } fr
 export async function fetchIdrHistory(setIdrHistory, setError, setLoading) {
     setLoading(true);
     try {
-        const res = await fetch(DASHBOARD_ROUTES.HISTORY);
+        const res = await fetch(API_ROUTES.HISTORY);
         if (!res.ok) throw new Error(DASHBOARD_ERROR_MESSAGES.FETCH_HISTORY_FAILED);
         const data = await res.json();
         setIdrHistory(data);
@@ -73,7 +73,7 @@ export function useDashboardData() {
  * @param {Function} setLoading Setter for loading state.
  */
 function fetchChartHistory(setChartData, setLoading) {
-    fetch(DASHBOARD_ROUTES.HISTORY)
+    fetch(API_ROUTES.HISTORY)
         .then(res => res.json())
         .then(history => {
             const labels = history.map(entry => new Date(entry.date).toLocaleDateString());

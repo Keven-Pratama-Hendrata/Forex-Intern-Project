@@ -1,0 +1,183 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`BuySell (unit and snapshot) Invalid Currency States matches snapshot when invalid currency 1`] = `
+<DocumentFragment>
+  <div
+    data-testid="background"
+  >
+    <div
+      class="relative z-10 w-full max-w-sm"
+    >
+      <div
+        class="text-center"
+      >
+        <h2
+          class="text-2xl font-bold text-gray-800 mb-4"
+        >
+          Invalid Currency
+        </h2>
+        <p
+          class="text-gray-600 mb-4"
+        >
+          The selected currency is not available.
+        </p>
+        <button
+          data-testid="button"
+        >
+          Back to Market
+        </button>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`BuySell (unit and snapshot) Loading States matches snapshot when form is submitting 1`] = `
+<DocumentFragment>
+  <div
+    data-testid="background"
+  >
+    <div
+      class="relative z-10 w-full max-w-sm"
+    >
+      <div
+        class="flex items-center justify-center min-h-screen"
+      >
+        <div
+          data-testid="loading-spinner"
+        >
+          Loading...
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`BuySell (unit and snapshot) Loading States matches snapshot when loading 1`] = `
+<DocumentFragment>
+  <div
+    data-testid="background"
+  >
+    <div
+      class="relative z-10 w-full max-w-sm"
+    >
+      <div
+        class="flex items-center justify-center min-h-screen"
+      >
+        <div
+          data-testid="loading-spinner"
+        >
+          Loading...
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`BuySell (unit and snapshot) Valid Form States matches snapshot when valid currency and not loading 1`] = `
+<DocumentFragment>
+  <div
+    data-testid="background"
+  >
+    <div
+      class="relative z-10 w-full max-w-sm"
+    >
+      <div
+        class="flex flex-col items-center justify-center min-h-screen w-full"
+      >
+        <div
+          class="w-full max-w-sm"
+        >
+          <form
+            class="rounded-2xl bg-white/60 p-8 shadow-xl backdrop-blur-md ring-1 ring-white/40"
+          >
+            <h2
+              class="mb-1 text-center text-2xl font-extrabold text-gray-800"
+            >
+              Buy/Sell Currency
+            </h2>
+            <p
+              class="mb-6 text-center text-sm text-gray-600"
+            >
+              Complete your transaction
+            </p>
+            <div
+              class="mb-3"
+            >
+              <label
+                class="block text-sm font-medium text-gray-700 mb-2"
+              >
+                Transaction Type
+              </label>
+              <div
+                class="flex gap-2"
+              >
+                <button
+                  class="test-button-class bg-green-500"
+                  type="button"
+                >
+                  <div
+                    class="flex items-center justify-center gap-2"
+                  >
+                    <div
+                      class="w-2 h-2 rounded-full bg-white"
+                    />
+                    Buy
+                  </div>
+                </button>
+                <button
+                  class="test-button-class bg-white"
+                  type="button"
+                >
+                  <div
+                    class="flex items-center justify-center gap-2"
+                  >
+                    <div
+                      class="w-2 h-2 rounded-full bg-red-500"
+                    />
+                    Sell
+                  </div>
+                </button>
+              </div>
+            </div>
+            <div
+              data-testid="form-field-amount"
+            >
+              <label>
+                Amount (IDR)
+              </label>
+              <input
+                class="test-input-class"
+                data-testid="input-amount"
+                name="amount"
+                placeholder="Enter amount in IDR"
+                required=""
+                type="text"
+                value=""
+              />
+            </div>
+            <button
+              class="w-full"
+              data-testid="button"
+              type="submit"
+            >
+              Confirm Transaction
+            </button>
+          </form>
+        </div>
+        <div
+          class="text-center mt-6"
+        >
+          <button
+            class="test-back-button-class"
+          >
+            Back to Market
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

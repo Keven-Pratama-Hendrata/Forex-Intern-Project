@@ -13,6 +13,7 @@ describe('userRoute', () => {
         userController = {
             getUserProfile: sinon.stub(),
             updateBalance: sinon.stub(),
+            processTransaction: sinon.stub(),
             getDashboardData: sinon.stub()
         };
         authController = {
@@ -67,6 +68,29 @@ describe('userRoute', () => {
         );
         expect(found).to.be.true;
         expect(userController.updateBalance).to.have.been.calledWith(req, res, next);
+    });
+
+    it('should register /transaction POST and call verifyTokenMiddleware, userController.processTransaction, and logger', () => {
+        const req = { user: { id: 'test' } };
+        const res = {};
+        const next = () => { };
+        const route = router.stack.find(r => r.route && r.route.path === '/transaction');
+
+        expect(route).to.exist;
+
+        route.route.stack[0].handle(req, res, () => {
+            route.route.stack[1].handle(req, res, next);
+        });
+
+        expect(verifyTokenMiddleware).to.have.been.called;
+        const found = logger.info.getCalls().some(call =>
+            call.args[0] === 'Transaction route accessed' &&
+            call.args[1] &&
+            call.args[1].method === 'POST' &&
+            call.args[1].path === '/transaction'
+        );
+        expect(found).to.be.true;
+        expect(userController.processTransaction).to.have.been.calledWith(req, res, next);
     });
 
     it('should register /dashboard GET and call verifyTokenMiddleware, userController.getDashboardData, and logger', () => {

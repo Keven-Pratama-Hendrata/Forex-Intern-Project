@@ -17,7 +17,8 @@ describe('UserController', () => {
         next = createMockNext();
         mockUserService = {
             getUserProfile: sinon.stub(),
-            handleUpdateBalance: sinon.stub()
+            handleUpdateBalance: sinon.stub(),
+            processTransaction: sinon.stub()
         };
         mockLogger = createMockLogger();
         controller = new UserController({ userService: mockUserService, logger: mockLogger });
@@ -147,6 +148,142 @@ describe('UserController', () => {
             await controller.updateBalance(req, res, next);
 
             expect(mockLogger.error).to.have.been.calledWith('Failed to update balance', { userid: '1', balance: req.body.balance, error: error.message });
+            expect(next).to.have.been.calledWith(error);
+        });
+    });
+
+    describe('processTransaction', () => {
+        it('should process transaction and return result on success', async () => {
+            const transactionData = { currency: 'USD', amount: 100, transactionType: 'buy', exchangeRate: 15000 };
+            req = createMockReq({
+                user: { userid: '1' },
+                body: transactionData
+            });
+            const fakeResult = {
+                message: 'Transaction completed',
+                balances: [{ currency: 'USD', amount: 100 }],
+                transaction: { type: 'buy', currency: 'USD', amount: 100, rate: 15000 }
+            };
+            mockUserService.processTransaction.resolves(fakeResult);
+
+            await controller.processTransaction(req, res, next);
+
+            expect(mockLogger.info).to.have.been.calledWith('Processing transaction', {
+                userid: '1',
+                currency: 'USD',
+                amount: 100,
+                transactionType: 'buy',
+                exchangeRate: 15000
+            });
+            expect(mockUserService.processTransaction).to.have.been.calledWith('1', transactionData);
+            expect(mockLogger.info).to.have.been.calledWith('Transaction processed successfully', {
+                userid: '1',
+                currency: 'USD',
+                amount: 100,
+                transactionType: 'buy',
+                exchangeRate: 15000
+            });
+            expect(res.status).to.have.been.calledWith(200);
+            expect(res.json).to.have.been.calledWith(fakeResult);
+        });
+
+        it('should handle errors and call next with error', async () => {
+            const transactionData = { currency: 'USD', amount: 100, transactionType: 'buy', exchangeRate: 15000 };
+            req = createMockReq({
+                user: { userid: '1' },
+                body: transactionData
+            });
+            const error = new Error('Transaction failed');
+            mockUserService.processTransaction.rejects(error);
+
+            await controller.processTransaction(req, res, next);
+
+            expect(mockLogger.error).to.have.been.calledWith('Failed to process transaction', {
+                userid: '1',
+                currency: 'USD',
+                amount: 100,
+                transactionType: 'buy',
+                exchangeRate: 15000,
+                error: error.message
+            });
+            expect(next).to.have.been.calledWith(error);
+        });
+
+        it('should throw error when req.user is not found', async () => {
+            const reqWithoutUser = createMockReq({
+                body: { currency: 'USD', amount: 100, transactionType: 'buy', exchangeRate: 15000 }
+            });
+
+            await controller.processTransaction(reqWithoutUser, res, next);
+
+            expect(mockLogger.error).to.have.been.calledWith('User not found in request');
+            expect(next).to.have.been.calledWith(sinon.match.instanceOf(Error));
+        });
+
+        it('should handle errors when req.user is undefined in catch block', async () => {
+            const reqWithoutUser = createMockReq({
+                body: { currency: 'USD', amount: 100, transactionType: 'buy', exchangeRate: 15000 }
+            });
+
+            await controller.processTransaction(reqWithoutUser, res, next);
+
+            expect(mockLogger.error).to.have.been.calledWith('User not found in request');
+            expect(next).to.have.been.calledWith(sinon.match.instanceOf(Error));
+        });
+
+        it('should handle errors when req.body is undefined in catch block', async () => {
+            const reqWithoutBody = createMockReq({ user: { userid: '1' } });
+            const error = new Error('Service error');
+            mockUserService.processTransaction.rejects(error);
+
+            await controller.processTransaction(reqWithoutBody, res, next);
+
+            expect(mockLogger.error).to.have.been.calledWith('Failed to process transaction', {
+                userid: '1',
+                currency: undefined,
+                amount: undefined,
+                transactionType: undefined,
+                exchangeRate: undefined,
+                error: error.message
+            });
+            expect(next).to.have.been.calledWith(error);
+        });
+
+        it('should handle errors when req.body is null in catch block', async () => {
+            const reqWithNullBody = createMockReq({ user: { userid: '1' }, body: null });
+
+            await controller.processTransaction(reqWithNullBody, res, next);
+
+            expect(mockLogger.error).to.have.been.calledWith('Failed to process transaction', {
+                userid: '1',
+                currency: undefined,
+                amount: undefined,
+                transactionType: undefined,
+                exchangeRate: undefined,
+                error: "Cannot destructure property 'currency' of 'req.body' as it is null."
+            });
+            expect(next).to.have.been.calledWith(sinon.match.instanceOf(Error));
+        });
+
+        it('should handle service errors with proper error logging', async () => {
+            const transactionData = { currency: 'USD', amount: 100, transactionType: 'buy', exchangeRate: 15000 };
+            req = createMockReq({
+                user: { userid: '1' },
+                body: transactionData
+            });
+            const error = new Error('Service error');
+            mockUserService.processTransaction.rejects(error);
+
+            await controller.processTransaction(req, res, next);
+
+            expect(mockLogger.error).to.have.been.calledWith('Failed to process transaction', {
+                userid: '1',
+                currency: 'USD',
+                amount: 100,
+                transactionType: 'buy',
+                exchangeRate: 15000,
+                error: error.message
+            });
             expect(next).to.have.been.calledWith(error);
         });
     });

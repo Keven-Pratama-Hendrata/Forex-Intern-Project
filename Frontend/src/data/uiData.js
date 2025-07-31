@@ -25,8 +25,9 @@ export const DASHBOARD_ERROR_MESSAGES = {
     GENERIC: 'Error fetching IDR history',
 };
 
-export const DASHBOARD_ROUTES = {
+export const API_ROUTES = {
     HISTORY: 'http://localhost:5001/api/market/history',
+    TRANSACTION: 'http://localhost:5001/api/users/transaction',
 };
 
 export const MARKET_BUYSELL_BUTTON_STYLE = {

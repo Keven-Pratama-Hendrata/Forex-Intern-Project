@@ -1,4 +1,4 @@
-import { currencyMeta, currencyList } from "../../data/uiData";
+import { currencyMeta, currencyList, API_ROUTES } from "../../data/uiData";
 import { useState, useEffect } from "react";
 
 /**
@@ -29,7 +29,6 @@ function getUsdMarketRow(current, previous, code) {
  * @param {string} code The currency code.
  * @returns {object|null} Row data for non-USD or null if data is missing.
  */
-// eslint-disable-next-line max-lines-per-function
 function getNonUsdMarketRow(current, previous, code) {
     const curRate = current.rates[code];
     const prevRate = previous.rates[code];
@@ -80,7 +79,7 @@ function mapMarketRows(current, previous) {
  * @returns {Promise<Array<object>>} Array of row data for the table.
  */
 async function fetchMarketRows() {
-    const res = await fetch("/api/market/history");
+    const res = await fetch(API_ROUTES.HISTORY);
     const data = await res.json();
     if (!Array.isArray(data) || data.length < 2) return [];
     const sorted = [...data].sort((a, b) => new Date(b.date) - new Date(a.date));

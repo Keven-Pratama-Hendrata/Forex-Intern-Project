@@ -116,7 +116,7 @@ exports[`Market (unit and snapshot) matches snapshot when loaded 1`] = `
                     style="padding: 10px; text-align: center; vertical-align: middle;"
                   >
                     <button
-                      class="ant-btn css-dev-only-do-not-override-16dneet ant-btn-round ant-btn-primary ant-btn-color-primary ant-btn-variant-solid ant-btn-lg"
+                      class="ant-btn css-dev-only-do-not-override-7t2xvq ant-btn-round ant-btn-primary ant-btn-color-primary ant-btn-variant-solid ant-btn-lg"
                       style="background-color: rgb(80, 127, 161); border-color: rgb(80, 127, 161); color: white; transition: background 0.2s, border 0.2s;"
                       type="button"
                     >
