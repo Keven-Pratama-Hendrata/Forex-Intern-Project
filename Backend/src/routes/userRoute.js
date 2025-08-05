@@ -68,6 +68,17 @@ export default function createUserRoutes({ userController, authController, verif
     userController.getDashboardData(req, res, next);
   });
 
+  /**
+   * Route handler for getting transaction history.
+   * @param {Object} req Express request object
+   * @param {Object} res Express response object
+   * @param {Function} next Express next middleware function
+   */
+  router.get('/history', verifyTokenMiddleware, (req, res, next) => {
+    logger.info('Transaction history route accessed', { method: 'GET', path: '/history' });
+    userController.getTransactionHistory(req, res, next);
+  });
+
   logger.info('User routes initialized successfully');
   return router;
 }

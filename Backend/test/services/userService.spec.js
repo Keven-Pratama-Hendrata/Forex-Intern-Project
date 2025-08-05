@@ -12,6 +12,7 @@ describe('UserService', () => {
     let mockUserRepository;
     let mockLogger;
     let mockConfig;
+    let mockMarketPriceService;
 
     beforeEach(() => {
         mockUserRepository = {
@@ -30,11 +31,13 @@ describe('UserService', () => {
                 keyAlgorithm: 'HS256'
             }
         };
+        mockMarketPriceService = {};
 
         userService = new UserService({
             userRepository: mockUserRepository,
             logger: mockLogger,
-            config: mockConfig
+            config: mockConfig,
+            marketPriceService: mockMarketPriceService
         });
     });
 
@@ -530,6 +533,99 @@ describe('UserService', () => {
                 expect.fail('Should have thrown an error');
             } catch (error) {
                 expect(error.message).to.equal('Exchange rate not available');
+            }
+        });
+    });
+
+    describe('getTransactionHistory', () => {
+        it('should return transaction history for valid user', async () => {
+            const mockUser = {
+                id: 'user123',
+                username: 'testuser',
+                balanceHistory: [
+                    {
+                        _id: '1',
+                        date: '2025-07-31T03:27:24.277+00:00',
+                        currency: 'JPY',
+                        amount: 908.4886264888182,
+                        balance: 4440.368852153083
+                    },
+                    {
+                        _id: '2',
+                        date: '2025-07-31T06:30:11.484+00:00',
+                        currency: 'IDR',
+                        amount: 100000,
+                        balance: 1010329.4824890726
+                    }
+                ]
+            };
+
+            mockUserRepository.findOneById.resolves(mockUser);
+
+            const result = await userService.getTransactionHistory('user123');
+
+            expect(result).to.deep.equal({
+                username: 'testuser',
+                balanceHistory: mockUser.balanceHistory
+            });
+
+            expect(mockUserRepository.findOneById).to.have.been.calledWith('user123');
+        });
+
+        it('should return empty array when user has no balance history', async () => {
+            const mockUser = {
+                id: 'user123',
+                username: 'testuser',
+                balanceHistory: []
+            };
+
+            mockUserRepository.findOneById.resolves(mockUser);
+
+            const result = await userService.getTransactionHistory('user123');
+
+            expect(result).to.deep.equal({
+                username: 'testuser',
+                balanceHistory: []
+            });
+        });
+
+        it('should handle missing balanceHistory property', async () => {
+            const mockUser = {
+                id: 'user123',
+                username: 'testuser'
+            };
+
+            mockUserRepository.findOneById.resolves(mockUser);
+
+            const result = await userService.getTransactionHistory('user123');
+
+            expect(result).to.deep.equal({
+                username: 'testuser',
+                balanceHistory: []
+            });
+        });
+
+        it('should throw error when user not found', async () => {
+            mockUserRepository.findOneById.resolves(null);
+
+            try {
+                await userService.getTransactionHistory('nonexistent');
+                expect.fail('Should have thrown an error');
+            } catch (error) {
+                expect(error.message).to.equal('User not found');
+                expect(mockLogger.error).to.have.been.calledWith('User not found for transaction history', { userid: 'nonexistent' });
+            }
+        });
+
+        it('should handle repository errors', async () => {
+            const repositoryError = new Error('Database connection failed');
+            mockUserRepository.findOneById.rejects(repositoryError);
+
+            try {
+                await userService.getTransactionHistory('user123');
+                expect.fail('Should have thrown an error');
+            } catch (error) {
+                expect(error).to.equal(repositoryError);
             }
         });
     });

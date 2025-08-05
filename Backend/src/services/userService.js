@@ -373,6 +373,34 @@ class UserService {
       dailyTotalUsdHistory: user.dailyTotalUsdHistory
     };
   }
+
+  /**
+   * Get transaction history for the user.
+   * @param {string} userid The user ID
+   * @returns {Promise<Object>} The transaction history data
+   */
+  async getTransactionHistory(userid) {
+    this.logger.info('Getting transaction history', { userid });
+
+    const user = await this.userRepository.findOneById(userid);
+
+    if (!user) {
+      this.logger.error('User not found for transaction history', { userid });
+      throw new Error('User not found');
+    }
+
+    const history = user.balanceHistory || [];
+
+    this.logger.info('Transaction history retrieved successfully', {
+      userid,
+      historyCount: history.length
+    });
+
+    return {
+      username: user.username,
+      balanceHistory: history
+    };
+  }
 }
 
 export default UserService;

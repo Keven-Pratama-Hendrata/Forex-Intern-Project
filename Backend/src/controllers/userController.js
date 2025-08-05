@@ -136,6 +136,30 @@ class UserController {
       next(err);
     }
   }
+
+  /**
+   * Retrieves transaction history for the current user
+   * @param {Object} req Express request object
+   * @param {Object} res Express response object
+   * @param {Function} next Express next middleware function
+   */
+  async getTransactionHistory(req, res, next) {
+    try {
+      if (!req.user) {
+        this.logger.error('User not found in request');
+        throw new Error('User not found in request');
+      }
+      const { userid } = req.user;
+
+      const historyData = await this.userService.getTransactionHistory(userid);
+
+      res.status(200).json(historyData);
+    } catch (err) {
+      const { userid } = req.user || {};
+      this.logger.error('Failed to get transaction history', { userid, error: err.message });
+      next(err);
+    }
+  }
 }
 
 export default UserController;

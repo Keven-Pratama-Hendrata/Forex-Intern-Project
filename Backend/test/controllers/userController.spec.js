@@ -18,7 +18,9 @@ describe('UserController', () => {
         mockUserService = {
             getUserProfile: sinon.stub(),
             handleUpdateBalance: sinon.stub(),
-            processTransaction: sinon.stub()
+            processTransaction: sinon.stub(),
+            getDashboardData: sinon.stub(),
+            getTransactionHistory: sinon.stub()
         };
         mockLogger = createMockLogger();
         controller = new UserController({ userService: mockUserService, logger: mockLogger });
@@ -319,6 +321,97 @@ describe('UserController', () => {
 
             expect(mockLogger.error).to.have.been.calledWith('User not found in request');
             expect(next).to.have.been.calledWith(sinon.match.instanceOf(Error));
+        });
+    });
+
+    describe('getTransactionHistory', () => {
+        it('should return transaction history for authenticated user', async () => {
+            const mockReq = {
+                user: { userid: 'user123' }
+            };
+            const mockRes = {
+                status: sinon.stub().returnsThis(),
+                json: sinon.stub()
+            };
+            const mockNext = sinon.stub();
+
+            const mockHistoryData = {
+                username: 'testuser',
+                balanceHistory: [
+                    {
+                        _id: '1',
+                        date: '2025-07-31T03:27:24.277+00:00',
+                        currency: 'JPY',
+                        amount: 908.4886264888182,
+                        balance: 4440.368852153083
+                    }
+                ]
+            };
+
+            mockUserService.getTransactionHistory.resolves(mockHistoryData);
+
+            await controller.getTransactionHistory(mockReq, mockRes, mockNext);
+
+            expect(mockUserService.getTransactionHistory).to.have.been.calledWith('user123');
+            expect(mockRes.status).to.have.been.calledWith(200);
+            expect(mockRes.json).to.have.been.calledWith(mockHistoryData);
+            expect(mockNext).to.not.have.been.called;
+        });
+
+        it('should handle missing user in request', async () => {
+            const mockReq = {};
+            const mockRes = {
+                status: sinon.stub().returnsThis(),
+                json: sinon.stub()
+            };
+            const mockNext = sinon.stub();
+
+            await controller.getTransactionHistory(mockReq, mockRes, mockNext);
+
+            expect(mockLogger.error).to.have.been.calledWith('User not found in request');
+            expect(mockNext).to.have.been.calledWith(sinon.match.instanceOf(Error));
+            expect(mockUserService.getTransactionHistory).to.not.have.been.called;
+        });
+
+        it('should handle service errors', async () => {
+            const mockReq = {
+                user: { userid: 'user123' }
+            };
+            const mockRes = {
+                status: sinon.stub().returnsThis(),
+                json: sinon.stub()
+            };
+            const mockNext = sinon.stub();
+
+            const serviceError = new Error('User not found');
+            mockUserService.getTransactionHistory.rejects(serviceError);
+
+            await controller.getTransactionHistory(mockReq, mockRes, mockNext);
+
+            expect(mockLogger.error).to.have.been.calledWith('Failed to get transaction history', {
+                userid: 'user123',
+                error: 'User not found'
+            });
+            expect(mockNext).to.have.been.calledWith(serviceError);
+            expect(mockRes.status).to.not.have.been.called;
+            expect(mockRes.json).to.not.have.been.called;
+        });
+
+        it('should handle errors when user is undefined', async () => {
+            const mockReq = {};
+            const mockRes = {
+                status: sinon.stub().returnsThis(),
+                json: sinon.stub()
+            };
+            const mockNext = sinon.stub();
+
+            await controller.getTransactionHistory(mockReq, mockRes, mockNext);
+
+            expect(mockLogger.error).to.have.been.calledWith('Failed to get transaction history', {
+                userid: undefined,
+                error: 'User not found in request'
+            });
+            expect(mockNext).to.have.been.calledWith(sinon.match.instanceOf(Error));
         });
     });
 }); 
