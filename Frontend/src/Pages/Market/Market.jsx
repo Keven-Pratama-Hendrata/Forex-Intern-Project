@@ -192,10 +192,10 @@ function MarketContainer({ children }) {
     return (
         <div
             className={[
-                "w-[700px] m-[40px_auto] flex flex-col items-stretch min-h-[220px]",
+                "w-[700px] m-[40px_auto] flex flex-col items-stretch min-h-[320px]",
                 "rounded-2xl shadow-xl bg-white/60 backdrop-blur-md ring-1 ring-white/40"
             ].join(" ")}
-            style={{ minHeight: 220, width: 700, margin: "40px auto" }}
+            style={{ minHeight: 320, width: 700, margin: "40px auto" }}
         >
             {children}
         </div>
@@ -224,7 +224,7 @@ function MarketSidebar({ activeNav, setActiveNav }) {
  */
 function MarketContent({ rows }) {
     return (
-        <main className="flex-1 flex justify-center items-center pl-1 pr-1">
+        <main className="flex-1 flex justify-center items-start pt-4 pl-1 pr-1">
             <MarketTableWithHeader rows={rows} />
         </main>
     );

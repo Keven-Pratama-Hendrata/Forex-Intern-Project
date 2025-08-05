@@ -129,7 +129,15 @@ export function getIdrChartOptions() {
         responsive: true,
         plugins: {
             legend: { display: false },
-            title: { display: true, text: DASHBOARD_CHART_CONFIG.TITLE, padding: DASHBOARD_CHART_CONFIG.TITLE_PADDING },
+            title: {
+                display: true,
+                text: DASHBOARD_CHART_CONFIG.TITLE,
+                padding: DASHBOARD_CHART_CONFIG.TITLE_PADDING,
+                font: {
+                    size: 15,
+                    weight: 'bold'
+                }
+            },
         },
         scales: {
             y: { beginAtZero: false, grace: 0 },
