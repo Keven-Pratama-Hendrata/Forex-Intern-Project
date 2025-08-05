@@ -28,6 +28,7 @@ export const DASHBOARD_ERROR_MESSAGES = {
 export const API_ROUTES = {
     HISTORY: 'http://localhost:5001/api/market/history',
     TRANSACTION: 'http://localhost:5001/api/users/transaction',
+    USER_HISTORY: 'http://localhost:5001/api/users/history',
 };
 
 export const MARKET_BUYSELL_BUTTON_STYLE = {

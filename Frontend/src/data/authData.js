@@ -1,7 +1,6 @@
 export const AUTH_ENDPOINTS = {
     LOGIN: 'http://localhost:5001/api/users/login',
     SIGNUP: 'http://localhost:5001/api/users/signup',
-    PROFILE: 'http://localhost:5001/api/users/users/self',
 };
 
 export const AUTH_MESSAGES = {
