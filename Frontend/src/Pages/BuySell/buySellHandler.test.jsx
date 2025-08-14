@@ -4,7 +4,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { MemoryRouter } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { useBuySellForm, handleSubmit, handleAmountKeyDown, handleAmountChange } from './buySellHandler.jsx';
-import { API_ROUTES, BUYSELL_MESSAGES, BUYSELL_CONFIG } from '../../data';
+import { API_ROUTES, BUYSELL_MESSAGES, BUYSELL_CONFIG } from '../../data/index.js';
 
 jest.mock('react-hot-toast', () => ({
     error: jest.fn(),
