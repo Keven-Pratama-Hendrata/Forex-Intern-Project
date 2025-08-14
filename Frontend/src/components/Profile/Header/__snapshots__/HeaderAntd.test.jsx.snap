@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`HeaderAntd matches snapshot 1`] = `
+<DocumentFragment>
+  <div>
+    <div>
+      <div>
+        <span>
+          <img
+            alt="Profile"
+            src="profilepicture.png"
+            style="width: 28px; height: 28px; border-radius: 50%;"
+          />
+        </span>
+        <span>
+          SnapshotUser
+        </span>
+      </div>
+    </div>
+    <div>
+      <span
+        style="display: flex; align-items: center; font-weight: 700; font-size: 20px; color: rgb(30, 58, 138);"
+      >
+        Balance: 
+        <span
+          style="font-weight: 500; font-size: 18px; color: rgb(30, 58, 138);"
+        >
+          Rp100.50
+        </span>
+      </span>
+    </div>
+    <div>
+      <button>
+        Logout
+        <img
+          alt="Logout"
+          src="profilepicture.png"
+        />
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
+`;

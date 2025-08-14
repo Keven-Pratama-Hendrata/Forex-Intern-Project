@@ -1,0 +1,2967 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`History Component displays balance with proper formatting 1`] = `
+<div>
+  <div
+    class="min-h-screen flex items-center justify-center relative overflow-hidden"
+  >
+    <svg
+      class="absolute inset-0 h-full w-full pointer-events-none"
+      preserveAspectRatio="none"
+      viewBox="0 0 100 100"
+    >
+      <defs>
+        <lineargradient
+          id="bgGrad"
+          x1="0"
+          x2="0"
+          y1="0"
+          y2="1"
+        >
+          <stop
+            offset="0%"
+            stop-color="#6ca0c1"
+          />
+          <stop
+            offset="100%"
+            stop-color="#507fa1"
+          />
+        </lineargradient>
+      </defs>
+      <rect
+        fill="url(#bgGrad)"
+        height="100"
+        width="100"
+      />
+      <path
+        d="M 70 0 Q 77 10 70 20 Q 63 30 70 40 Q 77 50 70 60 Q 63 70 70 80 Q 77 90 70 100 L 100 100 100 0 Z"
+        fill="#ffffff"
+      />
+    </svg>
+    <div
+      class="absolute inset-0 flex items-center justify-center z-10"
+    >
+      <div
+        class="w-[700px] m-[40px_auto] flex flex-col items-stretch min-h-[320px] rounded-2xl shadow-xl bg-white/60 backdrop-blur-md ring-1 ring-white/40"
+        data-testid="history-content-layout"
+      >
+        <div
+          style="display: flex; align-items: center; justify-content: space-between; background: rgb(230, 236, 242); border-radius: 12px 12px 0 0; padding: 10px 28px; min-height: 54px;"
+        >
+          <div
+            style="display: flex; align-items: center; gap: 12px;"
+          >
+            <div
+              style="display: flex; align-items: center; background: rgb(224, 237, 250); border-radius: 20px; padding: 2px 12px 2px 4px; gap: 8px; box-shadow: 0 1px 4px rgba(30,58,138,0.08);"
+            >
+              <span
+                style="width: 28px; height: 28px; border-radius: 50%; background: rgb(182, 208, 247); display: flex; align-items: center; justify-content: center; font-size: 18px; color: rgb(30, 58, 138);"
+              >
+                <img
+                  alt="Profile"
+                  src="test-file-stub"
+                  style="width: 28px; height: 28px; border-radius: 50%;"
+                />
+              </span>
+              <span
+                style="color: rgb(30, 58, 138); font-weight: 500; font-size: 18px; margin-left: 4px;"
+              >
+                testuser
+              </span>
+            </div>
+          </div>
+          <div
+            style="flex: 1 1 0%; display: flex; justify-content: center; align-items: center; font-weight: 700; font-size: 20px; color: rgb(30, 58, 138);"
+          >
+            <span
+              style="display: flex; align-items: center; font-weight: 700; font-size: 20px; color: rgb(30, 58, 138);"
+            >
+              Balance
+              : 
+              <span
+                style="font-weight: 500; font-size: 18px; color: rgb(30, 58, 138);"
+              >
+                Rp
+                1,000.00
+              </span>
+            </span>
+          </div>
+          <div
+            style="display: flex; align-items: center; gap: 8px;"
+          >
+            <button>
+              Logout
+              <img
+                alt="Logout"
+                src="test-file-stub"
+                style="width: 18px; height: 18px; margin-left: 2px; display: inline-block; vertical-align: middle;"
+              />
+            </button>
+          </div>
+        </div>
+        <div
+          class="flex flex-1 min-h-[320px]"
+        >
+          <div
+            class="w-[150px] min-h-[320px] bg-slate-200/85 rounded-bl-xl"
+          >
+            <ul
+              class="ant-menu ant-menu-root ant-menu-inline ant-menu-light css-dev-only-do-not-override-7t2xvq"
+              data-menu-list="true"
+              role="menu"
+              style="min-width: 110px; padding: 0px; border-right: 0px; background: transparent;"
+              tabindex="0"
+            >
+              <li
+                aria-describedby="test-id"
+                class="ant-menu-item"
+                data-menu-id="rc-menu-uuid-test-Home"
+                role="menuitem"
+                style="padding-left: 24px;"
+                tabindex="-1"
+              >
+                <img
+                  alt="Home"
+                  class="ant-menu-item-icon"
+                  src="/assets/Home.png"
+                  style="width: 24px; height: 24px;"
+                />
+                <span
+                  class="ant-menu-title-content"
+                >
+                  <span
+                    style="margin-left: 4px; font-weight: 600; font-size: 16px; color: rgb(30, 58, 138);"
+                  >
+                    Home
+                  </span>
+                </span>
+              </li>
+              <li
+                aria-describedby="test-id"
+                class="ant-menu-item"
+                data-menu-id="rc-menu-uuid-test-Market"
+                role="menuitem"
+                style="padding-left: 24px;"
+                tabindex="-1"
+              >
+                <img
+                  alt="Market"
+                  class="ant-menu-item-icon"
+                  src="/assets/market.png"
+                  style="width: 24px; height: 24px;"
+                />
+                <span
+                  class="ant-menu-title-content"
+                >
+                  <span
+                    style="margin-left: 4px; font-weight: 600; font-size: 16px; color: rgb(30, 58, 138);"
+                  >
+                    Market
+                  </span>
+                </span>
+              </li>
+              <li
+                aria-describedby="test-id"
+                class="ant-menu-item"
+                data-menu-id="rc-menu-uuid-test-Portfolio"
+                role="menuitem"
+                style="padding-left: 24px;"
+                tabindex="-1"
+              >
+                <img
+                  alt="Portfolio"
+                  class="ant-menu-item-icon"
+                  src="/assets/portfolio.png"
+                  style="width: 24px; height: 24px;"
+                />
+                <span
+                  class="ant-menu-title-content"
+                >
+                  <span
+                    style="margin-left: 4px; font-weight: 600; font-size: 16px; color: rgb(30, 58, 138);"
+                  >
+                    Portfolio
+                  </span>
+                </span>
+              </li>
+              <li
+                aria-describedby="test-id"
+                class="ant-menu-item ant-menu-item-selected"
+                data-menu-id="rc-menu-uuid-test-History"
+                role="menuitem"
+                style="padding-left: 24px;"
+                tabindex="-1"
+              >
+                <img
+                  alt="History"
+                  class="ant-menu-item-icon"
+                  src="/assets/history.png"
+                  style="width: 24px; height: 24px;"
+                />
+                <span
+                  class="ant-menu-title-content"
+                >
+                  <span
+                    style="margin-left: 4px; font-weight: 600; font-size: 16px; color: rgb(30, 58, 138);"
+                  >
+                    History
+                  </span>
+                </span>
+              </li>
+            </ul>
+            <div
+              aria-hidden="true"
+              style="display: none;"
+            />
+          </div>
+          <main
+            class="flex-1 flex justify-start items-start"
+          >
+            <div
+              class="w-full max-h-[320px] overflow-y-auto"
+              style="scrollbar-width: none;"
+            >
+              <table
+                style="width: 100%; border-collapse: collapse; font-size: 16px;"
+              >
+                <thead
+                  style="position: sticky; top: 0px; background-color: rgba(219, 234, 254, 0.95); z-index: 10; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);"
+                >
+                  <tr>
+                    <th
+                      style="padding: 10px 10px 0px 10px; text-align: left; border-bottom: 2px solid rgb(229, 231, 235);"
+                    >
+                      Date
+                    </th>
+                    <th
+                      style="padding: 10px 10px 0px 10px; text-align: left; border-bottom: 2px solid rgb(229, 231, 235);"
+                    >
+                      Currency
+                    </th>
+                    <th
+                      style="padding: 10px 10px 0px 10px; text-align: right; border-bottom: 2px solid rgb(229, 231, 235);"
+                    >
+                      Amount
+                    </th>
+                    <th
+                      style="padding: 10px 10px 0px 10px; text-align: right; border-bottom: 2px solid rgb(229, 231, 235);"
+                    >
+                      Balance
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    style="border-bottom: 1px solid rgb(229, 231, 235); transition: background-color 0.2s ease;"
+                  >
+                    <td
+                      style="padding: 10px; vertical-align: middle;"
+                    >
+                      Jul 31, 2025
+                    </td>
+                    <td
+                      style="padding: 10px; vertical-align: middle;"
+                    >
+                      JPY
+                    </td>
+                    <td
+                      style="padding: 10px; text-align: right; color: rgb(5, 150, 105); font-weight: 600; vertical-align: middle;"
+                    >
+                      +908,4886 JPY
+                    </td>
+                    <td
+                      style="padding: 10px; text-align: right; font-weight: 600; vertical-align: middle;"
+                    >
+                      4.440,3689
+                       
+                      JPY
+                    </td>
+                  </tr>
+                  <tr
+                    style="border-bottom: 1px solid rgb(229, 231, 235); transition: background-color 0.2s ease;"
+                  >
+                    <td
+                      style="padding: 10px; vertical-align: middle;"
+                    >
+                      Jul 31, 2025
+                    </td>
+                    <td
+                      style="padding: 10px; vertical-align: middle;"
+                    >
+                      IDR
+                    </td>
+                    <td
+                      style="padding: 10px; text-align: right; color: rgb(5, 150, 105); font-weight: 600; vertical-align: middle;"
+                    >
+                      +100.000,00 IDR
+                    </td>
+                    <td
+                      style="padding: 10px; text-align: right; font-weight: 600; vertical-align: middle;"
+                    >
+                      1.010.329,4825
+                       
+                      IDR
+                    </td>
+                  </tr>
+                  <tr
+                    style="transition: background-color 0.2s ease;"
+                  >
+                    <td
+                      style="padding: 10px; vertical-align: middle;"
+                    >
+                      Jul 31, 2025
+                    </td>
+                    <td
+                      style="padding: 10px; vertical-align: middle;"
+                    >
+                      JPY
+                    </td>
+                    <td
+                      style="padding: 10px; text-align: right; color: rgb(220, 38, 38); font-weight: 600; vertical-align: middle;"
+                    >
+                      -908,4886 JPY
+                    </td>
+                    <td
+                      style="padding: 10px; text-align: right; font-weight: 600; vertical-align: middle;"
+                    >
+                      3.531,8802
+                       
+                      JPY
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </main>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`History Component formats amounts with correct colors 1`] = `
+<div>
+  <div
+    class="min-h-screen flex items-center justify-center relative overflow-hidden"
+  >
+    <svg
+      class="absolute inset-0 h-full w-full pointer-events-none"
+      preserveAspectRatio="none"
+      viewBox="0 0 100 100"
+    >
+      <defs>
+        <lineargradient
+          id="bgGrad"
+          x1="0"
+          x2="0"
+          y1="0"
+          y2="1"
+        >
+          <stop
+            offset="0%"
+            stop-color="#6ca0c1"
+          />
+          <stop
+            offset="100%"
+            stop-color="#507fa1"
+          />
+        </lineargradient>
+      </defs>
+      <rect
+        fill="url(#bgGrad)"
+        height="100"
+        width="100"
+      />
+      <path
+        d="M 70 0 Q 77 10 70 20 Q 63 30 70 40 Q 77 50 70 60 Q 63 70 70 80 Q 77 90 70 100 L 100 100 100 0 Z"
+        fill="#ffffff"
+      />
+    </svg>
+    <div
+      class="absolute inset-0 flex items-center justify-center z-10"
+    >
+      <div
+        class="w-[700px] m-[40px_auto] flex flex-col items-stretch min-h-[320px] rounded-2xl shadow-xl bg-white/60 backdrop-blur-md ring-1 ring-white/40"
+        data-testid="history-content-layout"
+      >
+        <div
+          style="display: flex; align-items: center; justify-content: space-between; background: rgb(230, 236, 242); border-radius: 12px 12px 0 0; padding: 10px 28px; min-height: 54px;"
+        >
+          <div
+            style="display: flex; align-items: center; gap: 12px;"
+          >
+            <div
+              style="display: flex; align-items: center; background: rgb(224, 237, 250); border-radius: 20px; padding: 2px 12px 2px 4px; gap: 8px; box-shadow: 0 1px 4px rgba(30,58,138,0.08);"
+            >
+              <span
+                style="width: 28px; height: 28px; border-radius: 50%; background: rgb(182, 208, 247); display: flex; align-items: center; justify-content: center; font-size: 18px; color: rgb(30, 58, 138);"
+              >
+                <img
+                  alt="Profile"
+                  src="test-file-stub"
+                  style="width: 28px; height: 28px; border-radius: 50%;"
+                />
+              </span>
+              <span
+                style="color: rgb(30, 58, 138); font-weight: 500; font-size: 18px; margin-left: 4px;"
+              >
+                testuser
+              </span>
+            </div>
+          </div>
+          <div
+            style="flex: 1 1 0%; display: flex; justify-content: center; align-items: center; font-weight: 700; font-size: 20px; color: rgb(30, 58, 138);"
+          >
+            <span
+              style="display: flex; align-items: center; font-weight: 700; font-size: 20px; color: rgb(30, 58, 138);"
+            >
+              Balance
+              : 
+              <span
+                style="font-weight: 500; font-size: 18px; color: rgb(30, 58, 138);"
+              >
+                Rp
+                1,000.00
+              </span>
+            </span>
+          </div>
+          <div
+            style="display: flex; align-items: center; gap: 8px;"
+          >
+            <button>
+              Logout
+              <img
+                alt="Logout"
+                src="test-file-stub"
+                style="width: 18px; height: 18px; margin-left: 2px; display: inline-block; vertical-align: middle;"
+              />
+            </button>
+          </div>
+        </div>
+        <div
+          class="flex flex-1 min-h-[320px]"
+        >
+          <div
+            class="w-[150px] min-h-[320px] bg-slate-200/85 rounded-bl-xl"
+          >
+            <ul
+              class="ant-menu ant-menu-root ant-menu-inline ant-menu-light css-dev-only-do-not-override-7t2xvq"
+              data-menu-list="true"
+              role="menu"
+              style="min-width: 110px; padding: 0px; border-right: 0px; background: transparent;"
+              tabindex="0"
+            >
+              <li
+                aria-describedby="test-id"
+                class="ant-menu-item"
+                data-menu-id="rc-menu-uuid-test-Home"
+                role="menuitem"
+                style="padding-left: 24px;"
+                tabindex="-1"
+              >
+                <img
+                  alt="Home"
+                  class="ant-menu-item-icon"
+                  src="/assets/Home.png"
+                  style="width: 24px; height: 24px;"
+                />
+                <span
+                  class="ant-menu-title-content"
+                >
+                  <span
+                    style="margin-left: 4px; font-weight: 600; font-size: 16px; color: rgb(30, 58, 138);"
+                  >
+                    Home
+                  </span>
+                </span>
+              </li>
+              <li
+                aria-describedby="test-id"
+                class="ant-menu-item"
+                data-menu-id="rc-menu-uuid-test-Market"
+                role="menuitem"
+                style="padding-left: 24px;"
+                tabindex="-1"
+              >
+                <img
+                  alt="Market"
+                  class="ant-menu-item-icon"
+                  src="/assets/market.png"
+                  style="width: 24px; height: 24px;"
+                />
+                <span
+                  class="ant-menu-title-content"
+                >
+                  <span
+                    style="margin-left: 4px; font-weight: 600; font-size: 16px; color: rgb(30, 58, 138);"
+                  >
+                    Market
+                  </span>
+                </span>
+              </li>
+              <li
+                aria-describedby="test-id"
+                class="ant-menu-item"
+                data-menu-id="rc-menu-uuid-test-Portfolio"
+                role="menuitem"
+                style="padding-left: 24px;"
+                tabindex="-1"
+              >
+                <img
+                  alt="Portfolio"
+                  class="ant-menu-item-icon"
+                  src="/assets/portfolio.png"
+                  style="width: 24px; height: 24px;"
+                />
+                <span
+                  class="ant-menu-title-content"
+                >
+                  <span
+                    style="margin-left: 4px; font-weight: 600; font-size: 16px; color: rgb(30, 58, 138);"
+                  >
+                    Portfolio
+                  </span>
+                </span>
+              </li>
+              <li
+                aria-describedby="test-id"
+                class="ant-menu-item ant-menu-item-selected"
+                data-menu-id="rc-menu-uuid-test-History"
+                role="menuitem"
+                style="padding-left: 24px;"
+                tabindex="-1"
+              >
+                <img
+                  alt="History"
+                  class="ant-menu-item-icon"
+                  src="/assets/history.png"
+                  style="width: 24px; height: 24px;"
+                />
+                <span
+                  class="ant-menu-title-content"
+                >
+                  <span
+                    style="margin-left: 4px; font-weight: 600; font-size: 16px; color: rgb(30, 58, 138);"
+                  >
+                    History
+                  </span>
+                </span>
+              </li>
+            </ul>
+            <div
+              aria-hidden="true"
+              style="display: none;"
+            />
+          </div>
+          <main
+            class="flex-1 flex justify-start items-start"
+          >
+            <div
+              class="w-full max-h-[320px] overflow-y-auto"
+              style="scrollbar-width: none;"
+            >
+              <table
+                style="width: 100%; border-collapse: collapse; font-size: 16px;"
+              >
+                <thead
+                  style="position: sticky; top: 0px; background-color: rgba(219, 234, 254, 0.95); z-index: 10; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);"
+                >
+                  <tr>
+                    <th
+                      style="padding: 10px 10px 0px 10px; text-align: left; border-bottom: 2px solid rgb(229, 231, 235);"
+                    >
+                      Date
+                    </th>
+                    <th
+                      style="padding: 10px 10px 0px 10px; text-align: left; border-bottom: 2px solid rgb(229, 231, 235);"
+                    >
+                      Currency
+                    </th>
+                    <th
+                      style="padding: 10px 10px 0px 10px; text-align: right; border-bottom: 2px solid rgb(229, 231, 235);"
+                    >
+                      Amount
+                    </th>
+                    <th
+                      style="padding: 10px 10px 0px 10px; text-align: right; border-bottom: 2px solid rgb(229, 231, 235);"
+                    >
+                      Balance
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    style="border-bottom: 1px solid rgb(229, 231, 235); transition: background-color 0.2s ease;"
+                  >
+                    <td
+                      style="padding: 10px; vertical-align: middle;"
+                    >
+                      Jul 31, 2025
+                    </td>
+                    <td
+                      style="padding: 10px; vertical-align: middle;"
+                    >
+                      JPY
+                    </td>
+                    <td
+                      style="padding: 10px; text-align: right; color: rgb(5, 150, 105); font-weight: 600; vertical-align: middle;"
+                    >
+                      +908,4886 JPY
+                    </td>
+                    <td
+                      style="padding: 10px; text-align: right; font-weight: 600; vertical-align: middle;"
+                    >
+                      4.440,3689
+                       
+                      JPY
+                    </td>
+                  </tr>
+                  <tr
+                    style="border-bottom: 1px solid rgb(229, 231, 235); transition: background-color 0.2s ease;"
+                  >
+                    <td
+                      style="padding: 10px; vertical-align: middle;"
+                    >
+                      Jul 31, 2025
+                    </td>
+                    <td
+                      style="padding: 10px; vertical-align: middle;"
+                    >
+                      IDR
+                    </td>
+                    <td
+                      style="padding: 10px; text-align: right; color: rgb(5, 150, 105); font-weight: 600; vertical-align: middle;"
+                    >
+                      +100.000,00 IDR
+                    </td>
+                    <td
+                      style="padding: 10px; text-align: right; font-weight: 600; vertical-align: middle;"
+                    >
+                      1.010.329,4825
+                       
+                      IDR
+                    </td>
+                  </tr>
+                  <tr
+                    style="transition: background-color 0.2s ease;"
+                  >
+                    <td
+                      style="padding: 10px; vertical-align: middle;"
+                    >
+                      Jul 31, 2025
+                    </td>
+                    <td
+                      style="padding: 10px; vertical-align: middle;"
+                    >
+                      JPY
+                    </td>
+                    <td
+                      style="padding: 10px; text-align: right; color: rgb(220, 38, 38); font-weight: 600; vertical-align: middle;"
+                    >
+                      -908,4886 JPY
+                    </td>
+                    <td
+                      style="padding: 10px; text-align: right; font-weight: 600; vertical-align: middle;"
+                    >
+                      3.531,8802
+                       
+                      JPY
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </main>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`History Component formats dates correctly 1`] = `
+<div>
+  <div
+    class="min-h-screen flex items-center justify-center relative overflow-hidden"
+  >
+    <svg
+      class="absolute inset-0 h-full w-full pointer-events-none"
+      preserveAspectRatio="none"
+      viewBox="0 0 100 100"
+    >
+      <defs>
+        <lineargradient
+          id="bgGrad"
+          x1="0"
+          x2="0"
+          y1="0"
+          y2="1"
+        >
+          <stop
+            offset="0%"
+            stop-color="#6ca0c1"
+          />
+          <stop
+            offset="100%"
+            stop-color="#507fa1"
+          />
+        </lineargradient>
+      </defs>
+      <rect
+        fill="url(#bgGrad)"
+        height="100"
+        width="100"
+      />
+      <path
+        d="M 70 0 Q 77 10 70 20 Q 63 30 70 40 Q 77 50 70 60 Q 63 70 70 80 Q 77 90 70 100 L 100 100 100 0 Z"
+        fill="#ffffff"
+      />
+    </svg>
+    <div
+      class="absolute inset-0 flex items-center justify-center z-10"
+    >
+      <div
+        class="w-[700px] m-[40px_auto] flex flex-col items-stretch min-h-[320px] rounded-2xl shadow-xl bg-white/60 backdrop-blur-md ring-1 ring-white/40"
+        data-testid="history-content-layout"
+      >
+        <div
+          style="display: flex; align-items: center; justify-content: space-between; background: rgb(230, 236, 242); border-radius: 12px 12px 0 0; padding: 10px 28px; min-height: 54px;"
+        >
+          <div
+            style="display: flex; align-items: center; gap: 12px;"
+          >
+            <div
+              style="display: flex; align-items: center; background: rgb(224, 237, 250); border-radius: 20px; padding: 2px 12px 2px 4px; gap: 8px; box-shadow: 0 1px 4px rgba(30,58,138,0.08);"
+            >
+              <span
+                style="width: 28px; height: 28px; border-radius: 50%; background: rgb(182, 208, 247); display: flex; align-items: center; justify-content: center; font-size: 18px; color: rgb(30, 58, 138);"
+              >
+                <img
+                  alt="Profile"
+                  src="test-file-stub"
+                  style="width: 28px; height: 28px; border-radius: 50%;"
+                />
+              </span>
+              <span
+                style="color: rgb(30, 58, 138); font-weight: 500; font-size: 18px; margin-left: 4px;"
+              >
+                testuser
+              </span>
+            </div>
+          </div>
+          <div
+            style="flex: 1 1 0%; display: flex; justify-content: center; align-items: center; font-weight: 700; font-size: 20px; color: rgb(30, 58, 138);"
+          >
+            <span
+              style="display: flex; align-items: center; font-weight: 700; font-size: 20px; color: rgb(30, 58, 138);"
+            >
+              Balance
+              : 
+              <span
+                style="font-weight: 500; font-size: 18px; color: rgb(30, 58, 138);"
+              >
+                Rp
+                1,000.00
+              </span>
+            </span>
+          </div>
+          <div
+            style="display: flex; align-items: center; gap: 8px;"
+          >
+            <button>
+              Logout
+              <img
+                alt="Logout"
+                src="test-file-stub"
+                style="width: 18px; height: 18px; margin-left: 2px; display: inline-block; vertical-align: middle;"
+              />
+            </button>
+          </div>
+        </div>
+        <div
+          class="flex flex-1 min-h-[320px]"
+        >
+          <div
+            class="w-[150px] min-h-[320px] bg-slate-200/85 rounded-bl-xl"
+          >
+            <ul
+              class="ant-menu ant-menu-root ant-menu-inline ant-menu-light css-dev-only-do-not-override-7t2xvq"
+              data-menu-list="true"
+              role="menu"
+              style="min-width: 110px; padding: 0px; border-right: 0px; background: transparent;"
+              tabindex="0"
+            >
+              <li
+                aria-describedby="test-id"
+                class="ant-menu-item"
+                data-menu-id="rc-menu-uuid-test-Home"
+                role="menuitem"
+                style="padding-left: 24px;"
+                tabindex="-1"
+              >
+                <img
+                  alt="Home"
+                  class="ant-menu-item-icon"
+                  src="/assets/Home.png"
+                  style="width: 24px; height: 24px;"
+                />
+                <span
+                  class="ant-menu-title-content"
+                >
+                  <span
+                    style="margin-left: 4px; font-weight: 600; font-size: 16px; color: rgb(30, 58, 138);"
+                  >
+                    Home
+                  </span>
+                </span>
+              </li>
+              <li
+                aria-describedby="test-id"
+                class="ant-menu-item"
+                data-menu-id="rc-menu-uuid-test-Market"
+                role="menuitem"
+                style="padding-left: 24px;"
+                tabindex="-1"
+              >
+                <img
+                  alt="Market"
+                  class="ant-menu-item-icon"
+                  src="/assets/market.png"
+                  style="width: 24px; height: 24px;"
+                />
+                <span
+                  class="ant-menu-title-content"
+                >
+                  <span
+                    style="margin-left: 4px; font-weight: 600; font-size: 16px; color: rgb(30, 58, 138);"
+                  >
+                    Market
+                  </span>
+                </span>
+              </li>
+              <li
+                aria-describedby="test-id"
+                class="ant-menu-item"
+                data-menu-id="rc-menu-uuid-test-Portfolio"
+                role="menuitem"
+                style="padding-left: 24px;"
+                tabindex="-1"
+              >
+                <img
+                  alt="Portfolio"
+                  class="ant-menu-item-icon"
+                  src="/assets/portfolio.png"
+                  style="width: 24px; height: 24px;"
+                />
+                <span
+                  class="ant-menu-title-content"
+                >
+                  <span
+                    style="margin-left: 4px; font-weight: 600; font-size: 16px; color: rgb(30, 58, 138);"
+                  >
+                    Portfolio
+                  </span>
+                </span>
+              </li>
+              <li
+                aria-describedby="test-id"
+                class="ant-menu-item ant-menu-item-selected"
+                data-menu-id="rc-menu-uuid-test-History"
+                role="menuitem"
+                style="padding-left: 24px;"
+                tabindex="-1"
+              >
+                <img
+                  alt="History"
+                  class="ant-menu-item-icon"
+                  src="/assets/history.png"
+                  style="width: 24px; height: 24px;"
+                />
+                <span
+                  class="ant-menu-title-content"
+                >
+                  <span
+                    style="margin-left: 4px; font-weight: 600; font-size: 16px; color: rgb(30, 58, 138);"
+                  >
+                    History
+                  </span>
+                </span>
+              </li>
+            </ul>
+            <div
+              aria-hidden="true"
+              style="display: none;"
+            />
+          </div>
+          <main
+            class="flex-1 flex justify-start items-start"
+          >
+            <div
+              class="w-full max-h-[320px] overflow-y-auto"
+              style="scrollbar-width: none;"
+            >
+              <table
+                style="width: 100%; border-collapse: collapse; font-size: 16px;"
+              >
+                <thead
+                  style="position: sticky; top: 0px; background-color: rgba(219, 234, 254, 0.95); z-index: 10; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);"
+                >
+                  <tr>
+                    <th
+                      style="padding: 10px 10px 0px 10px; text-align: left; border-bottom: 2px solid rgb(229, 231, 235);"
+                    >
+                      Date
+                    </th>
+                    <th
+                      style="padding: 10px 10px 0px 10px; text-align: left; border-bottom: 2px solid rgb(229, 231, 235);"
+                    >
+                      Currency
+                    </th>
+                    <th
+                      style="padding: 10px 10px 0px 10px; text-align: right; border-bottom: 2px solid rgb(229, 231, 235);"
+                    >
+                      Amount
+                    </th>
+                    <th
+                      style="padding: 10px 10px 0px 10px; text-align: right; border-bottom: 2px solid rgb(229, 231, 235);"
+                    >
+                      Balance
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    style="border-bottom: 1px solid rgb(229, 231, 235); transition: background-color 0.2s ease;"
+                  >
+                    <td
+                      style="padding: 10px; vertical-align: middle;"
+                    >
+                      Jul 31, 2025
+                    </td>
+                    <td
+                      style="padding: 10px; vertical-align: middle;"
+                    >
+                      JPY
+                    </td>
+                    <td
+                      style="padding: 10px; text-align: right; color: rgb(5, 150, 105); font-weight: 600; vertical-align: middle;"
+                    >
+                      +908,4886 JPY
+                    </td>
+                    <td
+                      style="padding: 10px; text-align: right; font-weight: 600; vertical-align: middle;"
+                    >
+                      4.440,3689
+                       
+                      JPY
+                    </td>
+                  </tr>
+                  <tr
+                    style="border-bottom: 1px solid rgb(229, 231, 235); transition: background-color 0.2s ease;"
+                  >
+                    <td
+                      style="padding: 10px; vertical-align: middle;"
+                    >
+                      Jul 31, 2025
+                    </td>
+                    <td
+                      style="padding: 10px; vertical-align: middle;"
+                    >
+                      IDR
+                    </td>
+                    <td
+                      style="padding: 10px; text-align: right; color: rgb(5, 150, 105); font-weight: 600; vertical-align: middle;"
+                    >
+                      +100.000,00 IDR
+                    </td>
+                    <td
+                      style="padding: 10px; text-align: right; font-weight: 600; vertical-align: middle;"
+                    >
+                      1.010.329,4825
+                       
+                      IDR
+                    </td>
+                  </tr>
+                  <tr
+                    style="transition: background-color 0.2s ease;"
+                  >
+                    <td
+                      style="padding: 10px; vertical-align: middle;"
+                    >
+                      Jul 31, 2025
+                    </td>
+                    <td
+                      style="padding: 10px; vertical-align: middle;"
+                    >
+                      JPY
+                    </td>
+                    <td
+                      style="padding: 10px; text-align: right; color: rgb(220, 38, 38); font-weight: 600; vertical-align: middle;"
+                    >
+                      -908,4886 JPY
+                    </td>
+                    <td
+                      style="padding: 10px; text-align: right; font-weight: 600; vertical-align: middle;"
+                    >
+                      3.531,8802
+                       
+                      JPY
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </main>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`History Component handles hover events on all table rows 1`] = `
+<div>
+  <div
+    class="min-h-screen flex items-center justify-center relative overflow-hidden"
+  >
+    <svg
+      class="absolute inset-0 h-full w-full pointer-events-none"
+      preserveAspectRatio="none"
+      viewBox="0 0 100 100"
+    >
+      <defs>
+        <lineargradient
+          id="bgGrad"
+          x1="0"
+          x2="0"
+          y1="0"
+          y2="1"
+        >
+          <stop
+            offset="0%"
+            stop-color="#6ca0c1"
+          />
+          <stop
+            offset="100%"
+            stop-color="#507fa1"
+          />
+        </lineargradient>
+      </defs>
+      <rect
+        fill="url(#bgGrad)"
+        height="100"
+        width="100"
+      />
+      <path
+        d="M 70 0 Q 77 10 70 20 Q 63 30 70 40 Q 77 50 70 60 Q 63 70 70 80 Q 77 90 70 100 L 100 100 100 0 Z"
+        fill="#ffffff"
+      />
+    </svg>
+    <div
+      class="absolute inset-0 flex items-center justify-center z-10"
+    >
+      <div
+        class="w-[700px] m-[40px_auto] flex flex-col items-stretch min-h-[320px] rounded-2xl shadow-xl bg-white/60 backdrop-blur-md ring-1 ring-white/40"
+        data-testid="history-content-layout"
+      >
+        <div
+          style="display: flex; align-items: center; justify-content: space-between; background: rgb(230, 236, 242); border-radius: 12px 12px 0 0; padding: 10px 28px; min-height: 54px;"
+        >
+          <div
+            style="display: flex; align-items: center; gap: 12px;"
+          >
+            <div
+              style="display: flex; align-items: center; background: rgb(224, 237, 250); border-radius: 20px; padding: 2px 12px 2px 4px; gap: 8px; box-shadow: 0 1px 4px rgba(30,58,138,0.08);"
+            >
+              <span
+                style="width: 28px; height: 28px; border-radius: 50%; background: rgb(182, 208, 247); display: flex; align-items: center; justify-content: center; font-size: 18px; color: rgb(30, 58, 138);"
+              >
+                <img
+                  alt="Profile"
+                  src="test-file-stub"
+                  style="width: 28px; height: 28px; border-radius: 50%;"
+                />
+              </span>
+              <span
+                style="color: rgb(30, 58, 138); font-weight: 500; font-size: 18px; margin-left: 4px;"
+              >
+                testuser
+              </span>
+            </div>
+          </div>
+          <div
+            style="flex: 1 1 0%; display: flex; justify-content: center; align-items: center; font-weight: 700; font-size: 20px; color: rgb(30, 58, 138);"
+          >
+            <span
+              style="display: flex; align-items: center; font-weight: 700; font-size: 20px; color: rgb(30, 58, 138);"
+            >
+              Balance
+              : 
+              <span
+                style="font-weight: 500; font-size: 18px; color: rgb(30, 58, 138);"
+              >
+                Rp
+                1,000.00
+              </span>
+            </span>
+          </div>
+          <div
+            style="display: flex; align-items: center; gap: 8px;"
+          >
+            <button>
+              Logout
+              <img
+                alt="Logout"
+                src="test-file-stub"
+                style="width: 18px; height: 18px; margin-left: 2px; display: inline-block; vertical-align: middle;"
+              />
+            </button>
+          </div>
+        </div>
+        <div
+          class="flex flex-1 min-h-[320px]"
+        >
+          <div
+            class="w-[150px] min-h-[320px] bg-slate-200/85 rounded-bl-xl"
+          >
+            <ul
+              class="ant-menu ant-menu-root ant-menu-inline ant-menu-light css-dev-only-do-not-override-7t2xvq"
+              data-menu-list="true"
+              role="menu"
+              style="min-width: 110px; padding: 0px; border-right: 0px; background: transparent;"
+              tabindex="0"
+            >
+              <li
+                aria-describedby="test-id"
+                class="ant-menu-item"
+                data-menu-id="rc-menu-uuid-test-Home"
+                role="menuitem"
+                style="padding-left: 24px;"
+                tabindex="-1"
+              >
+                <img
+                  alt="Home"
+                  class="ant-menu-item-icon"
+                  src="/assets/Home.png"
+                  style="width: 24px; height: 24px;"
+                />
+                <span
+                  class="ant-menu-title-content"
+                >
+                  <span
+                    style="margin-left: 4px; font-weight: 600; font-size: 16px; color: rgb(30, 58, 138);"
+                  >
+                    Home
+                  </span>
+                </span>
+              </li>
+              <li
+                aria-describedby="test-id"
+                class="ant-menu-item"
+                data-menu-id="rc-menu-uuid-test-Market"
+                role="menuitem"
+                style="padding-left: 24px;"
+                tabindex="-1"
+              >
+                <img
+                  alt="Market"
+                  class="ant-menu-item-icon"
+                  src="/assets/market.png"
+                  style="width: 24px; height: 24px;"
+                />
+                <span
+                  class="ant-menu-title-content"
+                >
+                  <span
+                    style="margin-left: 4px; font-weight: 600; font-size: 16px; color: rgb(30, 58, 138);"
+                  >
+                    Market
+                  </span>
+                </span>
+              </li>
+              <li
+                aria-describedby="test-id"
+                class="ant-menu-item"
+                data-menu-id="rc-menu-uuid-test-Portfolio"
+                role="menuitem"
+                style="padding-left: 24px;"
+                tabindex="-1"
+              >
+                <img
+                  alt="Portfolio"
+                  class="ant-menu-item-icon"
+                  src="/assets/portfolio.png"
+                  style="width: 24px; height: 24px;"
+                />
+                <span
+                  class="ant-menu-title-content"
+                >
+                  <span
+                    style="margin-left: 4px; font-weight: 600; font-size: 16px; color: rgb(30, 58, 138);"
+                  >
+                    Portfolio
+                  </span>
+                </span>
+              </li>
+              <li
+                aria-describedby="test-id"
+                class="ant-menu-item ant-menu-item-selected"
+                data-menu-id="rc-menu-uuid-test-History"
+                role="menuitem"
+                style="padding-left: 24px;"
+                tabindex="-1"
+              >
+                <img
+                  alt="History"
+                  class="ant-menu-item-icon"
+                  src="/assets/history.png"
+                  style="width: 24px; height: 24px;"
+                />
+                <span
+                  class="ant-menu-title-content"
+                >
+                  <span
+                    style="margin-left: 4px; font-weight: 600; font-size: 16px; color: rgb(30, 58, 138);"
+                  >
+                    History
+                  </span>
+                </span>
+              </li>
+            </ul>
+            <div
+              aria-hidden="true"
+              style="display: none;"
+            />
+          </div>
+          <main
+            class="flex-1 flex justify-start items-start"
+          >
+            <div
+              class="w-full max-h-[320px] overflow-y-auto"
+              style="scrollbar-width: none;"
+            >
+              <table
+                style="width: 100%; border-collapse: collapse; font-size: 16px;"
+              >
+                <thead
+                  style="position: sticky; top: 0px; background-color: rgba(219, 234, 254, 0.95); z-index: 10; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);"
+                >
+                  <tr>
+                    <th
+                      style="padding: 10px 10px 0px 10px; text-align: left; border-bottom: 2px solid rgb(229, 231, 235);"
+                    >
+                      Date
+                    </th>
+                    <th
+                      style="padding: 10px 10px 0px 10px; text-align: left; border-bottom: 2px solid rgb(229, 231, 235);"
+                    >
+                      Currency
+                    </th>
+                    <th
+                      style="padding: 10px 10px 0px 10px; text-align: right; border-bottom: 2px solid rgb(229, 231, 235);"
+                    >
+                      Amount
+                    </th>
+                    <th
+                      style="padding: 10px 10px 0px 10px; text-align: right; border-bottom: 2px solid rgb(229, 231, 235);"
+                    >
+                      Balance
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    style="border-bottom: 1px solid rgb(229, 231, 235); transition: background-color 0.2s ease; background-color: transparent;"
+                  >
+                    <td
+                      style="padding: 10px; vertical-align: middle;"
+                    >
+                      Jul 31, 2025
+                    </td>
+                    <td
+                      style="padding: 10px; vertical-align: middle;"
+                    >
+                      JPY
+                    </td>
+                    <td
+                      style="padding: 10px; text-align: right; color: rgb(5, 150, 105); font-weight: 600; vertical-align: middle;"
+                    >
+                      +908,4886 JPY
+                    </td>
+                    <td
+                      style="padding: 10px; text-align: right; font-weight: 600; vertical-align: middle;"
+                    >
+                      4.440,3689
+                       
+                      JPY
+                    </td>
+                  </tr>
+                  <tr
+                    style="border-bottom: 1px solid rgb(229, 231, 235); transition: background-color 0.2s ease; background-color: transparent;"
+                  >
+                    <td
+                      style="padding: 10px; vertical-align: middle;"
+                    >
+                      Jul 31, 2025
+                    </td>
+                    <td
+                      style="padding: 10px; vertical-align: middle;"
+                    >
+                      IDR
+                    </td>
+                    <td
+                      style="padding: 10px; text-align: right; color: rgb(5, 150, 105); font-weight: 600; vertical-align: middle;"
+                    >
+                      +100.000,00 IDR
+                    </td>
+                    <td
+                      style="padding: 10px; text-align: right; font-weight: 600; vertical-align: middle;"
+                    >
+                      1.010.329,4825
+                       
+                      IDR
+                    </td>
+                  </tr>
+                  <tr
+                    style="transition: background-color 0.2s ease; background-color: transparent;"
+                  >
+                    <td
+                      style="padding: 10px; vertical-align: middle;"
+                    >
+                      Jul 31, 2025
+                    </td>
+                    <td
+                      style="padding: 10px; vertical-align: middle;"
+                    >
+                      JPY
+                    </td>
+                    <td
+                      style="padding: 10px; text-align: right; color: rgb(220, 38, 38); font-weight: 600; vertical-align: middle;"
+                    >
+                      -908,4886 JPY
+                    </td>
+                    <td
+                      style="padding: 10px; text-align: right; font-weight: 600; vertical-align: middle;"
+                    >
+                      3.531,8802
+                       
+                      JPY
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </main>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`History Component handles mouse hover events on table rows 1`] = `
+<div>
+  <div
+    class="min-h-screen flex items-center justify-center relative overflow-hidden"
+  >
+    <svg
+      class="absolute inset-0 h-full w-full pointer-events-none"
+      preserveAspectRatio="none"
+      viewBox="0 0 100 100"
+    >
+      <defs>
+        <lineargradient
+          id="bgGrad"
+          x1="0"
+          x2="0"
+          y1="0"
+          y2="1"
+        >
+          <stop
+            offset="0%"
+            stop-color="#6ca0c1"
+          />
+          <stop
+            offset="100%"
+            stop-color="#507fa1"
+          />
+        </lineargradient>
+      </defs>
+      <rect
+        fill="url(#bgGrad)"
+        height="100"
+        width="100"
+      />
+      <path
+        d="M 70 0 Q 77 10 70 20 Q 63 30 70 40 Q 77 50 70 60 Q 63 70 70 80 Q 77 90 70 100 L 100 100 100 0 Z"
+        fill="#ffffff"
+      />
+    </svg>
+    <div
+      class="absolute inset-0 flex items-center justify-center z-10"
+    >
+      <div
+        class="w-[700px] m-[40px_auto] flex flex-col items-stretch min-h-[320px] rounded-2xl shadow-xl bg-white/60 backdrop-blur-md ring-1 ring-white/40"
+        data-testid="history-content-layout"
+      >
+        <div
+          style="display: flex; align-items: center; justify-content: space-between; background: rgb(230, 236, 242); border-radius: 12px 12px 0 0; padding: 10px 28px; min-height: 54px;"
+        >
+          <div
+            style="display: flex; align-items: center; gap: 12px;"
+          >
+            <div
+              style="display: flex; align-items: center; background: rgb(224, 237, 250); border-radius: 20px; padding: 2px 12px 2px 4px; gap: 8px; box-shadow: 0 1px 4px rgba(30,58,138,0.08);"
+            >
+              <span
+                style="width: 28px; height: 28px; border-radius: 50%; background: rgb(182, 208, 247); display: flex; align-items: center; justify-content: center; font-size: 18px; color: rgb(30, 58, 138);"
+              >
+                <img
+                  alt="Profile"
+                  src="test-file-stub"
+                  style="width: 28px; height: 28px; border-radius: 50%;"
+                />
+              </span>
+              <span
+                style="color: rgb(30, 58, 138); font-weight: 500; font-size: 18px; margin-left: 4px;"
+              >
+                testuser
+              </span>
+            </div>
+          </div>
+          <div
+            style="flex: 1 1 0%; display: flex; justify-content: center; align-items: center; font-weight: 700; font-size: 20px; color: rgb(30, 58, 138);"
+          >
+            <span
+              style="display: flex; align-items: center; font-weight: 700; font-size: 20px; color: rgb(30, 58, 138);"
+            >
+              Balance
+              : 
+              <span
+                style="font-weight: 500; font-size: 18px; color: rgb(30, 58, 138);"
+              >
+                Rp
+                1,000.00
+              </span>
+            </span>
+          </div>
+          <div
+            style="display: flex; align-items: center; gap: 8px;"
+          >
+            <button>
+              Logout
+              <img
+                alt="Logout"
+                src="test-file-stub"
+                style="width: 18px; height: 18px; margin-left: 2px; display: inline-block; vertical-align: middle;"
+              />
+            </button>
+          </div>
+        </div>
+        <div
+          class="flex flex-1 min-h-[320px]"
+        >
+          <div
+            class="w-[150px] min-h-[320px] bg-slate-200/85 rounded-bl-xl"
+          >
+            <ul
+              class="ant-menu ant-menu-root ant-menu-inline ant-menu-light css-dev-only-do-not-override-7t2xvq"
+              data-menu-list="true"
+              role="menu"
+              style="min-width: 110px; padding: 0px; border-right: 0px; background: transparent;"
+              tabindex="0"
+            >
+              <li
+                aria-describedby="test-id"
+                class="ant-menu-item"
+                data-menu-id="rc-menu-uuid-test-Home"
+                role="menuitem"
+                style="padding-left: 24px;"
+                tabindex="-1"
+              >
+                <img
+                  alt="Home"
+                  class="ant-menu-item-icon"
+                  src="/assets/Home.png"
+                  style="width: 24px; height: 24px;"
+                />
+                <span
+                  class="ant-menu-title-content"
+                >
+                  <span
+                    style="margin-left: 4px; font-weight: 600; font-size: 16px; color: rgb(30, 58, 138);"
+                  >
+                    Home
+                  </span>
+                </span>
+              </li>
+              <li
+                aria-describedby="test-id"
+                class="ant-menu-item"
+                data-menu-id="rc-menu-uuid-test-Market"
+                role="menuitem"
+                style="padding-left: 24px;"
+                tabindex="-1"
+              >
+                <img
+                  alt="Market"
+                  class="ant-menu-item-icon"
+                  src="/assets/market.png"
+                  style="width: 24px; height: 24px;"
+                />
+                <span
+                  class="ant-menu-title-content"
+                >
+                  <span
+                    style="margin-left: 4px; font-weight: 600; font-size: 16px; color: rgb(30, 58, 138);"
+                  >
+                    Market
+                  </span>
+                </span>
+              </li>
+              <li
+                aria-describedby="test-id"
+                class="ant-menu-item"
+                data-menu-id="rc-menu-uuid-test-Portfolio"
+                role="menuitem"
+                style="padding-left: 24px;"
+                tabindex="-1"
+              >
+                <img
+                  alt="Portfolio"
+                  class="ant-menu-item-icon"
+                  src="/assets/portfolio.png"
+                  style="width: 24px; height: 24px;"
+                />
+                <span
+                  class="ant-menu-title-content"
+                >
+                  <span
+                    style="margin-left: 4px; font-weight: 600; font-size: 16px; color: rgb(30, 58, 138);"
+                  >
+                    Portfolio
+                  </span>
+                </span>
+              </li>
+              <li
+                aria-describedby="test-id"
+                class="ant-menu-item ant-menu-item-selected"
+                data-menu-id="rc-menu-uuid-test-History"
+                role="menuitem"
+                style="padding-left: 24px;"
+                tabindex="-1"
+              >
+                <img
+                  alt="History"
+                  class="ant-menu-item-icon"
+                  src="/assets/history.png"
+                  style="width: 24px; height: 24px;"
+                />
+                <span
+                  class="ant-menu-title-content"
+                >
+                  <span
+                    style="margin-left: 4px; font-weight: 600; font-size: 16px; color: rgb(30, 58, 138);"
+                  >
+                    History
+                  </span>
+                </span>
+              </li>
+            </ul>
+            <div
+              aria-hidden="true"
+              style="display: none;"
+            />
+          </div>
+          <main
+            class="flex-1 flex justify-start items-start"
+          >
+            <div
+              class="w-full max-h-[320px] overflow-y-auto"
+              style="scrollbar-width: none;"
+            >
+              <table
+                style="width: 100%; border-collapse: collapse; font-size: 16px;"
+              >
+                <thead
+                  style="position: sticky; top: 0px; background-color: rgba(219, 234, 254, 0.95); z-index: 10; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);"
+                >
+                  <tr>
+                    <th
+                      style="padding: 10px 10px 0px 10px; text-align: left; border-bottom: 2px solid rgb(229, 231, 235);"
+                    >
+                      Date
+                    </th>
+                    <th
+                      style="padding: 10px 10px 0px 10px; text-align: left; border-bottom: 2px solid rgb(229, 231, 235);"
+                    >
+                      Currency
+                    </th>
+                    <th
+                      style="padding: 10px 10px 0px 10px; text-align: right; border-bottom: 2px solid rgb(229, 231, 235);"
+                    >
+                      Amount
+                    </th>
+                    <th
+                      style="padding: 10px 10px 0px 10px; text-align: right; border-bottom: 2px solid rgb(229, 231, 235);"
+                    >
+                      Balance
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    style="border-bottom: 1px solid rgb(229, 231, 235); transition: background-color 0.2s ease; background-color: transparent;"
+                  >
+                    <td
+                      style="padding: 10px; vertical-align: middle;"
+                    >
+                      Jul 31, 2025
+                    </td>
+                    <td
+                      style="padding: 10px; vertical-align: middle;"
+                    >
+                      JPY
+                    </td>
+                    <td
+                      style="padding: 10px; text-align: right; color: rgb(5, 150, 105); font-weight: 600; vertical-align: middle;"
+                    >
+                      +908,4886 JPY
+                    </td>
+                    <td
+                      style="padding: 10px; text-align: right; font-weight: 600; vertical-align: middle;"
+                    >
+                      4.440,3689
+                       
+                      JPY
+                    </td>
+                  </tr>
+                  <tr
+                    style="border-bottom: 1px solid rgb(229, 231, 235); transition: background-color 0.2s ease;"
+                  >
+                    <td
+                      style="padding: 10px; vertical-align: middle;"
+                    >
+                      Jul 31, 2025
+                    </td>
+                    <td
+                      style="padding: 10px; vertical-align: middle;"
+                    >
+                      IDR
+                    </td>
+                    <td
+                      style="padding: 10px; text-align: right; color: rgb(5, 150, 105); font-weight: 600; vertical-align: middle;"
+                    >
+                      +100.000,00 IDR
+                    </td>
+                    <td
+                      style="padding: 10px; text-align: right; font-weight: 600; vertical-align: middle;"
+                    >
+                      1.010.329,4825
+                       
+                      IDR
+                    </td>
+                  </tr>
+                  <tr
+                    style="transition: background-color 0.2s ease;"
+                  >
+                    <td
+                      style="padding: 10px; vertical-align: middle;"
+                    >
+                      Jul 31, 2025
+                    </td>
+                    <td
+                      style="padding: 10px; vertical-align: middle;"
+                    >
+                      JPY
+                    </td>
+                    <td
+                      style="padding: 10px; text-align: right; color: rgb(220, 38, 38); font-weight: 600; vertical-align: middle;"
+                    >
+                      -908,4886 JPY
+                    </td>
+                    <td
+                      style="padding: 10px; text-align: right; font-weight: 600; vertical-align: middle;"
+                    >
+                      3.531,8802
+                       
+                      JPY
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </main>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`History Component renders empty state when no transactions 1`] = `
+<div>
+  <div
+    class="min-h-screen flex items-center justify-center relative overflow-hidden"
+  >
+    <svg
+      class="absolute inset-0 h-full w-full pointer-events-none"
+      preserveAspectRatio="none"
+      viewBox="0 0 100 100"
+    >
+      <defs>
+        <lineargradient
+          id="bgGrad"
+          x1="0"
+          x2="0"
+          y1="0"
+          y2="1"
+        >
+          <stop
+            offset="0%"
+            stop-color="#6ca0c1"
+          />
+          <stop
+            offset="100%"
+            stop-color="#507fa1"
+          />
+        </lineargradient>
+      </defs>
+      <rect
+        fill="url(#bgGrad)"
+        height="100"
+        width="100"
+      />
+      <path
+        d="M 70 0 Q 77 10 70 20 Q 63 30 70 40 Q 77 50 70 60 Q 63 70 70 80 Q 77 90 70 100 L 100 100 100 0 Z"
+        fill="#ffffff"
+      />
+    </svg>
+    <div
+      class="absolute inset-0 flex items-center justify-center z-10"
+    >
+      <div
+        class="w-[700px] m-[40px_auto] flex flex-col items-stretch min-h-[320px] rounded-2xl shadow-xl bg-white/60 backdrop-blur-md ring-1 ring-white/40"
+        data-testid="history-content-layout"
+      >
+        <div
+          style="display: flex; align-items: center; justify-content: space-between; background: rgb(230, 236, 242); border-radius: 12px 12px 0 0; padding: 10px 28px; min-height: 54px;"
+        >
+          <div
+            style="display: flex; align-items: center; gap: 12px;"
+          >
+            <div
+              style="display: flex; align-items: center; background: rgb(224, 237, 250); border-radius: 20px; padding: 2px 12px 2px 4px; gap: 8px; box-shadow: 0 1px 4px rgba(30,58,138,0.08);"
+            >
+              <span
+                style="width: 28px; height: 28px; border-radius: 50%; background: rgb(182, 208, 247); display: flex; align-items: center; justify-content: center; font-size: 18px; color: rgb(30, 58, 138);"
+              >
+                <img
+                  alt="Profile"
+                  src="test-file-stub"
+                  style="width: 28px; height: 28px; border-radius: 50%;"
+                />
+              </span>
+              <span
+                style="color: rgb(30, 58, 138); font-weight: 500; font-size: 18px; margin-left: 4px;"
+              >
+                testuser
+              </span>
+            </div>
+          </div>
+          <div
+            style="flex: 1 1 0%; display: flex; justify-content: center; align-items: center; font-weight: 700; font-size: 20px; color: rgb(30, 58, 138);"
+          >
+            <span
+              style="display: flex; align-items: center; font-weight: 700; font-size: 20px; color: rgb(30, 58, 138);"
+            >
+              Balance
+              : 
+              <span
+                style="font-weight: 500; font-size: 18px; color: rgb(30, 58, 138);"
+              >
+                Rp
+                1,000.00
+              </span>
+            </span>
+          </div>
+          <div
+            style="display: flex; align-items: center; gap: 8px;"
+          >
+            <button>
+              Logout
+              <img
+                alt="Logout"
+                src="test-file-stub"
+                style="width: 18px; height: 18px; margin-left: 2px; display: inline-block; vertical-align: middle;"
+              />
+            </button>
+          </div>
+        </div>
+        <div
+          class="flex flex-1 min-h-[320px]"
+        >
+          <div
+            class="w-[150px] min-h-[320px] bg-slate-200/85 rounded-bl-xl"
+          >
+            <ul
+              class="ant-menu ant-menu-root ant-menu-inline ant-menu-light css-dev-only-do-not-override-7t2xvq"
+              data-menu-list="true"
+              role="menu"
+              style="min-width: 110px; padding: 0px; border-right: 0px; background: transparent;"
+              tabindex="0"
+            >
+              <li
+                aria-describedby="test-id"
+                class="ant-menu-item"
+                data-menu-id="rc-menu-uuid-test-Home"
+                role="menuitem"
+                style="padding-left: 24px;"
+                tabindex="-1"
+              >
+                <img
+                  alt="Home"
+                  class="ant-menu-item-icon"
+                  src="/assets/Home.png"
+                  style="width: 24px; height: 24px;"
+                />
+                <span
+                  class="ant-menu-title-content"
+                >
+                  <span
+                    style="margin-left: 4px; font-weight: 600; font-size: 16px; color: rgb(30, 58, 138);"
+                  >
+                    Home
+                  </span>
+                </span>
+              </li>
+              <li
+                aria-describedby="test-id"
+                class="ant-menu-item"
+                data-menu-id="rc-menu-uuid-test-Market"
+                role="menuitem"
+                style="padding-left: 24px;"
+                tabindex="-1"
+              >
+                <img
+                  alt="Market"
+                  class="ant-menu-item-icon"
+                  src="/assets/market.png"
+                  style="width: 24px; height: 24px;"
+                />
+                <span
+                  class="ant-menu-title-content"
+                >
+                  <span
+                    style="margin-left: 4px; font-weight: 600; font-size: 16px; color: rgb(30, 58, 138);"
+                  >
+                    Market
+                  </span>
+                </span>
+              </li>
+              <li
+                aria-describedby="test-id"
+                class="ant-menu-item"
+                data-menu-id="rc-menu-uuid-test-Portfolio"
+                role="menuitem"
+                style="padding-left: 24px;"
+                tabindex="-1"
+              >
+                <img
+                  alt="Portfolio"
+                  class="ant-menu-item-icon"
+                  src="/assets/portfolio.png"
+                  style="width: 24px; height: 24px;"
+                />
+                <span
+                  class="ant-menu-title-content"
+                >
+                  <span
+                    style="margin-left: 4px; font-weight: 600; font-size: 16px; color: rgb(30, 58, 138);"
+                  >
+                    Portfolio
+                  </span>
+                </span>
+              </li>
+              <li
+                aria-describedby="test-id"
+                class="ant-menu-item ant-menu-item-selected"
+                data-menu-id="rc-menu-uuid-test-History"
+                role="menuitem"
+                style="padding-left: 24px;"
+                tabindex="-1"
+              >
+                <img
+                  alt="History"
+                  class="ant-menu-item-icon"
+                  src="/assets/history.png"
+                  style="width: 24px; height: 24px;"
+                />
+                <span
+                  class="ant-menu-title-content"
+                >
+                  <span
+                    style="margin-left: 4px; font-weight: 600; font-size: 16px; color: rgb(30, 58, 138);"
+                  >
+                    History
+                  </span>
+                </span>
+              </li>
+            </ul>
+            <div
+              aria-hidden="true"
+              style="display: none;"
+            />
+          </div>
+          <main
+            class="flex-1 flex justify-start items-start"
+          >
+            <div
+              class="w-full max-h-[320px] overflow-y-auto"
+              style="scrollbar-width: none;"
+            >
+              <table
+                style="width: 100%; border-collapse: collapse; font-size: 16px;"
+              >
+                <thead
+                  style="position: sticky; top: 0px; background-color: rgba(219, 234, 254, 0.95); z-index: 10; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);"
+                >
+                  <tr>
+                    <th
+                      style="padding: 10px 10px 0px 10px; text-align: left; border-bottom: 2px solid rgb(229, 231, 235);"
+                    >
+                      Date
+                    </th>
+                    <th
+                      style="padding: 10px 10px 0px 10px; text-align: left; border-bottom: 2px solid rgb(229, 231, 235);"
+                    >
+                      Currency
+                    </th>
+                    <th
+                      style="padding: 10px 10px 0px 10px; text-align: right; border-bottom: 2px solid rgb(229, 231, 235);"
+                    >
+                      Amount
+                    </th>
+                    <th
+                      style="padding: 10px 10px 0px 10px; text-align: right; border-bottom: 2px solid rgb(229, 231, 235);"
+                    >
+                      Balance
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td
+                      colspan="4"
+                      style="text-align: center; padding: 20px;"
+                    >
+                      No transaction history found
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </main>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`History Component renders history page with transaction data 1`] = `
+<div>
+  <div
+    class="min-h-screen flex items-center justify-center relative overflow-hidden"
+  >
+    <svg
+      class="absolute inset-0 h-full w-full pointer-events-none"
+      preserveAspectRatio="none"
+      viewBox="0 0 100 100"
+    >
+      <defs>
+        <lineargradient
+          id="bgGrad"
+          x1="0"
+          x2="0"
+          y1="0"
+          y2="1"
+        >
+          <stop
+            offset="0%"
+            stop-color="#6ca0c1"
+          />
+          <stop
+            offset="100%"
+            stop-color="#507fa1"
+          />
+        </lineargradient>
+      </defs>
+      <rect
+        fill="url(#bgGrad)"
+        height="100"
+        width="100"
+      />
+      <path
+        d="M 70 0 Q 77 10 70 20 Q 63 30 70 40 Q 77 50 70 60 Q 63 70 70 80 Q 77 90 70 100 L 100 100 100 0 Z"
+        fill="#ffffff"
+      />
+    </svg>
+    <div
+      class="absolute inset-0 flex items-center justify-center z-10"
+    >
+      <div
+        class="w-[700px] m-[40px_auto] flex flex-col items-stretch min-h-[320px] rounded-2xl shadow-xl bg-white/60 backdrop-blur-md ring-1 ring-white/40"
+        data-testid="history-content-layout"
+      >
+        <div
+          style="display: flex; align-items: center; justify-content: space-between; background: rgb(230, 236, 242); border-radius: 12px 12px 0 0; padding: 10px 28px; min-height: 54px;"
+        >
+          <div
+            style="display: flex; align-items: center; gap: 12px;"
+          >
+            <div
+              style="display: flex; align-items: center; background: rgb(224, 237, 250); border-radius: 20px; padding: 2px 12px 2px 4px; gap: 8px; box-shadow: 0 1px 4px rgba(30,58,138,0.08);"
+            >
+              <span
+                style="width: 28px; height: 28px; border-radius: 50%; background: rgb(182, 208, 247); display: flex; align-items: center; justify-content: center; font-size: 18px; color: rgb(30, 58, 138);"
+              >
+                <img
+                  alt="Profile"
+                  src="test-file-stub"
+                  style="width: 28px; height: 28px; border-radius: 50%;"
+                />
+              </span>
+              <span
+                style="color: rgb(30, 58, 138); font-weight: 500; font-size: 18px; margin-left: 4px;"
+              >
+                testuser
+              </span>
+            </div>
+          </div>
+          <div
+            style="flex: 1 1 0%; display: flex; justify-content: center; align-items: center; font-weight: 700; font-size: 20px; color: rgb(30, 58, 138);"
+          >
+            <span
+              style="display: flex; align-items: center; font-weight: 700; font-size: 20px; color: rgb(30, 58, 138);"
+            >
+              Balance
+              : 
+              <span
+                style="font-weight: 500; font-size: 18px; color: rgb(30, 58, 138);"
+              >
+                Rp
+                1,000.00
+              </span>
+            </span>
+          </div>
+          <div
+            style="display: flex; align-items: center; gap: 8px;"
+          >
+            <button>
+              Logout
+              <img
+                alt="Logout"
+                src="test-file-stub"
+                style="width: 18px; height: 18px; margin-left: 2px; display: inline-block; vertical-align: middle;"
+              />
+            </button>
+          </div>
+        </div>
+        <div
+          class="flex flex-1 min-h-[320px]"
+        >
+          <div
+            class="w-[150px] min-h-[320px] bg-slate-200/85 rounded-bl-xl"
+          >
+            <ul
+              class="ant-menu ant-menu-root ant-menu-inline ant-menu-light css-dev-only-do-not-override-7t2xvq"
+              data-menu-list="true"
+              role="menu"
+              style="min-width: 110px; padding: 0px; border-right: 0px; background: transparent;"
+              tabindex="0"
+            >
+              <li
+                aria-describedby="test-id"
+                class="ant-menu-item"
+                data-menu-id="rc-menu-uuid-test-Home"
+                role="menuitem"
+                style="padding-left: 24px;"
+                tabindex="-1"
+              >
+                <img
+                  alt="Home"
+                  class="ant-menu-item-icon"
+                  src="/assets/Home.png"
+                  style="width: 24px; height: 24px;"
+                />
+                <span
+                  class="ant-menu-title-content"
+                >
+                  <span
+                    style="margin-left: 4px; font-weight: 600; font-size: 16px; color: rgb(30, 58, 138);"
+                  >
+                    Home
+                  </span>
+                </span>
+              </li>
+              <li
+                aria-describedby="test-id"
+                class="ant-menu-item"
+                data-menu-id="rc-menu-uuid-test-Market"
+                role="menuitem"
+                style="padding-left: 24px;"
+                tabindex="-1"
+              >
+                <img
+                  alt="Market"
+                  class="ant-menu-item-icon"
+                  src="/assets/market.png"
+                  style="width: 24px; height: 24px;"
+                />
+                <span
+                  class="ant-menu-title-content"
+                >
+                  <span
+                    style="margin-left: 4px; font-weight: 600; font-size: 16px; color: rgb(30, 58, 138);"
+                  >
+                    Market
+                  </span>
+                </span>
+              </li>
+              <li
+                aria-describedby="test-id"
+                class="ant-menu-item"
+                data-menu-id="rc-menu-uuid-test-Portfolio"
+                role="menuitem"
+                style="padding-left: 24px;"
+                tabindex="-1"
+              >
+                <img
+                  alt="Portfolio"
+                  class="ant-menu-item-icon"
+                  src="/assets/portfolio.png"
+                  style="width: 24px; height: 24px;"
+                />
+                <span
+                  class="ant-menu-title-content"
+                >
+                  <span
+                    style="margin-left: 4px; font-weight: 600; font-size: 16px; color: rgb(30, 58, 138);"
+                  >
+                    Portfolio
+                  </span>
+                </span>
+              </li>
+              <li
+                aria-describedby="test-id"
+                class="ant-menu-item ant-menu-item-selected"
+                data-menu-id="rc-menu-uuid-test-History"
+                role="menuitem"
+                style="padding-left: 24px;"
+                tabindex="-1"
+              >
+                <img
+                  alt="History"
+                  class="ant-menu-item-icon"
+                  src="/assets/history.png"
+                  style="width: 24px; height: 24px;"
+                />
+                <span
+                  class="ant-menu-title-content"
+                >
+                  <span
+                    style="margin-left: 4px; font-weight: 600; font-size: 16px; color: rgb(30, 58, 138);"
+                  >
+                    History
+                  </span>
+                </span>
+              </li>
+            </ul>
+            <div
+              aria-hidden="true"
+              style="display: none;"
+            />
+          </div>
+          <main
+            class="flex-1 flex justify-start items-start"
+          >
+            <div
+              class="w-full max-h-[320px] overflow-y-auto"
+              style="scrollbar-width: none;"
+            >
+              <table
+                style="width: 100%; border-collapse: collapse; font-size: 16px;"
+              >
+                <thead
+                  style="position: sticky; top: 0px; background-color: rgba(219, 234, 254, 0.95); z-index: 10; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);"
+                >
+                  <tr>
+                    <th
+                      style="padding: 10px 10px 0px 10px; text-align: left; border-bottom: 2px solid rgb(229, 231, 235);"
+                    >
+                      Date
+                    </th>
+                    <th
+                      style="padding: 10px 10px 0px 10px; text-align: left; border-bottom: 2px solid rgb(229, 231, 235);"
+                    >
+                      Currency
+                    </th>
+                    <th
+                      style="padding: 10px 10px 0px 10px; text-align: right; border-bottom: 2px solid rgb(229, 231, 235);"
+                    >
+                      Amount
+                    </th>
+                    <th
+                      style="padding: 10px 10px 0px 10px; text-align: right; border-bottom: 2px solid rgb(229, 231, 235);"
+                    >
+                      Balance
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    style="border-bottom: 1px solid rgb(229, 231, 235); transition: background-color 0.2s ease;"
+                  >
+                    <td
+                      style="padding: 10px; vertical-align: middle;"
+                    >
+                      Jul 31, 2025
+                    </td>
+                    <td
+                      style="padding: 10px; vertical-align: middle;"
+                    >
+                      JPY
+                    </td>
+                    <td
+                      style="padding: 10px; text-align: right; color: rgb(5, 150, 105); font-weight: 600; vertical-align: middle;"
+                    >
+                      +908,4886 JPY
+                    </td>
+                    <td
+                      style="padding: 10px; text-align: right; font-weight: 600; vertical-align: middle;"
+                    >
+                      4.440,3689
+                       
+                      JPY
+                    </td>
+                  </tr>
+                  <tr
+                    style="border-bottom: 1px solid rgb(229, 231, 235); transition: background-color 0.2s ease;"
+                  >
+                    <td
+                      style="padding: 10px; vertical-align: middle;"
+                    >
+                      Jul 31, 2025
+                    </td>
+                    <td
+                      style="padding: 10px; vertical-align: middle;"
+                    >
+                      IDR
+                    </td>
+                    <td
+                      style="padding: 10px; text-align: right; color: rgb(5, 150, 105); font-weight: 600; vertical-align: middle;"
+                    >
+                      +100.000,00 IDR
+                    </td>
+                    <td
+                      style="padding: 10px; text-align: right; font-weight: 600; vertical-align: middle;"
+                    >
+                      1.010.329,4825
+                       
+                      IDR
+                    </td>
+                  </tr>
+                  <tr
+                    style="transition: background-color 0.2s ease;"
+                  >
+                    <td
+                      style="padding: 10px; vertical-align: middle;"
+                    >
+                      Jul 31, 2025
+                    </td>
+                    <td
+                      style="padding: 10px; vertical-align: middle;"
+                    >
+                      JPY
+                    </td>
+                    <td
+                      style="padding: 10px; text-align: right; color: rgb(220, 38, 38); font-weight: 600; vertical-align: middle;"
+                    >
+                      -908,4886 JPY
+                    </td>
+                    <td
+                      style="padding: 10px; text-align: right; font-weight: 600; vertical-align: middle;"
+                    >
+                      3.531,8802
+                       
+                      JPY
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </main>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`History Component renders loading spinner when data is loading 1`] = `
+<div>
+  <div
+    class="min-h-screen flex items-center justify-center relative overflow-hidden"
+  >
+    <svg
+      class="absolute inset-0 h-full w-full pointer-events-none"
+      preserveAspectRatio="none"
+      viewBox="0 0 100 100"
+    >
+      <defs>
+        <lineargradient
+          id="bgGrad"
+          x1="0"
+          x2="0"
+          y1="0"
+          y2="1"
+        >
+          <stop
+            offset="0%"
+            stop-color="#6ca0c1"
+          />
+          <stop
+            offset="100%"
+            stop-color="#507fa1"
+          />
+        </lineargradient>
+      </defs>
+      <rect
+        fill="url(#bgGrad)"
+        height="100"
+        width="100"
+      />
+      <path
+        d="M 70 0 Q 77 10 70 20 Q 63 30 70 40 Q 77 50 70 60 Q 63 70 70 80 Q 77 90 70 100 L 100 100 100 0 Z"
+        fill="#ffffff"
+      />
+    </svg>
+    <div
+      class="absolute inset-0 flex items-center justify-center z-10"
+    >
+      <div
+        class="w-screen h-screen flex items-center justify-center"
+      >
+        <div
+          class="flex min-h-screen items-center justify-center bg-gradient-to-b from-[#6ca0c1] to-[#507fa1]"
+        >
+          <span
+            class="loading loading-spinner loading-lg"
+            role="status"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`History Component should match snapshot with empty transactions 1`] = `
+<div>
+  <div
+    class="min-h-screen flex items-center justify-center relative overflow-hidden"
+  >
+    <svg
+      class="absolute inset-0 h-full w-full pointer-events-none"
+      preserveAspectRatio="none"
+      viewBox="0 0 100 100"
+    >
+      <defs>
+        <lineargradient
+          id="bgGrad"
+          x1="0"
+          x2="0"
+          y1="0"
+          y2="1"
+        >
+          <stop
+            offset="0%"
+            stop-color="#6ca0c1"
+          />
+          <stop
+            offset="100%"
+            stop-color="#507fa1"
+          />
+        </lineargradient>
+      </defs>
+      <rect
+        fill="url(#bgGrad)"
+        height="100"
+        width="100"
+      />
+      <path
+        d="M 70 0 Q 77 10 70 20 Q 63 30 70 40 Q 77 50 70 60 Q 63 70 70 80 Q 77 90 70 100 L 100 100 100 0 Z"
+        fill="#ffffff"
+      />
+    </svg>
+    <div
+      class="absolute inset-0 flex items-center justify-center z-10"
+    >
+      <div
+        class="w-[700px] m-[40px_auto] flex flex-col items-stretch min-h-[320px] rounded-2xl shadow-xl bg-white/60 backdrop-blur-md ring-1 ring-white/40"
+        data-testid="history-content-layout"
+      >
+        <div
+          style="display: flex; align-items: center; justify-content: space-between; background: rgb(230, 236, 242); border-radius: 12px 12px 0 0; padding: 10px 28px; min-height: 54px;"
+        >
+          <div
+            style="display: flex; align-items: center; gap: 12px;"
+          >
+            <div
+              style="display: flex; align-items: center; background: rgb(224, 237, 250); border-radius: 20px; padding: 2px 12px 2px 4px; gap: 8px; box-shadow: 0 1px 4px rgba(30,58,138,0.08);"
+            >
+              <span
+                style="width: 28px; height: 28px; border-radius: 50%; background: rgb(182, 208, 247); display: flex; align-items: center; justify-content: center; font-size: 18px; color: rgb(30, 58, 138);"
+              >
+                <img
+                  alt="Profile"
+                  src="test-file-stub"
+                  style="width: 28px; height: 28px; border-radius: 50%;"
+                />
+              </span>
+              <span
+                style="color: rgb(30, 58, 138); font-weight: 500; font-size: 18px; margin-left: 4px;"
+              >
+                testuser
+              </span>
+            </div>
+          </div>
+          <div
+            style="flex: 1 1 0%; display: flex; justify-content: center; align-items: center; font-weight: 700; font-size: 20px; color: rgb(30, 58, 138);"
+          >
+            <span
+              style="display: flex; align-items: center; font-weight: 700; font-size: 20px; color: rgb(30, 58, 138);"
+            >
+              Balance
+              : 
+              <span
+                style="font-weight: 500; font-size: 18px; color: rgb(30, 58, 138);"
+              >
+                Rp
+                1,000.00
+              </span>
+            </span>
+          </div>
+          <div
+            style="display: flex; align-items: center; gap: 8px;"
+          >
+            <button>
+              Logout
+              <img
+                alt="Logout"
+                src="test-file-stub"
+                style="width: 18px; height: 18px; margin-left: 2px; display: inline-block; vertical-align: middle;"
+              />
+            </button>
+          </div>
+        </div>
+        <div
+          class="flex flex-1 min-h-[320px]"
+        >
+          <div
+            class="w-[150px] min-h-[320px] bg-slate-200/85 rounded-bl-xl"
+          >
+            <ul
+              class="ant-menu ant-menu-root ant-menu-inline ant-menu-light css-dev-only-do-not-override-7t2xvq"
+              data-menu-list="true"
+              role="menu"
+              style="min-width: 110px; padding: 0px; border-right: 0px; background: transparent;"
+              tabindex="0"
+            >
+              <li
+                aria-describedby="test-id"
+                class="ant-menu-item"
+                data-menu-id="rc-menu-uuid-test-Home"
+                role="menuitem"
+                style="padding-left: 24px;"
+                tabindex="-1"
+              >
+                <img
+                  alt="Home"
+                  class="ant-menu-item-icon"
+                  src="/assets/Home.png"
+                  style="width: 24px; height: 24px;"
+                />
+                <span
+                  class="ant-menu-title-content"
+                >
+                  <span
+                    style="margin-left: 4px; font-weight: 600; font-size: 16px; color: rgb(30, 58, 138);"
+                  >
+                    Home
+                  </span>
+                </span>
+              </li>
+              <li
+                aria-describedby="test-id"
+                class="ant-menu-item"
+                data-menu-id="rc-menu-uuid-test-Market"
+                role="menuitem"
+                style="padding-left: 24px;"
+                tabindex="-1"
+              >
+                <img
+                  alt="Market"
+                  class="ant-menu-item-icon"
+                  src="/assets/market.png"
+                  style="width: 24px; height: 24px;"
+                />
+                <span
+                  class="ant-menu-title-content"
+                >
+                  <span
+                    style="margin-left: 4px; font-weight: 600; font-size: 16px; color: rgb(30, 58, 138);"
+                  >
+                    Market
+                  </span>
+                </span>
+              </li>
+              <li
+                aria-describedby="test-id"
+                class="ant-menu-item"
+                data-menu-id="rc-menu-uuid-test-Portfolio"
+                role="menuitem"
+                style="padding-left: 24px;"
+                tabindex="-1"
+              >
+                <img
+                  alt="Portfolio"
+                  class="ant-menu-item-icon"
+                  src="/assets/portfolio.png"
+                  style="width: 24px; height: 24px;"
+                />
+                <span
+                  class="ant-menu-title-content"
+                >
+                  <span
+                    style="margin-left: 4px; font-weight: 600; font-size: 16px; color: rgb(30, 58, 138);"
+                  >
+                    Portfolio
+                  </span>
+                </span>
+              </li>
+              <li
+                aria-describedby="test-id"
+                class="ant-menu-item ant-menu-item-selected"
+                data-menu-id="rc-menu-uuid-test-History"
+                role="menuitem"
+                style="padding-left: 24px;"
+                tabindex="-1"
+              >
+                <img
+                  alt="History"
+                  class="ant-menu-item-icon"
+                  src="/assets/history.png"
+                  style="width: 24px; height: 24px;"
+                />
+                <span
+                  class="ant-menu-title-content"
+                >
+                  <span
+                    style="margin-left: 4px; font-weight: 600; font-size: 16px; color: rgb(30, 58, 138);"
+                  >
+                    History
+                  </span>
+                </span>
+              </li>
+            </ul>
+            <div
+              aria-hidden="true"
+              style="display: none;"
+            />
+          </div>
+          <main
+            class="flex-1 flex justify-start items-start"
+          >
+            <div
+              class="w-full max-h-[320px] overflow-y-auto"
+              style="scrollbar-width: none;"
+            >
+              <table
+                style="width: 100%; border-collapse: collapse; font-size: 16px;"
+              >
+                <thead
+                  style="position: sticky; top: 0px; background-color: rgba(219, 234, 254, 0.95); z-index: 10; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);"
+                >
+                  <tr>
+                    <th
+                      style="padding: 10px 10px 0px 10px; text-align: left; border-bottom: 2px solid rgb(229, 231, 235);"
+                    >
+                      Date
+                    </th>
+                    <th
+                      style="padding: 10px 10px 0px 10px; text-align: left; border-bottom: 2px solid rgb(229, 231, 235);"
+                    >
+                      Currency
+                    </th>
+                    <th
+                      style="padding: 10px 10px 0px 10px; text-align: right; border-bottom: 2px solid rgb(229, 231, 235);"
+                    >
+                      Amount
+                    </th>
+                    <th
+                      style="padding: 10px 10px 0px 10px; text-align: right; border-bottom: 2px solid rgb(229, 231, 235);"
+                    >
+                      Balance
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td
+                      colspan="4"
+                      style="text-align: center; padding: 20px;"
+                    >
+                      No transaction history found
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </main>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`History Component should match snapshot with error state 1`] = `
+<div>
+  <div
+    class="min-h-screen flex items-center justify-center relative overflow-hidden"
+  >
+    <svg
+      class="absolute inset-0 h-full w-full pointer-events-none"
+      preserveAspectRatio="none"
+      viewBox="0 0 100 100"
+    >
+      <defs>
+        <lineargradient
+          id="bgGrad"
+          x1="0"
+          x2="0"
+          y1="0"
+          y2="1"
+        >
+          <stop
+            offset="0%"
+            stop-color="#6ca0c1"
+          />
+          <stop
+            offset="100%"
+            stop-color="#507fa1"
+          />
+        </lineargradient>
+      </defs>
+      <rect
+        fill="url(#bgGrad)"
+        height="100"
+        width="100"
+      />
+      <path
+        d="M 70 0 Q 77 10 70 20 Q 63 30 70 40 Q 77 50 70 60 Q 63 70 70 80 Q 77 90 70 100 L 100 100 100 0 Z"
+        fill="#ffffff"
+      />
+    </svg>
+    <div
+      class="absolute inset-0 flex items-center justify-center z-10"
+    >
+      <div
+        class="w-[700px] m-[40px_auto] flex flex-col items-stretch min-h-[320px] rounded-2xl shadow-xl bg-white/60 backdrop-blur-md ring-1 ring-white/40"
+        data-testid="history-content-layout"
+      >
+        <div
+          style="display: flex; align-items: center; justify-content: space-between; background: rgb(230, 236, 242); border-radius: 12px 12px 0 0; padding: 10px 28px; min-height: 54px;"
+        >
+          <div
+            style="display: flex; align-items: center; gap: 12px;"
+          >
+            <div
+              style="display: flex; align-items: center; background: rgb(224, 237, 250); border-radius: 20px; padding: 2px 12px 2px 4px; gap: 8px; box-shadow: 0 1px 4px rgba(30,58,138,0.08);"
+            >
+              <span
+                style="width: 28px; height: 28px; border-radius: 50%; background: rgb(182, 208, 247); display: flex; align-items: center; justify-content: center; font-size: 18px; color: rgb(30, 58, 138);"
+              >
+                <img
+                  alt="Profile"
+                  src="test-file-stub"
+                  style="width: 28px; height: 28px; border-radius: 50%;"
+                />
+              </span>
+              <span
+                style="color: rgb(30, 58, 138); font-weight: 500; font-size: 18px; margin-left: 4px;"
+              >
+                testuser
+              </span>
+            </div>
+          </div>
+          <div
+            style="flex: 1 1 0%; display: flex; justify-content: center; align-items: center; font-weight: 700; font-size: 20px; color: rgb(30, 58, 138);"
+          >
+            <span
+              style="display: flex; align-items: center; font-weight: 700; font-size: 20px; color: rgb(30, 58, 138);"
+            >
+              Balance
+              : 
+              <span
+                style="font-weight: 500; font-size: 18px; color: rgb(30, 58, 138);"
+              >
+                Rp
+                1,000.00
+              </span>
+            </span>
+          </div>
+          <div
+            style="display: flex; align-items: center; gap: 8px;"
+          >
+            <button>
+              Logout
+              <img
+                alt="Logout"
+                src="test-file-stub"
+                style="width: 18px; height: 18px; margin-left: 2px; display: inline-block; vertical-align: middle;"
+              />
+            </button>
+          </div>
+        </div>
+        <div
+          class="flex flex-1 min-h-[320px]"
+        >
+          <div
+            class="w-[150px] min-h-[320px] bg-slate-200/85 rounded-bl-xl"
+          >
+            <ul
+              class="ant-menu ant-menu-root ant-menu-inline ant-menu-light css-dev-only-do-not-override-7t2xvq"
+              data-menu-list="true"
+              role="menu"
+              style="min-width: 110px; padding: 0px; border-right: 0px; background: transparent;"
+              tabindex="0"
+            >
+              <li
+                aria-describedby="test-id"
+                class="ant-menu-item"
+                data-menu-id="rc-menu-uuid-test-Home"
+                role="menuitem"
+                style="padding-left: 24px;"
+                tabindex="-1"
+              >
+                <img
+                  alt="Home"
+                  class="ant-menu-item-icon"
+                  src="/assets/Home.png"
+                  style="width: 24px; height: 24px;"
+                />
+                <span
+                  class="ant-menu-title-content"
+                >
+                  <span
+                    style="margin-left: 4px; font-weight: 600; font-size: 16px; color: rgb(30, 58, 138);"
+                  >
+                    Home
+                  </span>
+                </span>
+              </li>
+              <li
+                aria-describedby="test-id"
+                class="ant-menu-item"
+                data-menu-id="rc-menu-uuid-test-Market"
+                role="menuitem"
+                style="padding-left: 24px;"
+                tabindex="-1"
+              >
+                <img
+                  alt="Market"
+                  class="ant-menu-item-icon"
+                  src="/assets/market.png"
+                  style="width: 24px; height: 24px;"
+                />
+                <span
+                  class="ant-menu-title-content"
+                >
+                  <span
+                    style="margin-left: 4px; font-weight: 600; font-size: 16px; color: rgb(30, 58, 138);"
+                  >
+                    Market
+                  </span>
+                </span>
+              </li>
+              <li
+                aria-describedby="test-id"
+                class="ant-menu-item"
+                data-menu-id="rc-menu-uuid-test-Portfolio"
+                role="menuitem"
+                style="padding-left: 24px;"
+                tabindex="-1"
+              >
+                <img
+                  alt="Portfolio"
+                  class="ant-menu-item-icon"
+                  src="/assets/portfolio.png"
+                  style="width: 24px; height: 24px;"
+                />
+                <span
+                  class="ant-menu-title-content"
+                >
+                  <span
+                    style="margin-left: 4px; font-weight: 600; font-size: 16px; color: rgb(30, 58, 138);"
+                  >
+                    Portfolio
+                  </span>
+                </span>
+              </li>
+              <li
+                aria-describedby="test-id"
+                class="ant-menu-item ant-menu-item-selected"
+                data-menu-id="rc-menu-uuid-test-History"
+                role="menuitem"
+                style="padding-left: 24px;"
+                tabindex="-1"
+              >
+                <img
+                  alt="History"
+                  class="ant-menu-item-icon"
+                  src="/assets/history.png"
+                  style="width: 24px; height: 24px;"
+                />
+                <span
+                  class="ant-menu-title-content"
+                >
+                  <span
+                    style="margin-left: 4px; font-weight: 600; font-size: 16px; color: rgb(30, 58, 138);"
+                  >
+                    History
+                  </span>
+                </span>
+              </li>
+            </ul>
+            <div
+              aria-hidden="true"
+              style="display: none;"
+            />
+          </div>
+          <main
+            class="flex-1 flex justify-start items-start"
+          >
+            <div
+              class="w-full max-h-[320px] overflow-y-auto"
+              style="scrollbar-width: none;"
+            >
+              <table
+                style="width: 100%; border-collapse: collapse; font-size: 16px;"
+              >
+                <thead
+                  style="position: sticky; top: 0px; background-color: rgba(219, 234, 254, 0.95); z-index: 10; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);"
+                >
+                  <tr>
+                    <th
+                      style="padding: 10px 10px 0px 10px; text-align: left; border-bottom: 2px solid rgb(229, 231, 235);"
+                    >
+                      Date
+                    </th>
+                    <th
+                      style="padding: 10px 10px 0px 10px; text-align: left; border-bottom: 2px solid rgb(229, 231, 235);"
+                    >
+                      Currency
+                    </th>
+                    <th
+                      style="padding: 10px 10px 0px 10px; text-align: right; border-bottom: 2px solid rgb(229, 231, 235);"
+                    >
+                      Amount
+                    </th>
+                    <th
+                      style="padding: 10px 10px 0px 10px; text-align: right; border-bottom: 2px solid rgb(229, 231, 235);"
+                    >
+                      Balance
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td
+                      colspan="4"
+                      style="text-align: center; padding: 20px;"
+                    >
+                      No transaction history found
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </main>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`History Component should match snapshot with loading state 1`] = `
+<div>
+  <div
+    class="min-h-screen flex items-center justify-center relative overflow-hidden"
+  >
+    <svg
+      class="absolute inset-0 h-full w-full pointer-events-none"
+      preserveAspectRatio="none"
+      viewBox="0 0 100 100"
+    >
+      <defs>
+        <lineargradient
+          id="bgGrad"
+          x1="0"
+          x2="0"
+          y1="0"
+          y2="1"
+        >
+          <stop
+            offset="0%"
+            stop-color="#6ca0c1"
+          />
+          <stop
+            offset="100%"
+            stop-color="#507fa1"
+          />
+        </lineargradient>
+      </defs>
+      <rect
+        fill="url(#bgGrad)"
+        height="100"
+        width="100"
+      />
+      <path
+        d="M 70 0 Q 77 10 70 20 Q 63 30 70 40 Q 77 50 70 60 Q 63 70 70 80 Q 77 90 70 100 L 100 100 100 0 Z"
+        fill="#ffffff"
+      />
+    </svg>
+    <div
+      class="absolute inset-0 flex items-center justify-center z-10"
+    >
+      <div
+        class="w-screen h-screen flex items-center justify-center"
+      >
+        <div
+          class="flex min-h-screen items-center justify-center bg-gradient-to-b from-[#6ca0c1] to-[#507fa1]"
+        >
+          <span
+            class="loading loading-spinner loading-lg"
+            role="status"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
