@@ -1,0 +1,114 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Sidebar Component matches snapshot 1`] = `
+<DocumentFragment>
+  <ul
+    class="ant-menu ant-menu-root ant-menu-inline ant-menu-light css-dev-only-do-not-override-7t2xvq"
+    data-menu-list="true"
+    role="menu"
+    style="min-width: 110px; padding: 0px; border-right: 0px; background: transparent;"
+    tabindex="0"
+  >
+    <li
+      aria-describedby="test-id"
+      class="ant-menu-item ant-menu-item-selected"
+      data-menu-id="rc-menu-uuid-test-Home"
+      role="menuitem"
+      style="padding-left: 24px;"
+      tabindex="-1"
+    >
+      <img
+        alt="Home"
+        class="ant-menu-item-icon"
+        src="/assets/Home.png"
+        style="width: 24px; height: 24px;"
+      />
+      <span
+        class="ant-menu-title-content"
+      >
+        <span
+          style="margin-left: 4px; font-weight: 600; font-size: 16px; color: rgb(30, 58, 138);"
+        >
+          Home
+        </span>
+      </span>
+    </li>
+    <li
+      aria-describedby="test-id"
+      class="ant-menu-item"
+      data-menu-id="rc-menu-uuid-test-Market"
+      role="menuitem"
+      style="padding-left: 24px;"
+      tabindex="-1"
+    >
+      <img
+        alt="Market"
+        class="ant-menu-item-icon"
+        src="/assets/market.png"
+        style="width: 24px; height: 24px;"
+      />
+      <span
+        class="ant-menu-title-content"
+      >
+        <span
+          style="margin-left: 4px; font-weight: 600; font-size: 16px; color: rgb(30, 58, 138);"
+        >
+          Market
+        </span>
+      </span>
+    </li>
+    <li
+      aria-describedby="test-id"
+      class="ant-menu-item"
+      data-menu-id="rc-menu-uuid-test-Portfolio"
+      role="menuitem"
+      style="padding-left: 24px;"
+      tabindex="-1"
+    >
+      <img
+        alt="Portfolio"
+        class="ant-menu-item-icon"
+        src="/assets/portfolio.png"
+        style="width: 24px; height: 24px;"
+      />
+      <span
+        class="ant-menu-title-content"
+      >
+        <span
+          style="margin-left: 4px; font-weight: 600; font-size: 16px; color: rgb(30, 58, 138);"
+        >
+          Portfolio
+        </span>
+      </span>
+    </li>
+    <li
+      aria-describedby="test-id"
+      class="ant-menu-item"
+      data-menu-id="rc-menu-uuid-test-History"
+      role="menuitem"
+      style="padding-left: 24px;"
+      tabindex="-1"
+    >
+      <img
+        alt="History"
+        class="ant-menu-item-icon"
+        src="/assets/history.png"
+        style="width: 24px; height: 24px;"
+      />
+      <span
+        class="ant-menu-title-content"
+      >
+        <span
+          style="margin-left: 4px; font-weight: 600; font-size: 16px; color: rgb(30, 58, 138);"
+        >
+          History
+        </span>
+      </span>
+    </li>
+  </ul>
+  <div
+    aria-hidden="true"
+    style="display: none;"
+  />
+</DocumentFragment>
+`;

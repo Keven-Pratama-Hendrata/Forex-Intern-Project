@@ -1,0 +1,151 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Login Component renders correctly with default state 1`] = `
+<div
+  data-circle-position="login"
+  data-testid="auth-background"
+>
+  <form
+    class="rounded-2xl bg-white/60 p-8 shadow-xl backdrop-blur-md ring-1 ring-white/40"
+  >
+    <h2
+      class="mb-1 text-center text-2xl font-extrabold text-gray-800"
+    >
+      Sign in to Trade FX
+    </h2>
+    <p
+      class="mb-6 text-center text-sm text-gray-600"
+    >
+      Ready to conquer the markets?
+    </p>
+    <div
+      data-testid="form-field-username"
+    >
+      <label>
+        Username
+      </label>
+      <input
+        autocomplete="username"
+        data-testid="input-username"
+        name="username"
+        placeholder="John Doe"
+        required=""
+        type="text"
+        value=""
+      />
+    </div>
+    <div
+      data-testid="form-field-password"
+    >
+      <label>
+        Password
+      </label>
+      <input
+        autocomplete="current-password"
+        data-testid="input-password"
+        name="password"
+        placeholder="••••••••"
+        required=""
+        type="password"
+        value=""
+      />
+    </div>
+    <button
+      data-testid="login-button"
+      type="submit"
+    >
+      Log in
+    </button>
+  </form>
+  <p
+    class="mt-5 text-center text-sm text-gray-700"
+  >
+    New here?
+     
+    <a
+      class="font-medium text-sky-950 hover:underline"
+      href="/signup"
+    >
+      Create an account
+    </a>
+  </p>
+</div>
+`;
+
+exports[`Login Component toggles to loading state after form submit (covers line 55) 1`] = `
+<div
+  data-circle-position="login"
+  data-testid="auth-background"
+>
+  <form
+    class="rounded-2xl bg-white/60 p-8 shadow-xl backdrop-blur-md ring-1 ring-white/40"
+  >
+    <h2
+      class="mb-1 text-center text-2xl font-extrabold text-gray-800"
+    >
+      Sign in to Trade FX
+    </h2>
+    <p
+      class="mb-6 text-center text-sm text-gray-600"
+    >
+      Ready to conquer the markets?
+    </p>
+    <div
+      data-testid="form-field-username"
+    >
+      <label>
+        Username
+      </label>
+      <input
+        autocomplete="username"
+        data-testid="input-username"
+        name="username"
+        placeholder="John Doe"
+        required=""
+        type="text"
+        value=""
+      />
+    </div>
+    <div
+      data-testid="form-field-password"
+    >
+      <label>
+        Password
+      </label>
+      <input
+        autocomplete="current-password"
+        data-testid="input-password"
+        name="password"
+        placeholder="••••••••"
+        required=""
+        type="password"
+        value=""
+      />
+    </div>
+    <button
+      data-testid="login-button"
+      disabled=""
+      type="submit"
+    >
+      <div
+        data-testid="loading-spinner"
+        data-variant="inline"
+      >
+        Loading...
+      </div>
+    </button>
+  </form>
+  <p
+    class="mt-5 text-center text-sm text-gray-700"
+  >
+    New here?
+     
+    <a
+      class="font-medium text-sky-950 hover:underline"
+      href="/signup"
+    >
+      Create an account
+    </a>
+  </p>
+</div>
+`;
