@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
-import { Login, Dashboard, Market, BuySell, History } from '../Pages/index.js';
+import { Login, Dashboard, Market, BuySell, History, Portfolio } from '../Pages/index.js';
 import ProtectedRoute from './protectedRoute.jsx';
 
 const routeConfig = [
@@ -10,6 +10,7 @@ const routeConfig = [
     { path: '/market', element: <Market />, protected: true, key: 'market' },
     { path: '/buy-sell', element: <BuySell />, protected: true, key: 'buy-sell' },
     { path: '/history', element: <History />, protected: true, key: 'history' },
+    { path: '/portfolio', element: <Portfolio />, protected: true, key: 'portfolio' },
 ];
 
 /**
