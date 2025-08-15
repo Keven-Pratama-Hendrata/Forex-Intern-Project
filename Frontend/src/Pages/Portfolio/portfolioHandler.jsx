@@ -21,9 +21,7 @@ export const generateChartData = (idrBalances) => {
         '#36A2EB',
         '#FFCE56',
         '#4BC0C0',
-        '#9966FF',
-        '#FF9F40',
-        '#C9CBCF'
+        '#9966FF'
     ];
 
     return {

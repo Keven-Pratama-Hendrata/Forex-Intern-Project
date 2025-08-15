@@ -155,7 +155,7 @@ function Portfolio() {
 
     return (
         <PortfolioContentWrapper
-            loading={loading}
+            loading={loading || headerProfile.loading}
             portfolioData={portfolioData}
             idrBalances={idrBalances}
             marketLoading={loading}

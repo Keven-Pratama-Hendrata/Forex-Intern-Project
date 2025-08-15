@@ -239,11 +239,12 @@ function HistoryContent({ transactions }) {
  * @returns {JSX.Element} The History page.
  */
 function History() {
-    const { username, balance } = useHeaderProfile();
+    const headerProfile = useHeaderProfile();
+    const { username, balance } = headerProfile;
     const [activeNav, setActiveNav] = React.useState("History");
     const { transactions, loading } = useHistoryData();
 
-    if (loading) return <HistoryLoading />;
+    if (loading || headerProfile.loading) return <HistoryLoading />;
 
     return (
         <HistoryLayout

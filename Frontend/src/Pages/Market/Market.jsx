@@ -235,10 +235,11 @@ function MarketContent({ rows }) {
  * @returns {JSX.Element} The Market page.
  */
 function Market() {
-    const { username, balance } = useHeaderProfile();
+    const headerProfile = useHeaderProfile();
+    const { username, balance } = headerProfile;
     const [activeNav, setActiveNav] = React.useState("Market");
     const { rows, loading } = useMarketRates();
-    if (loading) return <MarketLoading />;
+    if (loading || headerProfile.loading) return <MarketLoading />;
     return (
         <MarketLayout
             username={username}

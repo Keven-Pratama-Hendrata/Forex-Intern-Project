@@ -6,12 +6,12 @@ import toast from 'react-hot-toast';
 
 import {
     fetchUserProfile,
-    useHeaderProfile,
     useHeaderLogout,
     useLogoutHover,
     getLogoutButtonStyle,
     extractProfile,
 } from './headerAntdHandler.jsx';
+import * as handler from './headerAntdHandler.jsx';
 
 jest.mock('react-redux', () => ({
     useSelector: jest.fn(),
@@ -102,12 +102,57 @@ describe('headerAntdHandler', () => {
                 json: () => Promise.resolve({ username: '', balances: [{ currency: 'IDR', amount: 0 }] }),
             });
 
-            const { result } = renderHook(() => useHeaderProfile());
+            const { result } = renderHook(() => handler.useHeaderProfile());
 
             await waitFor(() => {
-                expect(result.current).toEqual({ username: '', balance: 0 });
+                expect(result.current).toMatchObject({ username: '', balance: 0 });
+                expect(result.current.loading).toBe(false);
+                expect(global.fetch).toHaveBeenCalledWith(HEADER_ROUTES.profile, expect.objectContaining({
+                    headers: expect.objectContaining({ Authorization: 'Bearer token' })
+                }));
             });
         });
+
+        it('does not update state if unmounted before fetch resolves', async () => {
+            redux.useSelector.mockReturnValue('token');
+            const deferred = {};
+            deferred.promise = new Promise(resolve => { deferred.resolve = resolve; });
+            global.fetch.mockResolvedValueOnce({
+                json: () => deferred.promise,
+            });
+            const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => { });
+
+            const { unmount } = renderHook(() => handler.useHeaderProfile());
+
+            unmount();
+            await act(async () => {
+                deferred.resolve({ username: 'LateUser', balances: [{ currency: 'IDR', amount: 42 }] });
+                await Promise.resolve();
+            });
+
+            expect(consoleErrorSpy).not.toHaveBeenCalled();
+            consoleErrorSpy.mockRestore();
+        });
+
+        it('updates state when still mounted after a delayed fetch', async () => {
+            redux.useSelector.mockReturnValue('token');
+            const deferred = {};
+            deferred.promise = new Promise(resolve => { deferred.resolve = resolve; });
+            global.fetch.mockResolvedValueOnce({
+                json: () => deferred.promise,
+            });
+
+            const { result } = renderHook(() => handler.useHeaderProfile());
+
+            await act(async () => {
+                deferred.resolve({ username: 'SlowUser', balances: [{ currency: 'IDR', amount: 777 }] });
+            });
+
+            await waitFor(() => {
+                expect(result.current).toMatchObject({ username: 'SlowUser', balance: 777 });
+            });
+        });
+
     });
 
     describe('useHeaderLogout', () => {

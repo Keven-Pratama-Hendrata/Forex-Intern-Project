@@ -43,12 +43,27 @@ export async function fetchUserProfile(token, setProfile) {
 export function useHeaderProfile() {
     const token = useSelector(state => state.auth.token);
     const [profile, setProfile] = React.useState({ username: "", balance: 0 });
+    const [loading, setLoading] = React.useState(true);
 
     React.useEffect(() => {
-        fetchUserProfile(token, setProfile);
+        let mounted = true;
+        /**
+         * Loads the user profile and updates loading state.
+         * @returns {Promise<void>}
+         */
+        const load = async () => {
+            setLoading(true);
+            await fetchUserProfile(token, (p) => {
+                if (!mounted) return;
+                setProfile(p);
+            });
+            if (mounted) setLoading(false);
+        };
+        load();
+        return () => { mounted = false; };
     }, [token]);
 
-    return profile;
+    return { ...profile, loading };
 }
 
 /**
