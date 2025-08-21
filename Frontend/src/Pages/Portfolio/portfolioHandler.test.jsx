@@ -60,7 +60,7 @@ const renderWithProvider = (ui, token = 'mock-token') =>
     render(<Provider store={makeStore(token)}>{ui}</Provider>);
 
 describe('Utility Functions', () => {
-    test('generateChartData creates labels/data and cycles colors', () => {
+    it('generateChartData creates labels/data and cycles colors', () => {
         const balances = Array.from({ length: 10 }).map((_, i) => ({
             currency: `C${i}`,
             idrValue: i + 1
@@ -77,7 +77,7 @@ describe('Utility Functions', () => {
         expect(new Set(bg).size).toBeLessThan(bg.length);
     });
 
-    test('generateChartOptions tooltip formats IDR and fallbacks', () => {
+    it('generateChartOptions tooltip formats IDR and fallbacks', () => {
         const options = generateChartOptions();
 
         const normal = options.plugins.tooltip.callbacks.label({
@@ -96,7 +96,7 @@ describe('Utility Functions', () => {
         expect(options.plugins.legend.position).toBe('bottom');
     });
 
-    test('convertBalancesToIDR covers success, missing rates, and USD missing IDR', () => {
+    it('convertBalancesToIDR covers success, missing rates, and USD missing IDR', () => {
         const usdInput = [{ currency: 'USD', amount: 2 }];
         const eurInput = [{ currency: 'EUR', amount: 2 }];
         const customInput = [{ currency: 'EUR', amount: 1, name: 'Euro Custom' }];
@@ -136,7 +136,7 @@ describe('fetchMarketRates', () => {
         console.error = originalError;
     });
 
-    test('returns {} on empty token and logs', async () => {
+    it('returns {} on empty token and logs', async () => {
         const res = await fetchMarketRates('');
 
         expect(res).toEqual({});
@@ -146,7 +146,7 @@ describe('fetchMarketRates', () => {
         );
     });
 
-    test('returns {} when response is ok but array is empty', async () => {
+    it('returns {} when response is ok but array is empty', async () => {
         fetch.mockResolvedValueOnce({
             ok: true,
             json: async () => []
@@ -157,7 +157,7 @@ describe('fetchMarketRates', () => {
         expect(res).toEqual({});
     });
 
-    test('returns {} and logs when response.ok === false', async () => {
+    it('returns {} and logs when response.ok === false', async () => {
         fetch.mockResolvedValueOnce({ ok: false });
 
         const res = await fetchMarketRates('t');
@@ -169,7 +169,7 @@ describe('fetchMarketRates', () => {
         );
     });
 
-    test('returns latest rates when present', async () => {
+    it('returns latest rates when present', async () => {
         fetch.mockResolvedValueOnce({
             ok: true,
             json: async () => [
@@ -183,7 +183,7 @@ describe('fetchMarketRates', () => {
         expect(res).toEqual({ USD: 1, IDR: 10500 });
     });
 
-    test('returns undefined when last item has no "rates"', async () => {
+    it('returns undefined when last item has no "rates"', async () => {
         fetch.mockResolvedValueOnce({
             ok: true,
             json: async () => [{ foo: 1 }]
@@ -207,7 +207,7 @@ describe('fetchProfileData', () => {
         console.error = originalError;
     });
 
-    test('returns mock data on empty token and logs', async () => {
+    it('returns mock data on empty token and logs', async () => {
         const res = await fetchProfileData('');
 
         expect(res).toEqual({ balances: [] });
@@ -217,7 +217,7 @@ describe('fetchProfileData', () => {
         );
     });
 
-    test('returns mock on response.ok === false', async () => {
+    it('returns mock on response.ok === false', async () => {
         fetch.mockResolvedValueOnce({ ok: false });
 
         const res = await fetchProfileData('t');
@@ -225,7 +225,7 @@ describe('fetchProfileData', () => {
         expect(res).toEqual({ balances: [] });
     });
 
-    test('returns mock on fetch rejection', async () => {
+    it('returns mock on fetch rejection', async () => {
         fetch.mockRejectedValueOnce(new Error('boom'));
 
         const res = await fetchProfileData('t');
@@ -237,7 +237,7 @@ describe('fetchProfileData', () => {
         );
     });
 
-    test('returns real data on success', async () => {
+    it('returns real data on success', async () => {
         const profile = { balances: [{ currency: 'USD', amount: 10 }] };
         fetch.mockResolvedValueOnce({
             ok: true,
@@ -260,7 +260,7 @@ describe('usePortfolioData Hook (with Provider store)', () => {
         jest.restoreAllMocks();
     });
 
-    test('treats non-array balances as empty (Array.isArray false branch)', async () => {
+    it('treats non-array balances as empty (Array.isArray false branch)', async () => {
         fetch.mockImplementation((url) => {
             if (String(url).includes('/profile')) {
                 return Promise.resolve({
@@ -286,7 +286,7 @@ describe('usePortfolioData Hook (with Provider store)', () => {
         expect(screen.getByTestId('idr').textContent).toBe('');
     });
 
-    test('enrichment falls back to currency code when currencyMeta entry is missing', async () => {
+    it('enrichment falls back to currency code when currencyMeta entry is missing', async () => {
         const uiData = require('../../data/uiData.js');
         const originalUsdMeta = uiData.currencyMeta.USD;
         delete uiData.currencyMeta.USD;
@@ -318,7 +318,7 @@ describe('usePortfolioData Hook (with Provider store)', () => {
         uiData.currencyMeta.USD = originalUsdMeta;
     });
 
-    test('happy path: loads and converts data', async () => {
+    it('happy path: loads and converts data', async () => {
         fetch.mockImplementation((url) => {
             if (String(url).includes('/profile')) {
                 return Promise.resolve({
@@ -346,7 +346,7 @@ describe('usePortfolioData Hook (with Provider store)', () => {
         expect(screen.getByTestId('idr').textContent).toBe('80000');
     });
 
-    test('loadData catch path: triggers catch and resets state', async () => {
+    it('loadData catch path: triggers catch and resets state', async () => {
         fetch.mockImplementation((url) => {
             if (String(url).includes('/profile')) {
                 return Promise.resolve({
@@ -392,7 +392,7 @@ describe('usePortfolioData Hook (with Provider store)', () => {
         Array.prototype.filter = originalFilter;
     });
 
-    test('filters to supported currencies and enriches with currencyMeta name', async () => {
+    it('filters to supported currencies and enriches with currencyMeta name', async () => {
         fetch.mockImplementation((url) => {
             if (String(url).includes('/profile')) {
                 return Promise.resolve({
@@ -423,7 +423,7 @@ describe('usePortfolioData Hook (with Provider store)', () => {
         expect(screen.getByTestId('name').textContent).toBe('US Dollar');  // enriched from currencyMeta
     });
 
-    test('enrichment uses currencyMeta name even if API provides a custom name', async () => {
+    it('enrichment uses currencyMeta name even if API provides a custom name', async () => {
         fetch.mockImplementation((url) => {
             if (String(url).includes('/profile')) {
                 return Promise.resolve({
@@ -451,7 +451,7 @@ describe('usePortfolioData Hook (with Provider store)', () => {
         expect(screen.getByTestId('name').textContent).toBe('US Dollar'); // override confirmed
     });
 
-    test('handles missing token gracefully', async () => {
+    it('handles missing token gracefully', async () => {
         renderWithProvider(<HookTestComponent />, null);
 
         await waitFor(() =>
@@ -470,7 +470,7 @@ describe('usePortfolioData Hook (with Provider store)', () => {
         );
     });
 
-    test('filters unsupported currencies in hook flow', async () => {
+    it('filters unsupported currencies in hook flow', async () => {
         fetch.mockImplementation((url) => {
             if (String(url).includes('/profile')) {
                 return Promise.resolve({

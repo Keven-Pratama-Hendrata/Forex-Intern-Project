@@ -72,7 +72,7 @@ describe('PortfolioContent branches', () => {
         jest.clearAllMocks();
     });
 
-    test('uses 0 total and calls generateChartData([]) when idrBalances is undefined', () => {
+    it('uses 0 total and calls generateChartData([]) when idrBalances is undefined', () => {
         const props = { idrBalances: undefined, marketLoading: false };
 
         render(<PortfolioContent {...props} />);
@@ -82,7 +82,7 @@ describe('PortfolioContent branches', () => {
         expect(mockGenerateChartData).toHaveBeenCalledWith([]);
     });
 
-    test('sums using 0 for items without idrValue', () => {
+    it('sums using 0 for items without idrValue', () => {
         const idrBalances = [{ name: 'NoVal' }, { idrValue: 2000, name: 'WithVal' }];
         const props = { idrBalances, marketLoading: false };
 
@@ -94,7 +94,7 @@ describe('PortfolioContent branches', () => {
 });
 
 describe('PortfolioContent snapshots', () => {
-    test('renders ChartLoading when marketLoading is true', () => {
+    it('renders ChartLoading when marketLoading is true', () => {
         const props = { idrBalances: [{ idrValue: 1000, name: 'USD' }], marketLoading: true };
 
         const { container } = render(<PortfolioContent {...props} />);
@@ -102,7 +102,7 @@ describe('PortfolioContent snapshots', () => {
         expect(container).toMatchSnapshot();
     });
 
-    test('renders EmptyPortfolioState when idrBalances is empty', () => {
+    it('renders EmptyPortfolioState when idrBalances is empty', () => {
         const props = { idrBalances: [], marketLoading: false };
 
         const { container } = render(<PortfolioContent {...props} />);
@@ -110,7 +110,7 @@ describe('PortfolioContent snapshots', () => {
         expect(container).toMatchSnapshot();
     });
 
-    test('renders portfolio summary and pie chart when data present', () => {
+    it('renders portfolio summary and pie chart when data present', () => {
         const props = {
             idrBalances: [
                 { idrValue: 10000, name: 'US Dollar', currency: 'USD' },
@@ -126,7 +126,7 @@ describe('PortfolioContent snapshots', () => {
 });
 
 describe('PortfolioContentWrapper snapshots', () => {
-    test('renders PortfolioLoading when loading is true', () => {
+    it('renders PortfolioLoading when loading is true', () => {
         const props = {
             loading: true,
             idrBalances: [],
@@ -141,7 +141,7 @@ describe('PortfolioContentWrapper snapshots', () => {
         expect(container).toMatchSnapshot();
     });
 
-    test('renders PortfolioCardLayout when loading is false', () => {
+    it('renders PortfolioCardLayout when loading is false', () => {
         const props = {
             loading: false,
             idrBalances: [{ idrValue: 12345, name: 'US Dollar', currency: 'USD' }],
@@ -158,7 +158,7 @@ describe('PortfolioContentWrapper snapshots', () => {
 });
 
 describe('PortfolioCardLayout snapshots', () => {
-    test('renders full card layout with sidebar, header, content, and background', () => {
+    it('renders full card layout with sidebar, header, content, and background', () => {
         const props = {
             headerProfile: { username: 'bob', balance: 50000 },
             idrBalances: [{ idrValue: 20000, name: 'US Dollar', currency: 'USD' }],
@@ -178,7 +178,7 @@ describe('Portfolio page snapshots', () => {
         jest.clearAllMocks();
     });
 
-    test('renders page-level loading state (PortfolioLoading) from usePortfolioData', () => {
+    it('renders page-level loading state (PortfolioLoading) from usePortfolioData', () => {
         mockUsePortfolioData.mockReturnValue({
             portfolioData: { balances: [] },
             idrBalances: [],
@@ -191,7 +191,7 @@ describe('Portfolio page snapshots', () => {
         expect(container).toMatchSnapshot();
     });
 
-    test('renders full content when usePortfolioData returns data', () => {
+    it('renders full content when usePortfolioData returns data', () => {
         mockUsePortfolioData.mockReturnValue({
             portfolioData: { balances: [{ currency: 'USD', amount: 1 }] },
             idrBalances: [
