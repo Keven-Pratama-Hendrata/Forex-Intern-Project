@@ -117,32 +117,6 @@ describe('UserService', () => {
         });
     });
 
-    describe('updateTodayBalanceUsd', () => {
-        it('should update today balance USD successfully', () => {
-            const user = JSON.parse(JSON.stringify(mockUsers[0]));
-            user.lastFetchedDate = new Date(user.lastFetchedDate);
-            const amount = 2000.00;
-
-            const result = userService.updateTodayBalanceUsd(user, amount);
-
-            expect(result.todayBalanceUsd).to.equal(2000.00);
-            expect(result.lastFetchedDate).to.be.instanceOf(Date);
-            expect(mockLogger.info).to.have.been.calledWith('Updating today balance USD', {
-                userid: user.id,
-                amount
-            });
-        });
-
-        it('should handle string amount correctly', () => {
-            const user = JSON.parse(JSON.stringify(mockUsers[0]));
-            user.lastFetchedDate = new Date(user.lastFetchedDate);
-            const amount = '1500.75';
-
-            const result = userService.updateTodayBalanceUsd(user, amount);
-
-            expect(result.todayBalanceUsd).to.equal(1500.75);
-        });
-    });
 
     describe('getUserProfile', () => {
         it('should get user profile successfully', async () => {
@@ -158,9 +132,7 @@ describe('UserService', () => {
             expect(result).to.have.property('userid', user.id);
             expect(result).to.have.property('username', user.username);
             expect(result).to.have.property('balances');
-            expect(result).to.have.property('dailyTotalUsdHistory');
             expect(result).to.have.property('lastFetchedDate');
-            expect(result).to.have.property('todayBalanceUsd');
             expect(mockLogger.info).to.have.been.calledWith('User profile retrieved successfully', { userid });
         });
 
@@ -188,7 +160,64 @@ describe('UserService', () => {
 
             expect(mockUserRepository.save).to.have.been.called;
             expect(result).to.have.property('userid', user.id);
-            expect(mockLogger.info).to.have.been.calledWith('Updating user history for new day', { userid });
+        });
+
+        it('should call save when lastFetchedDate is missing', async () => {
+            const userid = '507f1f77bcf86cd799439011';
+            const user = JSON.parse(JSON.stringify(mockUsers[0]));
+            user.lastFetchedDate = null;
+            mockUserRepository.findOneById.resolves(user);
+            mockUserRepository.save.resolves(user);
+
+            const result = await userService.getUserProfile(userid);
+
+            expect(mockUserRepository.save).to.have.been.called;
+            expect(result).to.have.property('userid', user.id);
+        });
+
+        it('should NOT call save when lastFetchedDate is today', async () => {
+            const userid = '507f1f77bcf86cd799439011';
+            const user = JSON.parse(JSON.stringify(mockUsers[0]));
+            user.lastFetchedDate = new Date();
+            mockUserRepository.findOneById.resolves(user);
+            mockUserRepository.save.resolves(user);
+
+            const result = await userService.getUserProfile(userid);
+
+            expect(mockUserRepository.save).to.not.have.been.called;
+            expect(result).to.have.property('userid', user.id);
+        });
+
+        it('should call save when lastFetchedDate is from a different year', async () => {
+            const userid = '507f1f77bcf86cd799439011';
+            const user = JSON.parse(JSON.stringify(mockUsers[0]));
+            const lastYear = new Date();
+            lastYear.setFullYear(lastYear.getFullYear() - 1);
+            user.lastFetchedDate = lastYear;
+            mockUserRepository.findOneById.resolves(user);
+            mockUserRepository.save.resolves(user);
+
+            const result = await userService.getUserProfile(userid);
+
+            expect(mockUserRepository.save).to.have.been.called;
+            expect(result).to.have.property('userid', user.id);
+        });
+
+        it('should throw if saving lastFetchedDate fails', async () => {
+            const userid = '507f1f77bcf86cd799439011';
+            const user = JSON.parse(JSON.stringify(mockUsers[0]));
+            user.lastFetchedDate = new Date(user.lastFetchedDate);
+            mockUserRepository.findOneById.resolves(user);
+            const saveError = new Error('save-failed');
+            mockUserRepository.save.rejects(saveError);
+
+            try {
+                await userService.getUserProfile(userid);
+                expect.fail('Should have thrown an error');
+            } catch (err) {
+                expect(err).to.equal(saveError);
+                expect(mockLogger.error).to.have.been.calledWith('Failed to update lastFetchedDate', sinon.match({ userid }));
+            }
         });
     });
 
@@ -238,8 +267,6 @@ describe('UserService', () => {
 
             expect(mockUserRepository.findOneById).to.have.been.calledWith(userid);
             expect(result).to.have.property('username', user.username);
-            expect(result).to.have.property('todayBalanceUsd', user.todayBalanceUsd);
-            expect(result).to.have.property('dailyTotalUsdHistory', user.dailyTotalUsdHistory);
             expect(mockLogger.info).to.have.been.calledWith('Getting dashboard data', { userid });
             expect(mockLogger.info).to.have.been.calledWith('Dashboard data retrieved successfully', { userid });
         });

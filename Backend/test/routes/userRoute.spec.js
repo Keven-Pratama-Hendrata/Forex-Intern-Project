@@ -18,7 +18,8 @@ describe('userRoute', () => {
             getTransactionHistory: sinon.stub()
         };
         authController = {
-            loginUser: sinon.stub()
+            loginUser: sinon.stub(),
+            signupUser: sinon.stub()
         };
         verifyTokenMiddleware = sinon.stub().callsFake((req, res, next) => next());
         logger = { info: sinon.stub() };
@@ -36,6 +37,18 @@ describe('userRoute', () => {
 
         expect(logger.info).to.have.been.calledWith('Login route accessed', { method: 'POST', path: '/login' });
         expect(authController.loginUser).to.have.been.calledWith(req, res, next);
+    });
+
+    it('should register /signup POST and call authController.signupUser and logger', () => {
+        const req = {}, res = {}, next = () => { };
+        const route = router.stack.find(r => r.route && r.route.path === '/signup');
+
+        expect(route).to.exist;
+
+        route.route.stack[0].handle(req, res, next);
+
+        expect(logger.info).to.have.been.calledWith('Signup route accessed', { method: 'POST', path: '/signup' });
+        expect(authController.signupUser).to.have.been.calledWith(req, res, next);
     });
 
     it('should register /profile GET and call verifyTokenMiddleware, userController.getUserProfile, and logger', () => {

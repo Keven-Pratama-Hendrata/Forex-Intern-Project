@@ -37,6 +37,30 @@ class AuthController {
       next(err);
     }
   }
+
+  /**
+   * Handles user signup.
+   * @param {Object} req Express request object
+   * @param {Object} res Express response object
+   * @param {Function} next Express next middleware function
+   */
+  async signupUser(req, res, next) {
+    let username, password;
+    try {
+      ({ username, password } = req.body);
+
+      this.logger.info('Signup attempt', { username });
+
+      const user = await this.authService.createUser(username, password);
+
+      this.logger.info('Signup successful', { userid: user.id, username });
+
+      res.status(201).json({ message: 'User created' });
+    } catch (err) {
+      this.logger.error('Signup failed', { username, error: err.message });
+      next(err);
+    }
+  }
 }
 
 export default AuthController;

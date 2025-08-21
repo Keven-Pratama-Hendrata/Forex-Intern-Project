@@ -15,7 +15,7 @@ describe('AuthController', () => {
         req = createMockReq({ body: { username: 'test', password: 'pass' } });
         res = createMockRes();
         next = createMockNext();
-        mockAuthService = { authenticateUser: sinon.stub(), generateToken: sinon.stub() };
+        mockAuthService = { authenticateUser: sinon.stub(), generateToken: sinon.stub(), createUser: sinon.stub() };
         mockLogger = createMockLogger();
         controller = new AuthController({ authService: mockAuthService, logger: mockLogger });
     });
@@ -45,6 +45,31 @@ describe('AuthController', () => {
             await controller.loginUser(req, res, next);
 
             expect(mockLogger.error).to.have.been.calledWith('Login failed', { username: 'test', error: error.message });
+            expect(next).to.have.been.calledWith(error);
+        });
+    });
+
+    describe('signupUser', () => {
+        it('should return 201 and message on successful signup', async () => {
+            const fakeUser = { id: '2', username: 'test' };
+            mockAuthService.createUser.resolves(fakeUser);
+
+            await controller.signupUser(req, res, next);
+
+            expect(mockLogger.info).to.have.been.calledWith('Signup attempt', { username: 'test' });
+            expect(mockAuthService.createUser).to.have.been.calledWith('test', 'pass');
+            expect(mockLogger.info).to.have.been.calledWith('Signup successful', { userid: '2', username: 'test' });
+            expect(res.status).to.have.been.calledWith(201);
+            expect(res.json).to.have.been.calledWith({ message: 'User created' });
+        });
+
+        it('should handle errors and call next with error on signup failure', async () => {
+            const error = new Error('create-fail');
+            mockAuthService.createUser.rejects(error);
+
+            await controller.signupUser(req, res, next);
+
+            expect(mockLogger.error).to.have.been.calledWith('Signup failed', { username: 'test', error: error.message });
             expect(next).to.have.been.calledWith(error);
         });
     });

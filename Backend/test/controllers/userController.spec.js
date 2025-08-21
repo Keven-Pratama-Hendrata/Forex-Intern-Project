@@ -292,7 +292,7 @@ describe('UserController', () => {
 
     describe('getDashboardData', () => {
         it('should return dashboard data on success', async () => {
-            const fakeDashboard = { username: 'test', todayBalanceUsd: 100, dailyTotalUsdHistory: [] };
+            const fakeDashboard = { username: 'test' };
             mockUserService.getDashboardData = sinon.stub().resolves(fakeDashboard);
             req = createMockReq({ user: { userid: '1' } });
 

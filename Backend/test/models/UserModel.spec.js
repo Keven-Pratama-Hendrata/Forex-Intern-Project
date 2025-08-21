@@ -14,20 +14,12 @@ describe('UserModel', () => {
         expect(schemaPaths).to.have.property('balances');
         expect(schemaPaths).to.have.property('balanceHistory');
         expect(schemaPaths).to.have.property('lastFetchedDate');
-        expect(schemaPaths).to.have.property('todayBalanceUsd');
-        expect(schemaPaths).to.have.property('dailyTotalUsdHistory');
     });
 
     it('should enforce unique username', () => {
         expect(User.schema.paths.username.options.unique).to.be.true;
     });
 
-    it('should use getter for todayBalanceUsd', () => {
-        const path = User.schema.paths.todayBalanceUsd;
-
-        expect(path.options.get).to.be.a('function');
-        expect(path.options.get(123.45)).to.equal(123.45);
-    });
 
     it('should use getter for balances.amount', () => {
         const balancesSchema = User.schema.paths.balances.schema;
@@ -45,13 +37,6 @@ describe('UserModel', () => {
         expect(balancePath.options.get('456.78')).to.equal(456.78);
     });
 
-    it('should use getter for dailyTotalUsdHistory.totalUsd', () => {
-        const dailyTotalUsdHistorySchema = User.schema.paths.dailyTotalUsdHistory.schema;
-        const totalUsdPath = dailyTotalUsdHistorySchema.paths.totalUsd;
-
-        expect(totalUsdPath.options.get).to.be.a('function');
-        expect(totalUsdPath.options.get('789.01')).to.equal(789.01);
-    });
 
     it('should apply getters when converting to JSON', () => {
         const user = new User({
@@ -59,19 +44,11 @@ describe('UserModel', () => {
             password: 'pass',
             balances: [{ amount: '123.45', currency: 'USD' }],
             balanceHistory: [{ balance: '456.78', currency: 'USD', amount: '10.00', date: new Date() }],
-            todayBalanceUsd: '789.01',
-            dailyTotalUsdHistory: [{
-                totalUsd: '234.56',
-                date: new Date(),
-                rates: { USD: '1.0' }
-            }]
         });
 
         const json = user.toJSON();
 
-        expect(json.todayBalanceUsd).to.equal(789.01);
         expect(json.balances[0].amount).to.equal(123.45);
         expect(json.balanceHistory[0].balance).to.equal(456.78);
-        expect(json.dailyTotalUsdHistory[0].totalUsd).to.equal(234.56);
     });
 }); 

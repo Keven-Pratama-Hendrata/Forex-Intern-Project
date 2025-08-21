@@ -20,6 +20,36 @@ class AuthService {
   }
 
   /**
+   * Create a new user account.
+   * @param {string} username The username
+   * @param {string} password The user's password
+   * @returns {Promise<Object>} The created user object
+   */
+  async createUser(username, password) {
+    this.logger.info('Creating new user', { username });
+
+    const existing = await this.userRepository.findOneByUsername(username);
+    if (existing) {
+      this.logger.error('Username already exists', { username });
+      const err = new Error('Username already exists');
+      err.error = 'USERNAME_TAKEN';
+      throw err;
+    }
+
+    const userObj = {
+      username,
+      password,
+      balances: [],
+      balanceHistory: [],
+      lastFetchedDate: new Date(),
+    };
+
+    const saved = await this.userRepository.save(userObj);
+    this.logger.info('User created successfully', { userid: saved.id, username });
+    return saved;
+  }
+
+  /**
    * Generate a JWT token for a user.
    * @param {string} userid The user ID
    * @param {string} username The username

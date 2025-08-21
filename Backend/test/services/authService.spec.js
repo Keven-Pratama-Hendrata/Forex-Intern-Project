@@ -124,6 +124,36 @@ describe('AuthService', () => {
         });
     });
 
+    describe('createUser', () => {
+        it('should throw error when username already exists', async () => {
+            const username = 'existing';
+            mockUserRepository.findOneByUsername.resolves({ id: '1', username });
+
+            try {
+                await authService.createUser(username, 'pass');
+                expect.fail('Should have thrown an error');
+            } catch (err) {
+                expect(err.message).to.equal('Username already exists');
+                expect(err.error).to.equal('USERNAME_TAKEN');
+                expect(mockLogger.error).to.have.been.calledWith('Username already exists', { username });
+            }
+        });
+
+        it('should create user when username is new', async () => {
+            const username = 'newuser';
+            mockUserRepository.findOneByUsername.resolves(null);
+            const savedUser = { id: '2', username };
+            mockUserRepository.save = sinon.stub().resolves(savedUser);
+
+            const result = await authService.createUser(username, 'pass');
+
+            expect(mockUserRepository.findOneByUsername).to.have.been.calledWith(username);
+            expect(mockUserRepository.save).to.have.been.called;
+            expect(mockLogger.info).to.have.been.calledWith('User created successfully', { userid: savedUser.id, username });
+            expect(result).to.deep.equal(savedUser);
+        });
+    });
+
     describe('verifyToken', () => {
         it('should verify valid JWT token successfully', () => {
             const userid = '507f1f77bcf86cd799439011';

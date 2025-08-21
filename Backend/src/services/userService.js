@@ -122,15 +122,6 @@ class UserService {
    * @param {number|string} amount The new today balance in USD
    * @returns {Object} The updated user object
    */
-  updateTodayBalanceUsd(user, amount) {
-    this.logger.info('Updating today balance USD', { userid: user.id, amount });
-
-    return {
-      id: user.id,
-      todayBalanceUsd: parseFloat(amount),
-      lastFetchedDate: new Date(),
-    };
-  }
 
   /**
    * Get the user profile by user ID.
@@ -145,27 +136,30 @@ class UserService {
       throw new Error('User not found');
     }
 
-    const today = new Date();
-    const lastFetched = new Date(user.lastFetchedDate);
-    let userWithUpdatedHistory = user;
+    try {
+      const lastFetched = user.lastFetchedDate ? new Date(user.lastFetchedDate) : null;
+      const now = new Date();
+      const isDifferentDay = !lastFetched ||
+        lastFetched.getFullYear() !== now.getFullYear() ||
+        lastFetched.getMonth() !== now.getMonth() ||
+        lastFetched.getDate() !== now.getDate();
 
-    if (today.toDateString() !== lastFetched.toDateString()) {
-      this.logger.info('Updating user history for new day', { userid });
-      userWithUpdatedHistory = this.updateTodayBalanceUsd(
-        user,
-        user.todayBalanceUsd
-      );
-      userWithUpdatedHistory = await this.userRepository.save(userWithUpdatedHistory);
+      if (isDifferentDay) {
+        user.lastFetchedDate = now;
+        await this.userRepository.save(user);
+        this.logger.info('User lastFetchedDate updated for new day', { userid, lastFetchedDate: now.toISOString() });
+      }
+    } catch (err) {
+      this.logger.error('Failed to update lastFetchedDate', { userid, error: err.message });
+      throw err;
     }
 
     this.logger.info('User profile retrieved successfully', { userid });
     return {
-      userid: userWithUpdatedHistory.id,
-      username: userWithUpdatedHistory.username,
-      balances: userWithUpdatedHistory.balances,
-      dailyTotalUsdHistory: userWithUpdatedHistory.dailyTotalUsdHistory,
-      lastFetchedDate: userWithUpdatedHistory.lastFetchedDate,
-      todayBalanceUsd: userWithUpdatedHistory.todayBalanceUsd
+      userid: user.id,
+      username: user.username,
+      balances: user.balances,
+      lastFetchedDate: user.lastFetchedDate
     };
   }
 
@@ -368,9 +362,7 @@ class UserService {
     this.logger.info('Dashboard data retrieved successfully', { userid });
 
     return {
-      username: user.username,
-      todayBalanceUsd: user.todayBalanceUsd,
-      dailyTotalUsdHistory: user.dailyTotalUsdHistory
+      username: user.username
     };
   }
 

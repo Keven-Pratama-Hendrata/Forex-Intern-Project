@@ -15,14 +15,8 @@ export const mockUsers = [
                 date: new Date('2024-01-15')
             }
         ],
-        dailyTotalUsdHistory: [
-            {
-                date: new Date('2024-01-15'),
-                total: 1500.75
-            }
-        ],
         lastFetchedDate: new Date('2024-01-15'),
-        todayBalanceUsd: 1500.75
+
     },
     {
         id: '507f1f77bcf86cd799439012',
@@ -40,14 +34,8 @@ export const mockUsers = [
                 date: new Date('2024-01-15')
             }
         ],
-        dailyTotalUsdHistory: [
-            {
-                date: new Date('2024-01-15'),
-                total: 3250.80
-            }
-        ],
         lastFetchedDate: new Date('2024-01-15'),
-        todayBalanceUsd: 3250.80
+
     }
 ];
 
@@ -57,7 +45,5 @@ export const mockUserForAuth = {
     password: 'test_password',
     balances: [],
     balanceHistory: [],
-    dailyTotalUsdHistory: [],
-    lastFetchedDate: new Date(),
-    todayBalanceUsd: 0
+    lastFetchedDate: new Date()
 }; 

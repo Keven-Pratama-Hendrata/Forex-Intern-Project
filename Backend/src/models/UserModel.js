@@ -9,15 +9,6 @@ function decimal128ToFloat(v) {
   return parseFloat(v);
 }
 
-/**
- * Parses a Double value to float.
- * @param {number} v The double value to convert.
- * @returns {number} The float representation of the value.
- */
-function doubleToFloat(v) {
-  return parseFloat(v);
-}
-
 const moneySchemaFields = {
   amount: {
     type: mongoose.Schema.Types.Decimal128,
@@ -71,34 +62,6 @@ const balanceHistorySchema = new mongoose.Schema(balanceHistorySchemaFields, {
   }
 });
 
-const dailyTotalUsdHistorySchemaFields = {
-  totalUsd: {
-    type: mongoose.Schema.Types.Double,
-    required: true,
-    get: doubleToFloat
-  },
-  date: {
-    type: Date,
-    default: Date.now
-  },
-  rates: {
-    type: Map,
-    of: String,
-    required: true
-  }
-};
-
-/**
- * Schema for a user's daily total USD history entry.
- * @type {mongoose.Schema}
- */
-const dailyTotalUsdHistorySchema = new mongoose.Schema(dailyTotalUsdHistorySchemaFields, {
-  id: false,
-  toJSON: {
-    getters: true
-  }
-});
-
 const userSchemaFields = {
   username: {
     type: String,
@@ -115,12 +78,6 @@ const userSchemaFields = {
     type: Date,
     default: Date.now
   },
-  todayBalanceUsd: {
-    type: mongoose.Schema.Types.Double,
-    default: 0.00,
-    get: doubleToFloat
-  },
-  dailyTotalUsdHistory: [dailyTotalUsdHistorySchema]
 };
 
 /**
