@@ -1,11 +1,12 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
-import { Login, Dashboard, Market, BuySell, History, Portfolio } from '../Pages/index.js';
+import { Login, Dashboard, Market, BuySell, History, Portfolio, Signup } from '../Pages/index.js';
 import ProtectedRoute from './protectedRoute.jsx';
 
 const routeConfig = [
     { path: '/', element: <Login />, protected: false, key: 'login' },
+    { path: '/signup', element: <Signup />, protected: false, key: 'signup' },
     { path: '/Dashboard', element: <Dashboard />, protected: true, key: 'dashboard' },
     { path: '/market', element: <Market />, protected: true, key: 'market' },
     { path: '/buy-sell', element: <BuySell />, protected: true, key: 'buy-sell' },
