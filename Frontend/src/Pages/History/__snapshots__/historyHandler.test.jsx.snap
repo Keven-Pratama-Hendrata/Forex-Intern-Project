@@ -1,0 +1,65 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`useHistoryData Hook - Unit Tests should handle HTTP error response 1`] = `
+{
+  "error": "HTTP error! status: 401",
+  "loading": false,
+  "transactions": [],
+}
+`;
+
+exports[`useHistoryData Hook - Unit Tests should handle empty balanceHistory response 1`] = `
+{
+  "error": null,
+  "loading": false,
+  "transactions": [],
+}
+`;
+
+exports[`useHistoryData Hook - Unit Tests should handle fetch error 1`] = `
+{
+  "error": "Network error",
+  "loading": false,
+  "transactions": [],
+}
+`;
+
+exports[`useHistoryData Hook - Unit Tests should handle missing authentication token 1`] = `
+{
+  "error": "No authentication token",
+  "loading": false,
+  "transactions": [],
+}
+`;
+
+exports[`useHistoryData Hook - Unit Tests should handle missing balanceHistory in response 1`] = `
+{
+  "error": null,
+  "loading": false,
+  "transactions": [],
+}
+`;
+
+exports[`useHistoryData Hook - Unit Tests should handle successful data fetch 1`] = `
+{
+  "error": null,
+  "loading": false,
+  "transactions": [
+    {
+      "_id": "1",
+      "amount": 908.4886264888182,
+      "balance": 4440.368852153083,
+      "currency": "JPY",
+      "date": "2025-07-31T03:27:24.277+00:00",
+    },
+  ],
+}
+`;
+
+exports[`useHistoryData Hook - Unit Tests should initialize with correct default state 1`] = `
+{
+  "error": null,
+  "loading": true,
+  "transactions": [],
+}
+`;

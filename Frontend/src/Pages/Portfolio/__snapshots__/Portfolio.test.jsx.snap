@@ -1,0 +1,329 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Portfolio page snapshots renders full content when usePortfolioData returns data 1`] = `
+<div>
+  <div
+    data-testid="bg"
+  >
+    <div
+      class="w-[700px] m-[40px_auto] flex flex-col items-stretch min-h-[320px] rounded-2xl shadow-xl bg-white/60 backdrop-blur-md ring-1 ring-white/40"
+      data-testid="portfolio-content-layout"
+    >
+      <div
+        data-testid="header"
+      >
+        HeaderAntd 
+        true
+      </div>
+      <div
+        class="flex flex-1 min-h-[320px]"
+      >
+        <div
+          class="w-[150px] min-h-[320px] bg-slate-200/85 rounded-bl-xl"
+        >
+          <div
+            data-testid="sidebar"
+          >
+            Sidebar
+          </div>
+        </div>
+        <main
+          class="flex-1 flex justify-center items-center pl-1"
+        >
+          <div
+            class="w-full p-6"
+          >
+            <div
+              class="w-full"
+            >
+              <div
+                class="mb-3"
+              >
+                <h3
+                  class="text-base font-bold text-gray-800 mb-2"
+                >
+                  Portfolio Distribution (IDR)
+                </h3>
+                <p
+                  class="text-sm font-semibold text-gray-600 mb-2"
+                  data-testid="total-idr"
+                >
+                  Total Balance: Rp
+                   
+                  10.000,00
+                </p>
+              </div>
+              <div
+                class="h-64"
+              >
+                <div
+                  data-testid="pie"
+                >
+                  PieChart
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Portfolio page snapshots renders page-level loading state (PortfolioLoading) from usePortfolioData 1`] = `
+<div>
+  <div
+    data-testid="bg"
+  >
+    <div
+      data-testid="portfolio-loading"
+      style="width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center;"
+    >
+      <div
+        data-testid="spinner"
+      >
+        LoadingSpinner
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`PortfolioCardLayout snapshots renders full card layout with sidebar, header, content, and background 1`] = `
+<div>
+  <div
+    data-testid="bg"
+  >
+    <div
+      class="w-[700px] m-[40px_auto] flex flex-col items-stretch min-h-[320px] rounded-2xl shadow-xl bg-white/60 backdrop-blur-md ring-1 ring-white/40"
+      data-testid="portfolio-content-layout"
+    >
+      <div
+        data-testid="header"
+      >
+        HeaderAntd 
+        true
+      </div>
+      <div
+        class="flex flex-1 min-h-[320px]"
+      >
+        <div
+          class="w-[150px] min-h-[320px] bg-slate-200/85 rounded-bl-xl"
+        >
+          <div
+            data-testid="sidebar"
+          >
+            Sidebar
+          </div>
+        </div>
+        <main
+          class="flex-1 flex justify-center items-center pl-1"
+        >
+          <div
+            class="w-full p-6"
+          >
+            <div
+              class="w-full"
+            >
+              <div
+                class="mb-3"
+              >
+                <h3
+                  class="text-base font-bold text-gray-800 mb-2"
+                >
+                  Portfolio Distribution (IDR)
+                </h3>
+                <p
+                  class="text-sm font-semibold text-gray-600 mb-2"
+                  data-testid="total-idr"
+                >
+                  Total Balance: Rp
+                   
+                  20.000,00
+                </p>
+              </div>
+              <div
+                class="h-64"
+              >
+                <div
+                  data-testid="pie"
+                >
+                  PieChart
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`PortfolioContent snapshots renders ChartLoading when marketLoading is true 1`] = `
+<div>
+  <div
+    class="w-full p-6"
+    data-testid="chart-loading"
+  >
+    <div
+      class="flex items-center justify-center h-64"
+    >
+      <div
+        class="text-gray-500"
+      >
+        Loading chart...
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`PortfolioContent snapshots renders EmptyPortfolioState when idrBalances is empty 1`] = `
+<div>
+  <div
+    class="w-full p-6"
+  >
+    <div
+      class="flex items-center justify-center h-64"
+    >
+      <div
+        class="text-gray-500"
+        data-testid="no-data"
+      >
+        No portfolio data available
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`PortfolioContent snapshots renders portfolio summary and pie chart when data present 1`] = `
+<div>
+  <div
+    class="w-full p-6"
+  >
+    <div
+      class="w-full"
+    >
+      <div
+        class="mb-3"
+      >
+        <h3
+          class="text-base font-bold text-gray-800 mb-2"
+        >
+          Portfolio Distribution (IDR)
+        </h3>
+        <p
+          class="text-sm font-semibold text-gray-600 mb-2"
+          data-testid="total-idr"
+        >
+          Total Balance: Rp
+           
+          15.000,00
+        </p>
+      </div>
+      <div
+        class="h-64"
+      >
+        <div
+          data-testid="pie"
+        >
+          PieChart
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`PortfolioContentWrapper snapshots renders PortfolioCardLayout when loading is false 1`] = `
+<div>
+  <div
+    data-testid="bg"
+  >
+    <div
+      class="w-[700px] m-[40px_auto] flex flex-col items-stretch min-h-[320px] rounded-2xl shadow-xl bg-white/60 backdrop-blur-md ring-1 ring-white/40"
+      data-testid="portfolio-content-layout"
+    >
+      <div
+        data-testid="header"
+      >
+        HeaderAntd 
+        true
+      </div>
+      <div
+        class="flex flex-1 min-h-[320px]"
+      >
+        <div
+          class="w-[150px] min-h-[320px] bg-slate-200/85 rounded-bl-xl"
+        >
+          <div
+            data-testid="sidebar"
+          >
+            Sidebar
+          </div>
+        </div>
+        <main
+          class="flex-1 flex justify-center items-center pl-1"
+        >
+          <div
+            class="w-full p-6"
+          >
+            <div
+              class="w-full"
+            >
+              <div
+                class="mb-3"
+              >
+                <h3
+                  class="text-base font-bold text-gray-800 mb-2"
+                >
+                  Portfolio Distribution (IDR)
+                </h3>
+                <p
+                  class="text-sm font-semibold text-gray-600 mb-2"
+                  data-testid="total-idr"
+                >
+                  Total Balance: Rp
+                   
+                  12.345,00
+                </p>
+              </div>
+              <div
+                class="h-64"
+              >
+                <div
+                  data-testid="pie"
+                >
+                  PieChart
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`PortfolioContentWrapper snapshots renders PortfolioLoading when loading is true 1`] = `
+<div>
+  <div
+    data-testid="bg"
+  >
+    <div
+      data-testid="portfolio-loading"
+      style="width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center;"
+    >
+      <div
+        data-testid="spinner"
+      >
+        LoadingSpinner
+      </div>
+    </div>
+  </div>
+</div>
+`;

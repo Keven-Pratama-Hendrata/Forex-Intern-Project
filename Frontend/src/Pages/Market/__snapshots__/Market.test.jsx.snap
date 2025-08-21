@@ -1,0 +1,195 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Market (unit and snapshot) matches snapshot when loaded 1`] = `
+<DocumentFragment>
+  <div
+    class="min-h-screen flex items-center justify-center relative overflow-hidden"
+  >
+    <svg
+      class="absolute inset-0 h-full w-full pointer-events-none"
+      preserveAspectRatio="none"
+      viewBox="0 0 100 100"
+    >
+      <defs>
+        <lineargradient
+          id="bgGrad"
+          x1="0"
+          x2="0"
+          y1="0"
+          y2="1"
+        >
+          <stop
+            offset="0%"
+            stop-color="#6ca0c1"
+          />
+          <stop
+            offset="100%"
+            stop-color="#507fa1"
+          />
+        </lineargradient>
+      </defs>
+      <rect
+        fill="url(#bgGrad)"
+        height="100"
+        width="100"
+      />
+      <path
+        d="M 70 0 Q 77 10 70 20 Q 63 30 70 40 Q 77 50 70 60 Q 63 70 70 80 Q 77 90 70 100 L 100 100 100 0 Z"
+        fill="#ffffff"
+      />
+    </svg>
+    <div
+      class="absolute inset-0 flex items-center justify-center z-10"
+    >
+      <div
+        class="w-[700px] m-[40px_auto] flex flex-col items-stretch min-h-[320px] rounded-2xl shadow-xl bg-white/60 backdrop-blur-md ring-1 ring-white/40"
+        style="min-height: 320px; width: 700px; margin: 40px auto;"
+      >
+        <div
+          data-testid="header"
+        >
+          user - 100
+        </div>
+        <div
+          class="flex flex-1 min-h-[320px]"
+        >
+          <div
+            class="w-[150px] min-h-[320px] bg-slate-200/85 rounded-bl-xl"
+          >
+            <div
+              data-testid="sidebar"
+            >
+              Sidebar
+            </div>
+          </div>
+          <main
+            class="flex-1 flex justify-center items-start pt-4 pl-1 pr-1"
+          >
+            <table
+              style="width: 100%; border-collapse: collapse; font-size: 18px;"
+            >
+              <thead>
+                <tr>
+                  <th
+                    style="padding: 10px 10px 0px 10px; text-align: left;"
+                  >
+                    CCY
+                  </th>
+                  <th
+                    style="padding: 10px 10px 0px 10px; text-align: right;"
+                  >
+                    Change %
+                  </th>
+                  <th
+                    style="padding: 10px 10px 0px 10px; text-align: center;"
+                  >
+                    Transaction
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td
+                    style="padding: 10px; vertical-align: middle;"
+                  >
+                    <div
+                      style="display: flex; align-items: center; gap: 10px;"
+                    >
+                      <img
+                        alt="USD"
+                        src="test-flag.png"
+                        style="width: 28px; height: 28px; border-radius: 50%;"
+                      />
+                      <span
+                        style="font-weight: 600;"
+                      >
+                        USD
+                      </span>
+                    </div>
+                  </td>
+                  <td
+                    style="padding: 10px; text-align: right; color: rgb(5, 150, 105); font-weight: 600; vertical-align: middle;"
+                  >
+                    +1.0000 (1)
+                  </td>
+                  <td
+                    style="padding: 10px; text-align: center; vertical-align: middle;"
+                  >
+                    <button
+                      class="ant-btn css-dev-only-do-not-override-7t2xvq ant-btn-round ant-btn-primary ant-btn-color-primary ant-btn-variant-solid ant-btn-lg"
+                      style="background-color: rgb(80, 127, 161); border-color: rgb(80, 127, 161); color: white; transition: background 0.2s, border 0.2s;"
+                      type="button"
+                    >
+                      <span>
+                        Buy/Sell
+                      </span>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </main>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Market (unit and snapshot) matches snapshot when loading 1`] = `
+<DocumentFragment>
+  <div
+    class="min-h-screen flex items-center justify-center relative overflow-hidden"
+  >
+    <svg
+      class="absolute inset-0 h-full w-full pointer-events-none"
+      preserveAspectRatio="none"
+      viewBox="0 0 100 100"
+    >
+      <defs>
+        <lineargradient
+          id="bgGrad"
+          x1="0"
+          x2="0"
+          y1="0"
+          y2="1"
+        >
+          <stop
+            offset="0%"
+            stop-color="#6ca0c1"
+          />
+          <stop
+            offset="100%"
+            stop-color="#507fa1"
+          />
+        </lineargradient>
+      </defs>
+      <rect
+        fill="url(#bgGrad)"
+        height="100"
+        width="100"
+      />
+      <path
+        d="M 70 0 Q 77 10 70 20 Q 63 30 70 40 Q 77 50 70 60 Q 63 70 70 80 Q 77 90 70 100 L 100 100 100 0 Z"
+        fill="#ffffff"
+      />
+    </svg>
+    <div
+      class="absolute inset-0 flex items-center justify-center z-10"
+    >
+      <div
+        class="w-screen h-screen flex items-center justify-center"
+      >
+        <div
+          class="flex min-h-screen items-center justify-center bg-gradient-to-b from-[#6ca0c1] to-[#507fa1]"
+        >
+          <span
+            class="loading loading-spinner loading-lg"
+            role="status"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

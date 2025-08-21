@@ -1,0 +1,153 @@
+import chai from 'chai';
+import sinon from 'sinon';
+import sinonChai from 'sinon-chai';
+chai.use(sinonChai);
+const expect = chai.expect;
+
+import createUserRoutes from '../../src/routes/userRoute.js';
+
+describe('userRoute', () => {
+    let userController, authController, verifyTokenMiddleware, logger, router;
+
+    beforeEach(() => {
+        userController = {
+            getUserProfile: sinon.stub(),
+            updateBalance: sinon.stub(),
+            processTransaction: sinon.stub(),
+            getDashboardData: sinon.stub(),
+            getTransactionHistory: sinon.stub()
+        };
+        authController = {
+            loginUser: sinon.stub()
+        };
+        verifyTokenMiddleware = sinon.stub().callsFake((req, res, next) => next());
+        logger = { info: sinon.stub() };
+        router = createUserRoutes({ userController, authController, verifyTokenMiddleware, logger });
+        logger.info.resetHistory();
+    });
+
+    it('should register /login POST and call authController.loginUser and logger', () => {
+        const req = {}, res = {}, next = () => { };
+        const route = router.stack.find(r => r.route && r.route.path === '/login');
+
+        expect(route).to.exist;
+
+        route.route.stack[0].handle(req, res, next);
+
+        expect(logger.info).to.have.been.calledWith('Login route accessed', { method: 'POST', path: '/login' });
+        expect(authController.loginUser).to.have.been.calledWith(req, res, next);
+    });
+
+    it('should register /profile GET and call verifyTokenMiddleware, userController.getUserProfile, and logger', () => {
+        const req = { user: { id: 'test' } }, res = {}, next = () => { };
+        const route = router.stack.find(r => r.route && r.route.path === '/profile');
+
+        expect(route).to.exist;
+
+        route.route.stack[0].handle(req, res, () => {
+            route.route.stack[1].handle(req, res, next);
+        });
+
+        expect(verifyTokenMiddleware).to.have.been.called;
+        const found = logger.info.getCalls().some(call =>
+            call.args[0] === 'Profile route accessed' &&
+            call.args[1] &&
+            call.args[1].method === 'GET' &&
+            call.args[1].path === '/profile'
+        );
+        expect(found).to.be.true;
+        expect(userController.getUserProfile).to.have.been.calledWith(req, res, next);
+    });
+
+    it('should register /balance POST and call verifyTokenMiddleware, userController.updateBalance, and logger', () => {
+        const req = { user: { id: 'test' } }, res = {}, next = () => { };
+        const route = router.stack.find(r => r.route && r.route.path === '/balance');
+
+        expect(route).to.exist;
+
+        route.route.stack[0].handle(req, res, () => {
+            route.route.stack[1].handle(req, res, next);
+        });
+
+        expect(verifyTokenMiddleware).to.have.been.called;
+        const found = logger.info.getCalls().some(call =>
+            call.args[0] === 'Balance route accessed' &&
+            call.args[1] &&
+            call.args[1].method === 'POST' &&
+            call.args[1].path === '/balance'
+        );
+        expect(found).to.be.true;
+        expect(userController.updateBalance).to.have.been.calledWith(req, res, next);
+    });
+
+    it('should register /transaction POST and call verifyTokenMiddleware, userController.processTransaction, and logger', () => {
+        const req = { user: { id: 'test' } };
+        const res = {};
+        const next = () => { };
+        const route = router.stack.find(r => r.route && r.route.path === '/transaction');
+
+        expect(route).to.exist;
+
+        route.route.stack[0].handle(req, res, () => {
+            route.route.stack[1].handle(req, res, next);
+        });
+
+        expect(verifyTokenMiddleware).to.have.been.called;
+        const found = logger.info.getCalls().some(call =>
+            call.args[0] === 'Transaction route accessed' &&
+            call.args[1] &&
+            call.args[1].method === 'POST' &&
+            call.args[1].path === '/transaction'
+        );
+        expect(found).to.be.true;
+        expect(userController.processTransaction).to.have.been.calledWith(req, res, next);
+    });
+
+    it('should register /dashboard GET and call verifyTokenMiddleware, userController.getDashboardData, and logger', () => {
+        const req = { user: { id: 'test' } }, res = {}, next = () => { };
+        const route = router.stack.find(r => r.route && r.route.path === '/dashboard');
+
+        expect(route).to.exist;
+
+        route.route.stack[0].handle(req, res, () => {
+            route.route.stack[1].handle(req, res, next);
+        });
+
+        expect(verifyTokenMiddleware).to.have.been.called;
+        const found = logger.info.getCalls().some(call =>
+            call.args[0] === 'Dashboard route accessed' &&
+            call.args[1] &&
+            call.args[1].method === 'GET' &&
+            call.args[1].path === '/dashboard'
+        );
+        expect(found).to.be.true;
+        expect(userController.getDashboardData).to.have.been.calledWith(req, res, next);
+    });
+
+    it('should register /history GET and call verifyTokenMiddleware, userController.getTransactionHistory, and logger', () => {
+        const req = { user: { id: 'test' } }, res = {}, next = () => { };
+        const route = router.stack.find(r => r.route && r.route.path === '/history');
+
+        expect(route).to.exist;
+
+        route.route.stack[0].handle(req, res, () => {
+            route.route.stack[1].handle(req, res, next);
+        });
+
+        expect(verifyTokenMiddleware).to.have.been.called;
+        const found = logger.info.getCalls().some(call =>
+            call.args[0] === 'Transaction history route accessed' &&
+            call.args[1] &&
+            call.args[1].method === 'GET' &&
+            call.args[1].path === '/history'
+        );
+        expect(found).to.be.true;
+        expect(userController.getTransactionHistory).to.have.been.calledWith(req, res, next);
+    });
+
+    it('should log routes initialized', () => {
+        createUserRoutes({ userController, authController, verifyTokenMiddleware, logger });
+
+        expect(logger.info).to.have.been.calledWith('User routes initialized successfully');
+    });
+}); 
