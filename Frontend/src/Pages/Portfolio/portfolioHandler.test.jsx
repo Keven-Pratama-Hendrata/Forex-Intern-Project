@@ -313,7 +313,7 @@ describe('usePortfolioData Hook (with Provider store)', () => {
             expect(screen.getByTestId('loading').textContent).toBe('false')
         );
         expect(screen.getByTestId('count').textContent).toBe('1');
-        expect(screen.getByTestId('name').textContent).toBe('USD'); // fell back to currency code
+        expect(screen.getByTestId('name').textContent).toBe('USD');
 
         uiData.currencyMeta.USD = originalUsdMeta;
     });
@@ -419,8 +419,8 @@ describe('usePortfolioData Hook (with Provider store)', () => {
         await waitFor(() =>
             expect(screen.getByTestId('loading').textContent).toBe('false')
         );
-        expect(screen.getByTestId('count').textContent).toBe('1');         // JPY filtered out
-        expect(screen.getByTestId('name').textContent).toBe('US Dollar');  // enriched from currencyMeta
+        expect(screen.getByTestId('count').textContent).toBe('1');
+        expect(screen.getByTestId('name').textContent).toBe('US Dollar');
     });
 
     it('enrichment uses currencyMeta name even if API provides a custom name', async () => {
@@ -448,7 +448,7 @@ describe('usePortfolioData Hook (with Provider store)', () => {
             expect(screen.getByTestId('loading').textContent).toBe('false')
         );
         expect(screen.getByTestId('count').textContent).toBe('1');
-        expect(screen.getByTestId('name').textContent).toBe('US Dollar'); // override confirmed
+        expect(screen.getByTestId('name').textContent).toBe('US Dollar');
     });
 
     it('handles missing token gracefully', async () => {
